@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="slickLib" systemlibrary="false">
+        <archive path="E:/Work/JAVA/slick/lib/slick.jar"/>
+        <archive nativelibpaths="nofutureball/natives" path="E:/Work/JAVA/lwjgl-2.9.0/lwjgl-2.9.0/jar/lwjgl.jar"/>
+        <archive path="E:/Work/JAVA/lwjgl-2.9.0/lwjgl-2.9.0/jar/lwjgl_util.jar"/>
+    </library>
+</eclipse-userlibraries>
