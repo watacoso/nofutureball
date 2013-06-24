@@ -32,19 +32,21 @@ public class NoFutureBall extends BasicGame {
 		
 		gameContainer=gc;
 		entities=new ArrayList<Entity>();
+		p1=new Player(200,200);
+		entities.add(p1);
 		
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		
-		
+		p1.update();
 		
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		g.drawString("Howdy!", 100, 100);
+		p1.render();
 	}
 
 	public static void main(String[] args) {

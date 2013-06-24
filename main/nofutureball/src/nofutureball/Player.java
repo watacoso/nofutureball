@@ -1,65 +1,38 @@
 package nofutureball;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Vector2f;
 
 public class Player extends Entity{
 
-	public enum anims{
-		WALK(0),SPRINT(1),ATTACK(2),DEFEND(3),DIE(4);
-		
-		private int value;
-		private anims(int value){
-			this.value=value;
-		}
-	};
-		
+	private float maxSpeed=1;
+	
 	public Player(float x, float y) {
 		
-		super(x, y, 80, 130);
-		
-		SpriteSheet spriteSheet = null;
-		try {
-			spriteSheet = new SpriteSheet("assets/player.png",80,130,0);
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setSpritesheet(spriteSheet);
-		
-		
-		////////////////////////
-		///////ANIMATIONS///////
-		////////////////////////
-		
-		animations.add(anims.WALK.value,new Animation(getSpritesheet(),0,0,1,1,true,10,false));
-		
+		super(x, y, 120, 675);
+				
 	}
 	
 	public void update(){
 		
+		super.update();
+		
 		Input input=NoFutureBall.getGameContainer().getInput();
 		
-		if (input.isKeyDown(Input.KEY_UP)){
-			speed.y--;
-        }
-        else if (input.isKeyDown(Input.KEY_DOWN)){
-        	speed.y++;
-        }
-        else if (input.isKeyDown(Input.KEY_LEFT)){
-        	speed.x--;
-        }
-        else if (input.isKeyDown(Input.KEY_RIGHT)){
-        	speed.x++;
-        }
-        else{
-        	speed.x*=0.5;
-        	speed.y*=0.5;
-        }
+		Vector2f direction=new Vector2f(0,0);
+		Vector2f goalSpeed=new Vector2f(0,0);
 		
-		super.update();
+		direction.x=(input.isKeyDown(Input.KEY_D)?1:0)-(input.isKeyDown(Input.KEY_A)?1:0);
+		direction.y=(input.isKeyDown(Input.KEY_S)?1:0)-(input.isKeyDown(Input.KEY_W)?1:0);
+		
+		
+		goalSpeed.x=(float) (maxSpeed*(direction.x !=0?direction.x*0.9:direction.x));
+		goalSpeed.y=(float) (maxSpeed*(direction.y!=0?direction.y*0.8:direction.y*0.9));
+
+
+		speed.x+=(goalSpeed.x-this.speed.x)/20;
+		speed.y+=(goalSpeed.y-this.speed.y)/20;
+
 	}
 
 }
