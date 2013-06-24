@@ -34,5 +34,10 @@ public class Player extends Entity{
 		speed.y+=(goalSpeed.y-this.speed.y)/20;
 
 	}
+	
+	
+	public void render(){
+		g.drawRect(position.x,position.y,size.x,size.y);
+	}
 
 }

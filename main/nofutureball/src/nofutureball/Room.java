@@ -6,5 +6,13 @@ public class Room extends Entity{
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void update(){
+		
+	}
+	
+	public void render(){
+		g.drawRect(position.x,position.y,size.x,size.y);
+	}
 
 }

@@ -8,11 +8,13 @@ public class Entity {
 	
 	public Vector2f position;
 	public Vector2f speed;
+	public Vector2f size;
 	private boolean canCollide;
 	public Graphics g=new Graphics();
 	
 	public Entity(float x,float y,float width,float height){
 		position=new Vector2f(x,y);
+		size=new Vector2f(width,height);
 		speed=new Vector2f(0,0);
 	}
 	
@@ -28,7 +30,7 @@ public class Entity {
 	}
 	
 	public void render(){
-		g.drawRect(position.x,position.y,50,20);
+		//g.drawRect(position.x,position.y,size.x,size.y);
 	}
 	
 	public boolean canCollide() {
