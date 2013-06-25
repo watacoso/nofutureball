@@ -31,12 +31,6 @@ public class Camera {
 		follower.position.x += ((NoFutureBall.WIDTH / 2 - toFollow.position.x) - follower.position.x) / quotient;
 		follower.position.y += ((NoFutureBall.HEIGHT / 2 - toFollow.position.y) - follower.position.y) / quotient;
 	}
-<<<<<<< HEAD
-=======
-	
-	
-	public void setZoom(float zoom){
-		if(zoom <= 0) return;
->>>>>>> d081efe87244e6eff02a7e4f0246c0ba4f2479fc
+
 		
 }
