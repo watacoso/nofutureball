@@ -45,7 +45,7 @@ public class Entity {
 		return canCollide;
 	}
 
-	public void setCollide(boolean collide) {
+	public void setCollision(boolean collide) {
 		this.canCollide = collide;
 	}
 
