@@ -3,11 +3,12 @@ package nofutureball;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-public class EntityProps{
+public class EntityProps extends HashMap{
 	
 	public int g1;
 	public int g2;
