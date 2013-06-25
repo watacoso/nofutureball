@@ -1,18 +1,16 @@
 package nofutureball;
 
-import org.lwjgl.util.vector.Vector2f;
 
 public class Camera {
 
 	private Container follower = null;
 	private Entity toFollow = null;
 	
-	private Vector2f position = new Vector2f();
 	private float zoom;
 	
 	public Camera(Container follower, Entity toFollow){
 
-		setZoom(1f);
+		setZoom(1);
 		// 
 		this.follower = follower;
 		this.toFollow = toFollow;
@@ -35,7 +33,20 @@ public class Camera {
 	
 	public void setZoom(float zoom){
 		if(zoom <= 0) return;
-		
+		this.zoom = zoom;
+	}
+	public float getZoom()
+	{
+		return zoom;
+	}
+	
+	public void setFollower(Container follower)
+	{
+		this.follower = follower;
+	}
+	public void setTarget(Entity toFollow)
+	{
+		this.toFollow = toFollow;
 	}
 	
 }
