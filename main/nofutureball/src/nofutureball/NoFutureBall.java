@@ -1,15 +1,12 @@
 package nofutureball;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class NoFutureBall extends BasicGame {
@@ -35,7 +32,7 @@ public class NoFutureBall extends BasicGame {
 		gameContainer=gc;
 		entitiesContainer=new Container();
 		p1=new Player(200,200);
-		r1=new Room(100,100,400,300);
+		r1=new Room(200,200,400,300);
 		entitiesContainer.add(r1);
 		entitiesContainer.add(p1);
 		cam=new Camera(entitiesContainer,p1.position.x-320,p1.position.y-240);

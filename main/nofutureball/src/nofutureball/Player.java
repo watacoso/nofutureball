@@ -36,8 +36,8 @@ public class Player extends Entity{
 	}
 	
 	
-	public void render(Vector2f offset){
-		g.drawRect(position.x+offset.x,position.y+offset.y,size.x,size.y);
-	}
+	//public void render(Vector2f offset){
+	//	g.drawRect(position.x+offset.x,position.y+offset.y,size.x,size.y);
+	//}
 
 }
