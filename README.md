@@ -26,18 +26,37 @@ You decide that the shield augmentation would fit nicely with your rifle so you 
 
 ## Players
 
-### Classes
-- Ranged Security Guard with rifle
-    - high damage on long range
-	- low damage on short range
-	- low armor
-- Melee Security Guard with a shock club
-	- high damage on short range
-	- low damage on long range (if we we will use the idea of charging up attack for alternative fire)
-	- high armor
-- Melee AoE Security Guard with a shockwave attack
-	- high damage on short range, the further the shockwave travels the less damage it does.
-	- medium armor
+### Classes / Base Gear
+Visual differences between classes/base gear is based on the security guard helmet each guard wears and the primary weapon. Base Attributes are on the scale of 0-10 but can get past 10 with the help of augmentations later on.
+
+- **Sharpshooter**
+	- Visuals
+		- A helmet with an eyesight
+		- A rifle
+	- Attributes
+		- Long Range DMG: 8
+		- Short Range DMG: 2
+		- Armor: 3
+		- Speed: 7
+
+- **Melee Fighter**
+	- Visuals
+		- A rough and dark colored heavy helmet
+		- A electrical shock blunt weapon (club?)
+	- Attributes
+		- Long Range DMG: 0
+		- Short Range DMG: 8
+		- Armor: 10 
+		- Speed: 2
+
+- **Melee AoE Security Guard with a shockwave attack**
+	- Visuals
+		- Blue helmet with animated electrical sparks
+	- Attributes
+		- Long Range DMG: 5
+		- Short Range DMG: 5
+		- Armor: 5
+		- Speed: 5
 
 ## Enemies
 - security guard traitors
