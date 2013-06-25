@@ -1,5 +1,7 @@
 package nofutureball;
 
+import org.newdawn.slick.geom.Vector2f;
+
 public class Room extends Entity{
 
 	public Room(float x, float y, float width, float height) {
@@ -11,8 +13,8 @@ public class Room extends Entity{
 		
 	}
 	
-	public void render(){
-		g.drawRect(position.x,position.y,size.x,size.y);
+	public void render(Vector2f offset){
+		g.drawRect(position.x+offset.x,position.y+offset.y,size.x,size.y);
 	}
 
 }

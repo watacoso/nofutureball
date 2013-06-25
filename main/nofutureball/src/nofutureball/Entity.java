@@ -23,10 +23,15 @@ public class Entity {
 
 
 	}
+
 	
 	public void update(){
 		position.x+=speed.x;
 		position.y+=speed.y;
+	}
+	
+	public void render(Vector2f pos){
+		//g.drawRect(position.x,position.y,size.x,size.y);
 	}
 	
 	public void render(){

@@ -9,7 +9,7 @@ public class Player extends Entity{
 	
 	public Player(float x, float y) {
 		
-		super(x, y, 120, 675);
+		super(x, y, 30, 50);
 				
 	}
 	
@@ -36,8 +36,8 @@ public class Player extends Entity{
 	}
 	
 	
-	public void render(){
-		g.drawRect(position.x,position.y,size.x,size.y);
+	public void render(Vector2f offset){
+		g.drawRect(position.x+offset.x,position.y+offset.y,size.x,size.y);
 	}
 
 }

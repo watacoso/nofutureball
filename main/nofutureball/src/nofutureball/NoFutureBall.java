@@ -18,9 +18,11 @@ public class NoFutureBall extends BasicGame {
 
 	private static GameContainer gameContainer;
 	
-	public ArrayList<Entity> entities;
+	public Container entitiesContainer;
 	
 	private Player p1;
+	private Room r1;
+	private Camera cam;
 	
 	public NoFutureBall(String gamename) {
 		super(gamename);
@@ -31,22 +33,29 @@ public class NoFutureBall extends BasicGame {
 
 		
 		gameContainer=gc;
-		entities=new ArrayList<Entity>();
+		entitiesContainer=new Container();
 		p1=new Player(200,200);
-		entities.add(p1);
+		r1=new Room(100,100,400,300);
+		entitiesContainer.add(r1);
+		entitiesContainer.add(p1);
+		cam=new Camera(entitiesContainer,p1.position.x-320,p1.position.y-240);
 		
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		p1.update();
-		
+		//p1.update();
+		//r1.update();
+		entitiesContainer.update();
+		cam.setPosition(p1.position.x-320, p1.position.y-240);
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		g.drawString("Howdy!", 100, 100);
-		p1.render();
+		//p1.render();
+		//r1.render();
+		entitiesContainer.render();
 	}
 
 	public static void main(String[] args) {
