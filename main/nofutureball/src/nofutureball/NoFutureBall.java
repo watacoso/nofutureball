@@ -1,5 +1,6 @@
 package nofutureball;
 
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -8,6 +9,7 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+
 
 public class NoFutureBall extends BasicGame {
 
@@ -56,8 +58,10 @@ public class NoFutureBall extends BasicGame {
 		entitiesContainer.render();
 	}
 
-	public static void main(String[] args) {
-		
+	public static void main(String[] args){
+		 EntityProps en = new EntityProps();
+		 en.loadJson("player.json");
+		 System.out.println(en.g2);
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new NoFutureBall("Simple Slick Game"));

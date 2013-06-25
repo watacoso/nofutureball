@@ -26,47 +26,114 @@ You decide that the shield augmentation would fit nicely with your rifle so you 
 
 ## Players
 
-### Classes
-- Ranged Security Guard with rifle
-    - high damage on long range
-	- low damage on short range
-	- low armor
-- Melee Security Guard with a shock club
-	- high damage on short range
-	- low damage on long range (if we we will use the idea of charging up attack for alternative fire)
-	- high armor
-- Melee AoE Security Guard with a shockwave attack
-	- high damage on short range, the further the shockwave travels the less damage it does.
-	- medium armor
+### Classes / Base Gear
+Visual differences between classes/base gear is based on the security guard helmet each guard wears and the primary weapon. Base Attributes are on the scale of 0-10 but can get past 10 with the help of augmentations later on.
 
-## Enemies
-- security guard traitors
-- workers
+- **Sharpshooter**
+	- Visuals
+		- A helmet with an eyesight
+		- A rifle
+	- Attributes
+		- Type of Attack: Projectile
+		- Long Range DMG: 8
+		- Short Range DMG: 1
+		- Armor: 5
+		- Speed: 6
+
+- **Melee Fighter**
+	- Visuals
+		- A rough and dark colored heavy helmet
+		- A electrical shock blunt weapon (club?)
+	- Attributes
+		- Type of Attack: Melee
+		- Long Range DMG: 0
+		- Short Range DMG: 7
+		- Armor: 10 
+		- Speed: 4
+
+- **Melee AoE Security Guard with a shockwave attack**
+	- Visuals
+		- Blue helmet with animated electrical sparks
+	- Attributes
+		- Type of Attack: AoE
+		- Long Range DMG: 5
+		- Short Range DMG: 5
+		- Armor: 5
+		- Speed: 5
 
 ## Items and Augmentations
-- Heal
-	- Gives healing properties to base weapon
-	- Steals health if shot at enemy **(IDEA: you first need to steal health to be able to give health. alternative health meter needed then. Sort of like Mana)
-	- Armor reduced
-	- Speed increased
-- Shield
-	- All projectiles/attacks generate a shield/wall on impact.
-- Explosives
-	- All attacks do AoE damage.
-	- If base weapon already does AoE damage, extra AoE damage is added. (shockwave with explosions!)
-- Speed
-	- Player speed increased
-	- Weapon projectile speed increased
-	- Weapon firing speed increased
-	- Armor reduced
-- More Range
-	- Increase in maximum range (if weapon is melee, it gets a ranged attack)
-	- Damage on long range increased
-	- Damage on short range decreased
-- Less Range
-	- Max range decreased (if weapon is already melee no change)
-	- Damage on short range increased
-	- Damage on long range decreased
+There is the possibility of re-using these so called augmentations on enemies also to add variations.
+
+- **Weapon Augmentations**
+	- Triple Shot
+		- Fire three projectiles. One straight ahead and the other two at 45 degree angle.
+	- Increase Range
+		- Adds electrical lightning to shockclub, and allows you to throw shockwave grenades rather than them originating from the player
+		- Increase Long Range DMG by 4
+		- Decrease short range DMG by 2
+	- Melee
+		- Increase short range DMG by 4
+		- Decrease Long Range DMG by 2
+		- Decrease max range
+
+- **Weapon Impact Augmentation**
+	- Explosives
+		- Adds AoE range to any weapon
+		- Reduces long/short range damage by 2
+	- Healing Properties
+		- Heals as much as long/short range dmg
+		- Poisons enemies and fills "healing quota" to be spent on allies. Fills healing quota as much as original damage but does 1 DMG to enemies per 3 seconds
+	- Shieldmaker
+		- Generates shield on impact from side to side as long as original long/short range damage
+		- Does 1 DMG if enemies walk into it
+		- Lasts 3 seconds
+		- Friendly bullets can penetrate shield
+
+- **Armor Augmentation**
+	- Spiked armor
+		- Melee attackers take 1 DMG back if they attack you
+		- +2 Armor
+		- -1 Speed
+	- Nano Armor
+		- +5 Speed
+		- -2 Armor
+	- Heavy armor
+		- +5 Armor
+		- -2 Speed
+
+## Enemies
+- **Standard Worker** (10 skill points)
+	- Visuals
+		- Civilian looking
+		- Armed with a blunt object
+	- Attributes
+		- Type of Attack: Melee
+		- Long Range DMG: 0
+		- Short Range DMG: 1
+		- Armor: 4
+		- Speed: 5
+		
+- **Molotov Cocktail Worker** (13 skill points)
+	- Visuals
+		- Civilian looking
+		- Armed with a molotov cocktail (AoE)
+	- Attributes
+		- Type of Attack: AoE
+		- Long Range DMG: 3
+		- Short Range DMG: 0
+		- Armor: 5
+		- Speed: 4
+
+- **Security Guard Traitor** (15 skill points)
+	- Visuals
+		- Same base sprite as players but differently colored
+		- Armed with a pistol
+	- Attributes
+		- Type of Attack: Projectile
+		- Long Range DMG: 1
+		- Short Range DMG: 4
+		- Armor: 7
+		- Speed: 3
 
 ## Controls
 - WASD/Analog stick movement
