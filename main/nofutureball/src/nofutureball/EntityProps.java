@@ -11,14 +11,24 @@ public class EntityProps{
 	
 	public int g1;
 	public int g2;
-	private int g3;
+	public int g3;
+	public int g4;
 	
-	String jsonText="{g1:1,g2:2,g3:3}";
-	
-	public EntityProps() throws FileNotFoundException{
-		Gson gson=new Gson();
-		JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream("player.json")));
-
+	public EntityProps(){
+		
 	}
 	
+	public void loadJson(String src){
+		JsonReader reader = null;
+		try {
+			reader = new JsonReader(
+			        new InputStreamReader(new FileInputStream(src)));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Gson gson = new Gson();
+		EntityProps ent = gson.fromJson(reader, EntityProps.class);
+		
+	}
 }
