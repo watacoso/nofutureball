@@ -57,6 +57,9 @@ public class NoFutureBall extends BasicGame {
 	}
 
 	public static void main(String[] args) {
+		
+		//EntityProps e=new EntityProps();
+		
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new NoFutureBall("Simple Slick Game"));
