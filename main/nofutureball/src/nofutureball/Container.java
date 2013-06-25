@@ -1,9 +1,9 @@
 package nofutureball;
 
 import java.util.ArrayList;
-
 import org.newdawn.slick.geom.Vector2f;
 
+@SuppressWarnings("serial")
 public class Container extends ArrayList<Entity>{
 
 	public Vector2f position;
