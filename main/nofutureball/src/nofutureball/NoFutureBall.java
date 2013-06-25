@@ -45,6 +45,8 @@ public class NoFutureBall extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
+		//p1.update();
+		//r1.update();
 		entitiesContainer.update();
 		cam.update();
 	}

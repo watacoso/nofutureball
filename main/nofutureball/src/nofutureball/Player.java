@@ -6,6 +6,9 @@ import org.newdawn.slick.geom.Vector2f;
 public class Player extends Entity{
 
 	private float maxSpeed=1;
+	public static int t1=2;
+	public int t2=4;
+	public int d3=5;
 	
 	public Player(float x, float y) {
 		
