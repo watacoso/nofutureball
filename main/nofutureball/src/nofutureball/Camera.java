@@ -21,10 +21,5 @@ public class Camera {
 		this.x=x;
 		this.y=y;
 	}
-	
-	public void setZoom(float zoom){
-		if(zoom<=0) return;
 		
-	}
-	
 }
