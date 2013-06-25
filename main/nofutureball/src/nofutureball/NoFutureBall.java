@@ -15,6 +15,9 @@ public class NoFutureBall extends BasicGame {
 
 	private static GameContainer gameContainer;
 	
+	private final static int WIDTH = 640;
+	private final static int HEIGHT = 480;
+	
 	public Container entitiesContainer;
 	
 	private Player p1;
@@ -23,19 +26,20 @@ public class NoFutureBall extends BasicGame {
 	
 	public NoFutureBall(String gamename) {
 		super(gamename);
+		
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
 		
-		gameContainer=gc;
+		gameContainer = gc;
 		entitiesContainer=new Container();
-		p1=new Player(200,200);
-		r1=new Room(200,200,400,300);
+		p1 = new Player(200, 200);
+		r1 = new Room(100, 100, 400, 300);
 		entitiesContainer.add(r1);
 		entitiesContainer.add(p1);
-		cam=new Camera(entitiesContainer,p1.position.x-320,p1.position.y-240);
+		cam = new Camera(entitiesContainer, p1.position.x - WIDTH/2, p1.position.y - HEIGHT/2);
 		
 	}
 
@@ -44,14 +48,11 @@ public class NoFutureBall extends BasicGame {
 		//p1.update();
 		//r1.update();
 		entitiesContainer.update();
-		cam.setPosition(p1.position.x-320, p1.position.y-240);
+		cam.setPosition(p1.position.x - 320, p1.position.y - 240);
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		g.drawString("Howdy!", 100, 100);
-		//p1.render();
-		//r1.render();
 		entitiesContainer.render();
 	}
 
@@ -59,7 +60,7 @@ public class NoFutureBall extends BasicGame {
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new NoFutureBall("Simple Slick Game"));
-			appgc.setDisplayMode(640, 480, false);
+			appgc.setDisplayMode(WIDTH, HEIGHT, false);
 			appgc.start();
 		} catch (SlickException ex) {
 			Logger.getLogger(NoFutureBall.class.getName()).log(Level.SEVERE, null, ex);
