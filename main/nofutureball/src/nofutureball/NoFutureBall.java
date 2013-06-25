@@ -15,8 +15,8 @@ public class NoFutureBall extends BasicGame {
 
 	private static GameContainer gameContainer;
 	
-	private final static int WIDTH = 640;
-	private final static int HEIGHT = 480;
+	public final static int WIDTH = 640;
+	public final static int HEIGHT = 480;
 	
 	public Container entitiesContainer;
 	
@@ -39,7 +39,7 @@ public class NoFutureBall extends BasicGame {
 		r1 = new Room(100, 100, 400, 300);
 		entitiesContainer.add(r1);
 		entitiesContainer.add(p1);
-		cam = new Camera(entitiesContainer, p1.position.x - WIDTH/2, p1.position.y - HEIGHT/2);
+		cam = new Camera(entitiesContainer, p1);
 		
 	}
 
@@ -48,7 +48,7 @@ public class NoFutureBall extends BasicGame {
 		//p1.update();
 		//r1.update();
 		entitiesContainer.update();
-		cam.setPosition(p1.position.x - 320, p1.position.y - 240);
+		cam.update();
 	}
 
 	@Override
