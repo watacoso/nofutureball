@@ -25,7 +25,7 @@ public class Camera {
 	
 	public void update()
 	{
-		// follower position = ((target position) - (current position))/4
+		// follower position = ((target position) 							   - (current position))  / quotient
 		follower.position.x += ((NoFutureBall.WIDTH / 2 - toFollow.position.x) - follower.position.x) / quotient;
 		follower.position.y += ((NoFutureBall.HEIGHT / 2 - toFollow.position.y) - follower.position.y) / quotient;
 	}
