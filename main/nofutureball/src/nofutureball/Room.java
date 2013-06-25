@@ -1,8 +1,7 @@
 package nofutureball;
 
-import org.newdawn.slick.geom.Vector2f;
 
-public class Room extends Entity{
+public class Room extends Entity {
 
 	public Room(float x, float y, float width, float height) {
 		super(x, y, width, height);

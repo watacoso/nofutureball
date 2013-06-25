@@ -19,6 +19,7 @@ public class NoFutureBall extends BasicGame {
 	
 	public final static int WIDTH = 640;
 	public final static int HEIGHT = 480;
+	public final static int FPS = 60;
 	
 	public Container entitiesContainer;
 	
@@ -34,7 +35,8 @@ public class NoFutureBall extends BasicGame {
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
-		
+
+		AnimationSource.init();
 		gameContainer = gc;
 		entitiesContainer=new Container();
 		p1 = new Player(200, 200);
@@ -57,14 +59,14 @@ public class NoFutureBall extends BasicGame {
 	}
 
 	public static void main(String[] args){
-		 EntityProps en=new EntityProps();
+		 EntityProps en = new EntityProps();
 		 en.loadJson("player.json");
 		 System.out.println(en.g2);
-		 
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new NoFutureBall("Simple Slick Game"));
 			appgc.setDisplayMode(WIDTH, HEIGHT, false);
+			appgc.setTargetFrameRate(FPS);
 			appgc.start();
 		} catch (SlickException ex) {
 			Logger.getLogger(NoFutureBall.class.getName()).log(Level.SEVERE, null, ex);

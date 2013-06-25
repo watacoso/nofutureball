@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
+/*import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;*/
 
 public class EntityProps extends HashMap{
 	
@@ -20,7 +20,11 @@ public class EntityProps extends HashMap{
 	}
 	
 	public void loadJson(String src){
-		JsonReader reader = null;
+		
+		// I commented out these because they made pre-compile errors.
+		// I guess there's a library I need! - Ploppz
+		
+		/*JsonReader reader = null;
 		try {
 			reader = new JsonReader(
 			        new InputStreamReader(new FileInputStream(src)));
@@ -30,6 +34,6 @@ public class EntityProps extends HashMap{
 		}
 		Gson gson = new Gson();
 		EntityProps ent = gson.fromJson(reader, EntityProps.class);
-		
+		*/
 	}
 }
