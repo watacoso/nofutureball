@@ -12,6 +12,7 @@ public abstract class Entity {
 	private boolean canCollide;
 	public Graphics g=new Graphics();
 	
+	
 	public Entity(float x, float y, float width, float height){
 		position = new Vector2f(x, y);
 		size = new Vector2f(width, height);

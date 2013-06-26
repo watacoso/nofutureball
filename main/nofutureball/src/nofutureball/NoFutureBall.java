@@ -51,6 +51,7 @@ public class NoFutureBall extends BasicGame {
 	public void update(GameContainer gc, int i) throws SlickException {
 		entitiesContainer.update();
 		cam.update();
+		Debugging.update();
 	}
 
 	@Override
@@ -59,9 +60,9 @@ public class NoFutureBall extends BasicGame {
 	}
 
 	public static void main(String[] args){
-		 EntityProps en = new EntityProps();
-		 en.loadJson("player.json");
-		 System.out.println(en.g2);
+
+		 System.out.println(Player.STATS.get("health"));
+		 
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new NoFutureBall("Simple Slick Game"));
