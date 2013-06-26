@@ -11,16 +11,16 @@ public abstract class Animatable extends Entity {
 	public AnimationSet animations = null;
 	protected final String myself = "(Animatable)";
 	
-	public Animatable(float x, float y, float width, float height)
+	public Animatable(double x, double y, double width, double height)
 	{
 		super(x, y, width, height);
 	}
 	
-	
+	@Override
 	public void render(Vector2f offset)
 	{
 		if (animations != null) {
-			animations.getCurrentlyPlaying().draw(position.x + offset.x, position.y + offset.y, new Color(0.2f, 0.5f, 1f));
+			animations.getCurrentlyPlaying().draw((int)(position.x + offset.x), (int)(position.y + offset.y), new Color(1f, 1f, 1f));
 		} else {
 			System.out.println("ERRRROOOOR: You have to override the animations property in subclasses!");
 		}
@@ -61,7 +61,7 @@ public abstract class Animatable extends Entity {
 		}
 		
 		private String str = "";
-		public String toString()
+		public String toint()
 		{
 			return str;
 		}
@@ -77,7 +77,7 @@ public abstract class Animatable extends Entity {
 		}
 		private String str = "";
 		
-		public String toString()
+		public String toint()
 		{
 			return str;
 		}

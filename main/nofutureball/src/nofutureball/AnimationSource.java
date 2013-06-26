@@ -50,8 +50,8 @@ public class AnimationSource {
 			Image img = new Image("assets/" + entityType.toString() + "_" + state.toString() + ".png");
 			ss = new SpriteSheet(img, gridWidth, gridHeight);
 		} catch (SlickException e) {
-			e.printStackTrace();
-			return new Image[0];
+			System.out.println("AnimationSource.loadSourceFor ERROR: The link specified does most likely not exist.");
+			return new Image[1];
 		}
 		
 		// number of pictures:
