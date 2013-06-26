@@ -41,14 +41,9 @@ public class AnimationSource {
 	// We presume all spritesheets face left originally.
 	private static Image[] loadSourceFor(Animatable.SUBCLASS entityType, Animatable.STATE state, Facing facing)
 	{
-		int gridWidth = 0, gridHeight = 0;
+		int gridWidth = entityType.getSpriteWidth();
+		int gridHeight = entityType.getSpriteHeight();
 		
-		//TODO Whenever you add an entity type, remember to add it to this if/else thing 
-		if (entityType == Animatable.SUBCLASS.PLAYER) {
-			gridWidth = 60;
-			gridHeight = 75;
-		}
-
 		// load the appropriate image for entityType and state
 		SpriteSheet ss = null;
 		try {
@@ -102,8 +97,16 @@ public class AnimationSource {
 		
 		return as;
 	}
-	
-	// DYNAMIC
+
+  //////////////////0\\\\\\\\\\\\\\\\\\		2 space, 18 /, 0, 18 \
+ ////////////////_______\\\\\\\\\\\\\\\\	1 space, 16 /, 7 _, 16 \
+/////////////////DYNAMIC\\\\\\\\\\\\\\\\\	17 /, DYNAMIC, 17 \
+//\\\\\\\\\\\\\\\_______/////////////////	//, 15 \, 7 _, 17 /
+
+  //////////////////YY\\\\\\\\\\\\\\\\\\	2 space, 18 /, YY, 18 \
+ /////////////////______\\\\\\\\\\\\\\\\\	1 space, 17 /, 6 _, 17 \
+///////////////// STATIC \\\\\\\\\\\\\\\\\	17 /, 1 space, STATIC, 1 space, 17 \
+//\\\\\\\\\\\\\\\________/////////////////	//, 15 \, 8 _, 17 /
 	
 	/**
 	 * Contains the sources required to create an AnimationSet instance for a specific Animatable instance.
