@@ -5,9 +5,15 @@ import java.awt.Point;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 public class Player extends Animatable{
 
 	private float maxSpeed = 3;
+
+	
+	public static LinkedTreeMap STATS = (LinkedTreeMap) JsonManager.loadJson("player.json");
+
 	
 	public Player(double x, double y, KeySet keySet)
 	{
@@ -55,11 +61,6 @@ public class Player extends Animatable{
 			animations.setAnimation(Facing.RIGHT);
 		}
 	}
-	
-	
-	//public void render(){
-	//	g.drawRect(position.x+offset.x,position.y+offset.y,size.x,size.y);
-	//}
 	
 
 }

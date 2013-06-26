@@ -20,9 +20,9 @@ public class NoFutureBall {
 	public final static int FPS = 60;
 	
 	public static void main(String[] args){
-		 EntityProps en = new EntityProps();
-		 en.loadJson("player.json");
-		 System.out.println(en.g2);
+
+		 System.out.println(Player.STATS.get("health"));
+		 
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new Game("Simple Slick Game"));

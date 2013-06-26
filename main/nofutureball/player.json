@@ -1,1 +1,6 @@
-{'g1':1,'g2':2,'g3':3}
+{
+	Maxhealth:15,
+	damage:20,
+	regen:false,
+	weapon:'rifle'
+}
