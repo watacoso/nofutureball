@@ -42,7 +42,6 @@ public class AnimationSet {
 			for (Facing facing : Facing.values())
 			{
 				Image[] animationSource = source.getAnimationSource(state, facing);
-				System.out.println(animationSource.length);
 				key = state.toString() + facing.toString();
 				// aSet[key] = ......
 				aSet.put(key, new Animation(animationSource, frameTime));

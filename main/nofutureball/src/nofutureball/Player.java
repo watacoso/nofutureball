@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Player extends Animatable{
 
-	private float maxSpeed = 1;
+	private float maxSpeed = 3;
 	
 	public Player(float x, float y) {
 		super(x, y, 30, 50);

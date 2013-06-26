@@ -1,5 +1,6 @@
 package nofutureball;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -19,7 +20,7 @@ public abstract class Animatable extends Entity {
 	public void render(Vector2f offset)
 	{
 		if (animations != null) {
-			animations.getCurrentlyPlaying().draw(position.x + offset.x, position.y + offset.y);
+			animations.getCurrentlyPlaying().draw(position.x + offset.x, position.y + offset.y, new Color(0.2f, 0.5f, 1f));
 		} else {
 			System.out.println("ERRRROOOOR: You have to override the animations property in subclasses!");
 		}
@@ -39,13 +40,27 @@ public abstract class Animatable extends Entity {
 	// this array is just for iterative stuff in my animation implementation btw
 	
 	public static enum SUBCLASS implements StringEnum {
-		PLAYER("PLAYER");
-		
-		SUBCLASS (String str){
+		PLAYER("PLAYER", 60, 75);
+
+		SUBCLASS (String str, int gridWidth, int gridHeight){
 			this.str = str;
+			this.gridWidth = gridWidth;
+			this.gridHeight = gridHeight;
 		}
-		private String str = "";
 		
+		private int gridWidth = 1;
+		private int gridHeight = 1;
+		
+		public int getSpriteWidth()
+		{
+			return gridWidth;
+		}
+		public int getSpriteHeight()
+		{
+			return gridHeight;
+		}
+		
+		private String str = "";
 		public String toString()
 		{
 			return str;
