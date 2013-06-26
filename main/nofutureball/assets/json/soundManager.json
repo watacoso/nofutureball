@@ -1,0 +1,30 @@
+{
+	sounds:{
+			sound1:{volume:100,loop:false},
+			sound2:{volume:100,loop:false},
+			sound3:{volume:100,loop:false},
+			sound4:{volume:100,loop:false},
+			sound5:{volume:100,loop:false},
+			sound6:{volume:12,loop:false},
+			sound7:{volume:100,loop:true},
+			soundA:{volume:100,loop:false},
+			soundV:{volume:100,loop:false},
+			soundC:{volume:70,loop:true},
+			soundW:{volume:100,loop:false},
+			soundE:{volume:100,loop:false}
+		},
+	music:{
+		sound1:{volume:100,loop:false},
+		music2:{volume:100,loop:false},
+		music3:{volume:100,loop:false}
+	},
+
+	mixedEffects:{
+		walk:["sound1","sound3","soundE","soundV"],
+		shoot:["sound2","sound4","soundC","soundW"]
+		},
+
+	extendedEffects:{
+		laser:["sound7","soundE","soundW"]
+	}
+}

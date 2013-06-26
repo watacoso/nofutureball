@@ -61,7 +61,7 @@ public class NoFutureBall extends BasicGame {
 
 	public static void main(String[] args){
 
-		 System.out.println(Player.STATS.get("health"));
+		System.out.println(Player.STATS.get("Maxhealth"));
 		 
 		try {
 			AppGameContainer appgc;

@@ -12,7 +12,7 @@ public class Player extends Animatable{
 	private float maxSpeed = 3;
 
 	
-	public static LinkedTreeMap STATS=(LinkedTreeMap) JsonManager.loadJson("player.json");
+	public static LinkedTreeMap<String,?> STATS= JsonBuilder.loadProp("player.json");
 
 	
 	public Player(float x, float y) {

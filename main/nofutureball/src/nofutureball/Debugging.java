@@ -2,8 +2,6 @@ package nofutureball;
 
 import org.newdawn.slick.Input;
 
-import com.google.gson.internal.LinkedTreeMap;
-
 public class Debugging {
 	
 	private static Boolean busy=false;
@@ -17,7 +15,7 @@ public class Debugging {
 			busy=true;
 		}
 		else if(input.isKeyDown(Input.KEY_9) && busy==false){
-			Player.STATS=(LinkedTreeMap) JsonManager.loadJson("player.json");
+			//Player.STATS=(LinkedTreeMap) JsonManager.loadJson("player.json");
 			busy=true;
 		}
 		else if(!input.isKeyDown(Input.KEY_9) && !input.isKeyDown(Input.KEY_0))
@@ -27,7 +25,7 @@ public class Debugging {
 	
 	private static void showPlayerStats(){
 
-		System.out.println(Player.STATS);
+	//	System.out.println(Player.STATS);
 	}
 	
 }
