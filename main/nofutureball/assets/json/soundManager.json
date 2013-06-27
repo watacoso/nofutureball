@@ -1,22 +1,22 @@
 {
 	sounds:{
-			sound1:{volume:100,loop:false},
-			sound2:{volume:100,loop:false},
-			sound3:{volume:100,loop:false},
-			sound4:{volume:100,loop:false},
-			sound5:{volume:100,loop:false},
-			sound6:{volume:12,loop:false},
-			sound7:{volume:100,loop:true},
-			soundA:{volume:100,loop:false},
-			soundV:{volume:100,loop:false},
-			soundC:{volume:70,loop:true},
-			soundW:{volume:100,loop:false},
-			soundE:{volume:100,loop:false}
+			sound1:{href:"fileName",volume:100,pitch:50,loop:false},
+			sound2:{href:"fileName",volume:100,pitch:50,loop:false},
+			sound3:{href:"fileName",volume:100,pitch:50,loop:false},
+			sound4:{href:"fileName",volume:100,pitch:50,loop:false},
+			sound5:{href:"fileName",volume:100,pitch:50,loop:false},
+			sound6:{href:"fileName",volume: 12,pitch:50,loop:false},
+			sound7:{href:"fileName",volume:100,pitch:50, loop:true},
+			soundA:{href:"fileName",volume:100,pitch:50,loop:false},
+			soundV:{href:"fileName",volume:100,pitch:50,loop:false},
+			soundC:{href:"fileName",volume: 70,pitch:50, loop:true},
+			soundW:{href:"fileName",volume:100,pitch:50,loop:false},
+			soundE:{href:"fileName",volume:100,pitch:50,loop:false}
 		},
 	music:{
-		sound1:{volume:100,loop:false},
-		music2:{volume:100,loop:false},
-		music3:{volume:100,loop:false}
+		sound1:{href:"fileName",volume: 12,pitch:50,loop:false},
+		music2:{href:"fileName",volume: 12,pitch:50,loop:false},
+		music3:{href:"fileName",volume: 12,pitch:50,loop:false}
 	},
 
 	mixedEffects:{
