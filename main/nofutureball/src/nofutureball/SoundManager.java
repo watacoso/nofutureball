@@ -3,68 +3,84 @@ package nofutureball;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Random;
+
+import nofutureball.AudioCollection.AudioInfo;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.openal.SoundStore;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-
 public class SoundManager {
 
-	private class AugmentedAudio extends Sound{
+	private static AudioCollection ac = new AudioCollection();
 
-		public String name;
-		public int volume;
-		public int pitch;
-		public boolean loop;
-		
-		public AugmentedAudio(String name,int volume,int pitch,boolean loop) throws SlickException {
-			super(name);
-			this.name=name;
-			this.volume=volume;
-			this.pitch=pitch;
-			this.loop=loop;
+	private static SoundStore st;
+
+	public static void playSoundEffect(String key) {
+
+		AudioInfo a = ac.sounds.get(key);
+		System.out.println("assets/sounds/" + a.href);
+		try {
+			Sound s=new Sound("assets/sounds/" + a.href);
+			if(a.loop)
+				s.loop(a.pitch,a.volume);
+			else
+				s.play(a.pitch,a.volume);
+		} catch (SlickException e) {
+			e.printStackTrace();
 		}
-		
 	}
-	
-	private static HashMap<String,ArrayList<String>> mixedEffects;
-	private static HashMap<String,ArrayList<String>> extendedEffects;
-	private static HashMap<String,AugmentedAudio> sounds;
-	private static HashMap<String,AugmentedAudio> music;
-	
-	public static void load(){
-		
-		
+
+	public static void playMusic(String key) {
+		AudioInfo a = ac.music.get(key);
+		System.out.println("assets/sounds/" + a.href);
+		try {
+			Sound s=new Sound("assets/sounds/" + a.href);
+			if(a.loop)
+				s.loop(a.pitch,a.volume);
+			else
+				s.play(a.pitch,a.volume);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void mixedSound(String effect) {
+		Random r=new Random();
+		String key=ac.mixedEffects.get(effect).get(r.nextInt(ac.mixedEffects.get(effect).size()));
+		playSoundEffect(key);
+	}
+
+	public static void extendedSound(String effect) {
+
+	}
+
+	@SuppressWarnings("unused")
+	private int getIndex(String name) {
+		return 0;
+	}
+
+	public static void load() {
 		JsonReader reader = null;
 		try {
-			reader = new JsonReader(
-			        new InputStreamReader(new FileInputStream("assets/json/SoundManager.json")));
+			reader = new JsonReader(new InputStreamReader(new FileInputStream(
+					"assets/json/soundManager.json")));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Gson gson = new Gson();
-		
-		
-		
-	}
 
-	
-	public static void mixedSound(String effect){
-	
-		
-	}
-	
-	public static void extendedSound(String effect){
+		AudioCollection target = gson.fromJson(reader, AudioCollection.class);
+		ac.mixedEffects = target.mixedEffects;
+		ac.extendedEffects = target.extendedEffects;
+		ac.sounds = target.sounds;
+		ac.music = target.music;
 
-	}
-	
-	private int getIndex(String name){
-		return 0;
+		System.out.println(ac.sounds.get("tap").loop);
 	}
 }
