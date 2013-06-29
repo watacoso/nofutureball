@@ -47,7 +47,7 @@ public class AnimationSource {
 		// load the appropriate image for entityType and state
 		SpriteSheet ss = null;
 		try {
-			Image img = new Image("assets/" + entityType.toString() + "_" + state.toString() + ".png");
+			Image img = new Image("assets/sprites/" + entityType.toString() + "_" + state.toString() + ".png");
 			ss = new SpriteSheet(img, gridWidth, gridHeight);
 		} catch (SlickException e) {
 			System.out.println("AnimationSource.loadSourceFor ERROR: The link specified does most likely not exist.");

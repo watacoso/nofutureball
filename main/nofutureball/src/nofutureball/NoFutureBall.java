@@ -18,10 +18,6 @@ public class NoFutureBall {
 	public static void main(String[] args) {
 
 
-		
-		
-		
-		
 
 		try {
 			AppGameContainer appgc;

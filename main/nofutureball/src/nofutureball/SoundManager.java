@@ -9,7 +9,6 @@ import nofutureball.AudioCollection.AudioInfo;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-import org.newdawn.slick.openal.SoundStore;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -18,7 +17,7 @@ public class SoundManager {
 
 	private static AudioCollection ac = new AudioCollection();
 
-	private static SoundStore st;
+	//private static SoundStore st;
 
 	public static void playSoundEffect(String key) {
 

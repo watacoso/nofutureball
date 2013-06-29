@@ -11,15 +11,38 @@ public class Game extends BasicGame {
 
 	public Game(String gamename) {
 		super(gamename);
+		gameContainer = new Container();
 		entities = new Container();
-		entities.add(r1);
-		cam = new Camera(entities);
+		mapContainer = new Container();
+		ui = new Container();
+		
+		gameContainer.add(mapContainer);
+		gameContainer.add(entities);
+		
+		mapContainer.add(r2);
+		mapContainer.add(r1);
+		mapContainer.add(r3);
+		mapContainer.add(r4);
+		mapContainer.add(r5);
+		r1.addWalls(entities);
+		r2.addWalls(entities);
+		r3.addWalls(entities);
+		r4.addWalls(entities);
+		r5.addWalls(entities);
+		cam = new Camera(gameContainer);
 
 	}
 
+	public Container gameContainer = null;
+	public Container mapContainer = null;
 	public Container entities = null;
+	public Container ui = null;
 
-	private Room r1 = new Room(300, 0, 3, 30);
+	private Room r1 = new Room(0, 0, 10, 10);
+	private Room r2 = new Room(615, 0, 10, 10);
+	private Room r3 = new Room(1230, 0, 10, 10);
+	private Room r4 = new Room(615, 315, 10, 10);
+	private Room r5 = new Room(615, 630, 10, 10);
 	private Camera cam = null;
 
 	@Override
@@ -28,8 +51,8 @@ public class Game extends BasicGame {
 		AnimationSource.init();
 		NoFutureBall.setGameContainer(gc);
 		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player(r1,100, 40, KeySet.ONE));
-		players.add(new Player(r1, 40, 40, KeySet.TWO));
+		//players.add(new Player(r1,100, 40, KeySet.ONE));
+		players.add(new Player(r4, 40, 40, KeySet.TWO));
 		// players.add(new Player(100, 100, KeySet.THREE));
 		// players.add(new Player(0, 100, KeySet.FOUR));
 		startNewGame(players);
@@ -44,13 +67,14 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		entities.update();
+		gameContainer.update();
 		cam.update();
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		entities.render();
+		entities.sort();
+		gameContainer.render();
 	}
 
 }

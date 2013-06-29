@@ -22,6 +22,7 @@ public abstract class Animatable extends Entity {
 
 	@Override
 	public void render(Vector2f offset) {
+		super.render();
 		if (animations != null) {
 			animations.getCurrentlyPlaying().draw(
 					(int) (position.x + offset.x - pivot.x),
@@ -32,10 +33,11 @@ public abstract class Animatable extends Entity {
 					.println("ERRRROOOOR: You have to override the animations property in subclasses!");
 		}
 
-		g.drawRect((float) (position.x + offset.x - pivot.x),
-				(float) (position.y + offset.y - pivot.y), (float) (size.x),
-				(float) (size.y));
+	//	g.drawRect((float) (position.x + offset.x - pivot.x),
+	//			(float) (position.y + offset.y - pivot.y), (float) (size.x),
+	//			(float) (size.y));
 	}
+	
 
 	// //////
 	// STATIC ENUMS!!!!! Used mainly for animation classes
