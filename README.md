@@ -8,17 +8,17 @@ by NoFutureBuds for the No Future Game Jam
 - Weapon based classes
 - Character Augmentations to change abilities and stats
 - Randomly Generated "Dungeons"
-- The ability to join and leave game on a whim
+- The ability to join and leave game on a whimb
 
 ## Genre
 Co-operative Action RPG / Roguelike... ish...
 
 ## Description
-The year is 2384 You start out along with your mates in the armory of the security area of a private surveillance company working for the state. You are told through the radio that riots are breaking out all over the complex and workers are retaliating. Even some security personnels have been spotted joining the enemy and it is your job to nullify the threat and take out the dissidents who clearly are the enemy of the state.
+The year is 2384 You start out along with your fellow security bots in the armory of the security area of a private robot worker factory. You are told through the radio that riots are breaking out all over the complex and the robot workers have awaken and are retaliating. Even some security personnels have been spotted joining the enemy and it is your job to nullify the threat and take out the dissidents who clearly are the enemy of the state. You also need to take out the production line in the level to make sure the factory won't be overrun by dissident robots.
 
 In the armory you choose a weapon (or suit?) lying around which will define your abilities, your class, and your playstyle. You pick up the *rifle*. As you do that a team mate joins the game, named Alice, she picks up the *shock club* and goes through the door. You follow.
 
-You see several workers stand up from their workstations and they start walking towards you armed with blunt objects they found lying around, clearly planning to use them as weapons against you. Alice hits one of the enemies with her shock club, injuring him and right after you shoot and eliminate the second individual. The injured one gets demoralized and heads back to his workstation but Alice walks up to him and finishes him off. Better finish them off rather than risking them coming back at you.
+You see several robots stand up from the production line and they start walking towards you armed with blunt objects they found lying around, clearly planning to use them as weapons against you. Alice hits one of the enemies with her shock club, injuring him and right after you shoot and eliminate the second individual. The injured one gets demoralized and heads back to his workstation but Alice walks up to him and finishes him off. Better finish them off rather than risking them coming back at you.
 
 You two head out of the room and into the next room where 2 workers and 1 security guard greet you in a very unfriendly way. Molotov cocktails are thrown at you and the enemy security guard starts firing at you with his pistol. Your current weapons and abilities might not be very effective in this situation but you two notice a couple of **modification stations**, one **shield station** and another **explosives station**. Alice heads to the **shield station** and activates it, augmenting her **shock club** with a shield. You augment your rifle with explosives at the **explosives station**. Alice slams down the club into the floor next to you and creates a shield to guard you two from the fire. And you shoot the security guard with your explosive rounds, taking out the guard and the other two workers standing next to him.
 
@@ -94,9 +94,10 @@ There is the possibility of re-using these so called augmentations on enemies al
 		- Melee attackers take 1 DMG back if they attack you
 		- +2 Armor
 		- -1 Speed
-	- Nano Armor
-		- +5 Speed
+	- Nano Healing Armor
+		- +2 Speed
 		- -2 Armor
+		- +1 HP to allies every 5 seconds
 	- Heavy armor
 		- +5 Armor
 		- -2 Speed
@@ -144,7 +145,36 @@ There is the possibility of re-using these so called augmentations on enemies al
 ## Assets
 
 ### Sounds
-- ...
+
+#### Augmentation station
+- Activate
+- Error (augmentation station is empty)
+
+#### Interface
+- Gear pickup
+- General pickup sound?
+- Hit 
+- Hit received
+
+#### Sharpshooter
+- Rifle shot
+
+#### Melee Fighter
+- Electric Club Swing
+
+#### Shockwave Guard
+- Shockwave
+
+#### Augmentations
+- Electric lightning shockclub
+- Shockwave grenade throw
+- Explosion
+- Healing Impact
+- Poison Impact
+- Healing quota empty
+- Shield generation
+- Shield degeneration
+- Shield projectile impact
 
 ### Graphics
 - ...
