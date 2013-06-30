@@ -2,7 +2,7 @@
 by NoFutureBuds for the No Future Game Jam
 
 ## Introduction
-**Work the Oppression** is a local multiplayer co operative real-time game for up to 4 people. It allows the players to work together on oppressing the public in a dystopian orwellian future by combining powers to create the best possible powers for each battle.
+**Work the Oppression** is a local multiplayer co operative real-time game for up to 4 people. It allows the players to work together on oppressing the robot public in a dystopian orwellian future by combining powers to create the best possible powers for each battle.
 
 ## Key features
 - Weapon based classes
@@ -141,43 +141,6 @@ There is the possibility of re-using these so called augmentations on enemies al
 - One button for attack
 - One button for action (use augmentation stations, open doors, etc...)
 - **IDEA: hold attack button for charging up attack for more crit change/higher damage. Possible alternative attack. Slight ranged attack with shock club for example**
-
-## Assets
-
-### Sounds
-
-#### Augmentation station
-- Activate
-- Error (augmentation station is empty)
-
-#### Interface
-- Gear pickup
-- General pickup sound?
-- Hit 
-- Hit received
-
-#### Sharpshooter
-- Rifle shot
-
-#### Melee Fighter
-- Electric Club Swing
-
-#### Shockwave Guard
-- Shockwave
-
-#### Augmentations
-- Electric lightning shockclub
-- Shockwave grenade throw
-- Explosion
-- Healing Impact
-- Poison Impact
-- Healing quota empty
-- Shield generation
-- Shield degeneration
-- Shield projectile impact
-
-### Graphics
-- ...
 
 ## Platforms
 Mac/Linux/Windows
