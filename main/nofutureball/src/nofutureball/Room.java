@@ -2,6 +2,8 @@ package nofutureball;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Room extends Entity {
@@ -9,9 +11,16 @@ public class Room extends Entity {
 	public Boolean occupied;
 
 	private Graphics g = new Graphics();
+	Image floor;
 
 	public Room(float x, float y, int width, int height) {
 		super(x, y, width * 60, height * 30);
+		try {
+			floor=new Image("assets/sprites/floorTiles.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void update() {
@@ -19,11 +28,9 @@ public class Room extends Entity {
 	}
 
 	public void render(Vector2f offset) {
-		//g.setColor(Color.decode("#B8BCCC"));
-		//g.setLineWidth(30);
-		//g.drawRect(position.x + offset.x, position.y + offset.y, size.x, size.y);
+
 		g.setColor(Color.decode("#565C76"));
-		g.fillRect(position.x + offset.x, position.y + offset.y, size.x, size.y);
+		g.fillRect(position.x + offset.x, position.y + offset.y, size.x, size.y,floor,0,0);
 	}
 	
 	public void addWalls(Container target){

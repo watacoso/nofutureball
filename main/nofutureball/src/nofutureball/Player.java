@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 import com.google.gson.internal.LinkedTreeMap;
 
-public class Player extends gameObject {
+public class Player extends GameObject {
 
 	private float maxSpeed = 8;
 

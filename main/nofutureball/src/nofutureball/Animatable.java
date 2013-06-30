@@ -25,8 +25,8 @@ public abstract class Animatable extends Entity {
 		super.render();
 		if (animations != null) {
 			animations.getCurrentlyPlaying().draw(
-					(int) (position.x + offset.x - pivot.x),
-					(int) (position.y + offset.y - pivot.y),
+					 (position.x + offset.x - pivot.x),
+					 (position.y + offset.y - pivot.y),
 					new Color(1f, 1f, 1f));
 		} else {
 			System.out

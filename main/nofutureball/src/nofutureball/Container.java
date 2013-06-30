@@ -51,10 +51,18 @@ public class Container extends Entity{
 	}
 	
 	public void render(Vector2f pos){
-		Vector2f offset = new Vector2f(position.x+pos.x,position.y+pos.y);
+		Vector2f offset = new Vector2f((int)(position.x+pos.x),(int)(position.y+pos.y));
 		for(int i = 0; i < size(); i ++){
 			get(i).render(offset);
 		}
+	}
+	
+	public float round(float value) {
+	      if(value < 0) 
+	         return (value - 0.4999f);
+	      else
+	         return (value + 0.4999f);
+	      
 	}
 	
 	

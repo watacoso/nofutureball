@@ -2,7 +2,7 @@ package nofutureball;
 
 import org.newdawn.slick.geom.Vector2f;
 
-public class gameObject extends Animatable {
+public class GameObject extends Animatable {
 
 	public Vector2f speed;
 
@@ -10,7 +10,7 @@ public class gameObject extends Animatable {
 
 	public Room room;
 
-	public gameObject(Room room, float x, float y, float width, float height) {
+	public GameObject(Room room, float x, float y, float width, float height) {
 		super(x + room.position.x, y + room.position.y, width, height,
 				width / 2, height / 2);
 		this.room = room;
