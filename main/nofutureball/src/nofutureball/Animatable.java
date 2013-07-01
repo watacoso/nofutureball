@@ -9,7 +9,6 @@ import org.newdawn.slick.geom.Vector2f;
 public abstract class Animatable extends Entity {
 
 	public AnimationSet animations = null;
-	protected final String myself = "(Animatable)";
 
 	public Animatable(float x, float y, float width, float height) {
 		super(x, y, width, height);
@@ -38,15 +37,15 @@ public abstract class Animatable extends Entity {
 	//			(float) (size.y));
 	}
 	
-
-	// //////
-	// STATIC ENUMS!!!!! Used mainly for animation classes
-
-	// Subclass enums
-
+	  //////////////////YY\\\\\\\\\\\\\\\\\\
+	 /////////////////______\\\\\\\\\\\\\\\\\
+	///////////////// STATIC \\\\\\\\\\\\\\\\\
+	//\\\\\\\\\\\\\\\________/////////////////
+	
+	
+	
 	// TODO Whenever you add a subclass to Entity that has an animation saved in
 	// assets/, remember to update this:
-	// this array is just for iterative stuff in my animation implementation btw
 
 	public static enum SUBCLASS implements StringEnum {
 		PLAYER("PLAYER", 30, 63);

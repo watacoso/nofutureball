@@ -9,6 +9,8 @@ public class Camera {
 	/** List of targets to follow */
 	private ArrayList<Entity> followList = new ArrayList<Entity>();
 	
+	
+	public Vector2d position = new Vector2d();
 	private float zoom;
 	
 	public Camera(Container follower){
@@ -35,9 +37,9 @@ public class Camera {
 			entityCenter.x = toFollow.position.x + toFollow.pivot.x;
 			entityCenter.y = toFollow.position.y + toFollow.pivot.y;
 			
-			//follower position += ((target position) 							   - (current position))  / quotient
-			follower.position.x += ((NoFutureBall.WIDTH / 2 - entityCenter.x) - follower.position.x) / quotient;
-			follower.position.y += ((NoFutureBall.HEIGHT / 2 - entityCenter.y) - follower.position.y) / quotient;
+			//position += ((target position) - (current position))  / quotient
+			position.x += (entityCenter.x - position.x) / quotient;
+			position.y += (entityCenter.y - position.y) / quotient;
 		}
 	}
 	public void setZoom(float zoom){

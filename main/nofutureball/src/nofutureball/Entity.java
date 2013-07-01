@@ -22,8 +22,7 @@ public abstract class Entity implements Comparable<Entity>{
 		pivot = new Vector2f(0, 0);
 	}
 
-	public Entity(float x, float y, float width, float height, float pivotX,
-			float pivotY) {
+	public Entity(float x, float y, float width, float height, float pivotX, float pivotY) {
 		position = new Vector2f(x, y);
 		size = new Vector2f(width, height);
 		pivot = new Vector2f(pivotX, pivotY);
@@ -43,7 +42,7 @@ public abstract class Entity implements Comparable<Entity>{
 	
 	public int compareTo(Entity o) {
 		if(o.position.y-10<this.position.y)
-		return 1;
+			return 1;
 		if(o.position.y-10>this.position.y)
 			return -1;
 		return -1;
