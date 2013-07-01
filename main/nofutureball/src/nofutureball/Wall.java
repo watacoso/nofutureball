@@ -11,8 +11,10 @@ public class Wall extends Entity {
 	final int padding = 15;
 	final float height = 80;
 	float length;
+	
+	public Room room;
 
-	public Wall(float x, float y, int type, float lenght) { // 1:horizzontalSection
+	public Wall(Room room,float x, float y, int type, float lenght) { // 1:horizzontalSection
 															// 2:vertical
 															// 3:horizzontalFull
 		super(x, y);
@@ -29,7 +31,7 @@ public class Wall extends Entity {
 			size.x = padding;
 			break;
 		}
-
+		this.room=room;
 		g = new Graphics();
 
 	}

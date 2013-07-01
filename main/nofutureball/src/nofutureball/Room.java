@@ -35,10 +35,10 @@ public class Room extends Entity {
 	}
 
 	public void addWalls(Container target) {
-		target.add(new Wall(position.x, position.y, 1, size.x));
-		target.add(new Wall(position.x - 15, position.y, 2, size.y));
-		target.add(new Wall(position.x + size.x, position.y, 2, size.y));
-		target.add(new Wall(position.x, position.y + size.y + 15, 1, size.x));
+		target.add(new Wall(this,position.x, position.y, 1, size.x));
+		target.add(new Wall(this,position.x - 15, position.y, 2, size.y));
+		target.add(new Wall(this,position.x + size.x, position.y, 2, size.y));
+		target.add(new Wall(this,position.x, position.y + size.y + 15, 1, size.x));
 
 	}
 
