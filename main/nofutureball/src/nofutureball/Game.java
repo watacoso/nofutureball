@@ -9,6 +9,19 @@ import org.newdawn.slick.SlickException;
 
 public class Game extends BasicGame {
 
+	public Container gameContainer = null;
+	public Container mapContainer = null;
+	public Container entities = null;
+	public Container ui = null;
+	
+	private Room r1;
+	private Room r2;
+	private Room r3;
+	private Room r4;
+	private Room r5;
+	private Camera cam = null;
+	
+	
 	public Game(String gamename) {
 		super(gamename);
 		gameContainer = new Container();
@@ -17,20 +30,11 @@ public class Game extends BasicGame {
 		ui = new Container();
 		
 		gameContainer.add(mapContainer);
-		gameContainer.add(entities);		
+		gameContainer.add(entities);	
+		
 	}
 
-	public Container gameContainer = null;
-	public Container mapContainer = null;
-	public Container entities = null;
-	public Container ui = null;
-
-	private Room r1;
-	private Room r2;
-	private Room r3;
-	private Room r4;
-	private Room r5;
-	private Camera cam = null;
+	
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
@@ -63,6 +67,8 @@ public class Game extends BasicGame {
 		// players.add(new Player(100, 100, KeySet.THREE));
 		// players.add(new Player(0, 100, KeySet.FOUR));
 		startNewGame(players);
+		SoundManager.load();
+		SoundManager.mixedSound("Pickup");
 	}
 
 	public void startNewGame(ArrayList<Player> players) {

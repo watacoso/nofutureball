@@ -30,7 +30,6 @@ public class Player extends GameObject {
 	}
 
 	public void update() {
-
 		Input input = NoFutureBall.getGameContainer().getInput();
 
 		Point direction = new Point(0, 0);

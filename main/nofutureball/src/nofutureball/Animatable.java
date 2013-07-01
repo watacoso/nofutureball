@@ -22,7 +22,7 @@ public abstract class Animatable extends Entity {
 
 	@Override
 	public void render(Vector2f offset) {
-		super.render();
+		super.render(offset);
 		if (animations != null) {
 			animations.getCurrentlyPlaying().draw(
 					 (position.x + offset.x - pivot.x),

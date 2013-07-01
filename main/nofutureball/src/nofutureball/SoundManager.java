@@ -17,18 +17,16 @@ public class SoundManager {
 
 	private static AudioCollection ac = new AudioCollection();
 
-	//private static SoundStore st;
-
 	public static void playSoundEffect(String key) {
 
 		AudioInfo a = ac.sounds.get(key);
 		System.out.println("assets/sounds/" + a.href);
 		try {
-			Sound s=new Sound("assets/sounds/" + a.href);
-			if(a.loop)
-				s.loop(a.pitch,a.volume);
+			Sound s = new Sound("assets/sounds/" + a.href);
+			if (a.loop)
+				s.loop(a.pitch, a.volume);
 			else
-				s.play(a.pitch,a.volume);
+				s.play(a.pitch, a.volume);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -38,19 +36,20 @@ public class SoundManager {
 		AudioInfo a = ac.music.get(key);
 		System.out.println("assets/sounds/" + a.href);
 		try {
-			Sound s=new Sound("assets/sounds/" + a.href);
-			if(a.loop)
-				s.loop(a.pitch,a.volume);
+			Sound s = new Sound("assets/sounds/" + a.href);
+			if (a.loop)
+				s.loop(a.pitch, a.volume);
 			else
-				s.play(a.pitch,a.volume);
+				s.play(a.pitch, a.volume);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void mixedSound(String effect) {
-		Random r=new Random();
-		String key=ac.mixedEffects.get(effect).get(r.nextInt(ac.mixedEffects.get(effect).size()));
+		Random r = new Random();
+		String key = ac.mixedEffects.get(effect).get(
+				r.nextInt(ac.mixedEffects.get(effect).size()));
 		playSoundEffect(key);
 	}
 
@@ -79,7 +78,5 @@ public class SoundManager {
 		ac.extendedEffects = target.extendedEffects;
 		ac.sounds = target.sounds;
 		ac.music = target.music;
-
-		System.out.println(ac.sounds.get("tap").loop);
 	}
 }
