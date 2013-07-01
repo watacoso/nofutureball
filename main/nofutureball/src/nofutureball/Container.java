@@ -3,8 +3,6 @@ package nofutureball;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import org.newdawn.slick.geom.Vector2f;
-
 public class Container extends Entity {
 
 	protected ArrayList<Entity> list;
@@ -51,26 +49,18 @@ public class Container extends Entity {
 	// }
 	// }
 
-	public void render() {
+	public void render(Camera cam) {
 		for (int i = 0; i < size(); i++) {
-			get(i).render(position);
+			get(i).render(cam);
 		}
 	}
 
-	public void render(Vector2f pos) {
-		offset = new Vector2f((int) (position.x + pos.x),
-				(int) (position.y + pos.y));
-		for (int i = 0; i < size(); i++) {
-			get(i).offset = offset;
-			get(i).render(offset);
-		}
-	}
 
 	public float round(float value) {
 		if (value < 0)
-			return (value - 0.4999f);
+			return (float)(int)(value - 0.4999f);
 		else
-			return (value + 0.4999f);
+			return (float)(int)(value + 0.4999f);
 
 	}
 
