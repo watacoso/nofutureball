@@ -1,8 +1,8 @@
 {
 	sounds:{
-			tap:{href:"effect02.wav",volume:0.2,pitch:0.5,loop:true},
-			sound2:{href:"fileName",volume:100,pitch:50,loop:false},
-			sound3:{href:"fileName",volume:100,pitch:50,loop:false},
+			"Pickup01":{href:"PlayerPickup01.ogg",volume:0.2,pitch:1,loop:false},
+			"Pickup02":{href:"PlayerPickup02.ogg",volume:0.2,pitch:1,loop:false},
+			"Pickup03":{href:"PlayerPickup03.ogg",volume:0.2,pitch:1,loop:false},
 			sound4:{href:"fileName",volume:100,pitch:50,loop:false},
 			sound5:{href:"fileName",volume:100,pitch:50,loop:false},
 			sound6:{href:"fileName",volume: 12,pitch:50,loop:false},
@@ -20,7 +20,7 @@
 	},
 
 	mixedEffects:{
-		walk:["sound1","sound3","soundE","soundV"],
+		Pickup:["Pickup01","Pickup02","Pickup03"],
 		shoot:["sound2","sound4","soundC","soundW"]
 		},
 
