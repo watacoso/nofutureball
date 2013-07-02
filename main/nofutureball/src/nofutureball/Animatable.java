@@ -1,6 +1,5 @@
 package nofutureball;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -9,44 +8,38 @@ import org.newdawn.slick.geom.Vector2f;
 public abstract class Animatable extends Entity {
 
 	public AnimationSet animations = null;
-	protected final String myself = "(Animatable)";
 
-	public Animatable(float x, float y, float width, float height) {
+	public Animatable(float x, float y, float width, float height)
+	{
 		super(x, y, width, height);
 	}
 
-	public Animatable(float x, float y, float width, float height,
-			float pivotX, float pivotY) {
+	public Animatable(float x, float y, float width, float height, float pivotX, float pivotY)
+	{
 		super(x, y, width, height, pivotX, pivotY);
 	}
 
 	@Override
-	public void render(Vector2f offset) {
-		super.render(offset);
+	public void render(Camera cam)
+	{
+		Vector2f screenPos = getScreenPos(cam);
+		super.render(cam);
 		if (animations != null) {
-			animations.getCurrentlyPlaying().draw(
-					 (position.x + offset.x - pivot.x),
-					 (position.y + offset.y - pivot.y),
-					new Color(1f, 1f, 1f));
+			animations.getCurrentlyPlaying().draw(screenPos.x, screenPos.y, getScaledWidth(cam), getScaledHeight(cam));
 		} else {
-			System.out
-					.println("ERRRROOOOR: You have to override the animations property in subclasses!");
+			System.out.println("ERRRROOOOR: You have to override the animations property in subclasses!");
 		}
-
-	//	g.drawRect((float) (position.x + offset.x - pivot.x),
-	//			(float) (position.y + offset.y - pivot.y), (float) (size.x),
-	//			(float) (size.y));
 	}
 	
-
-	// //////
-	// STATIC ENUMS!!!!! Used mainly for animation classes
-
-	// Subclass enums
-
+	  //////////////////YY\\\\\\\\\\\\\\\\\\
+	 /////////////////______\\\\\\\\\\\\\\\\\
+	///////////////// STATIC \\\\\\\\\\\\\\\\\
+	//\\\\\\\\\\\\\\\________/////////////////
+	
+	
+	
 	// TODO Whenever you add a subclass to Entity that has an animation saved in
 	// assets/, remember to update this:
-	// this array is just for iterative stuff in my animation implementation btw
 
 	public static enum SUBCLASS implements StringEnum {
 		PLAYER("PLAYER", 30, 63);

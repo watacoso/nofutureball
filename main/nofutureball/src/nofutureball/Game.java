@@ -62,10 +62,10 @@ public class Game extends BasicGame {
 		AnimationSource.init();
 		NoFutureBall.setGameContainer(gc);
 		ArrayList<Player> players = new ArrayList<Player>();
-		//players.add(new Player(r1,100, 40, KeySet.ONE));
+		players.add(new Player(r1,100, 40, KeySet.ONE));
 		players.add(new Player(r4, 40, 40, KeySet.TWO));
-		// players.add(new Player(100, 100, KeySet.THREE));
-		// players.add(new Player(0, 100, KeySet.FOUR));
+		players.add(new Player(r2, 100, 100, KeySet.THREE));
+		players.add(new Player(r3, 0, 100, KeySet.FOUR));
 		startNewGame(players);
 		SoundManager.load();
 		SoundManager.mixedSound("Pickup");
@@ -82,12 +82,14 @@ public class Game extends BasicGame {
 	public void update(GameContainer gc, int i) throws SlickException {
 		gameContainer.update();
 		cam.update();
+		Debugging.update();
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		entities.sort();
-		gameContainer.render();
+		gameContainer.render(cam);
+		cam.update();
 	}
 
 }

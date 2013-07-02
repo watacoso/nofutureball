@@ -18,15 +18,15 @@ public class GameObject extends Animatable {
 		collisionBox=new CollisionBox(this.position.x,this.position.y+this.size.y/2,this.size.x,this.size.y);
 
 		speed = new Vector2f(0, 0);
-		boxPos = new Vector2f(-width / 2, 0);
+		boxPos = new Vector2f(0, height / 2);
 		boxSize = new Vector2f(width, height / 2);
 		// TODO Auto-generated constructor stub
 	}
 
 	public void update() {
-		stayOnRoom();
+		//stayOnRoom();
 
-		collision();
+		//collision();
 		position.x += speed.x;
 		position.y += speed.y;
 

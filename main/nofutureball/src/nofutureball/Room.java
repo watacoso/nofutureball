@@ -15,6 +15,8 @@ public class Room extends Entity {
 
 	public Room(float x, float y, int width, int height) {
 		super(x, y, width * 60, height * 30);
+		this.width = width;
+		this.height = height;
 		try {
 			floor = new Image("assets/sprites/floorTiles.png");
 		} catch (SlickException e) {
@@ -22,16 +24,35 @@ public class Room extends Entity {
 			e.printStackTrace();
 		}
 	}
+	/** Number of tiles on the x-axis */
+	private int width = 0;
+	/** Number of tiles on the y-axis */
+	private int height = 0;
 
 	public void update() {
 
 	}
 
-	public void render(Vector2f offset) {
-
+	public void render(Camera cam) {
+		Vector2f screenPos = getScreenPos(cam);
 		g.setColor(Color.decode("#565C76"));
-		g.fillRect(position.x + offset.x, position.y + offset.y, size.x,
-				size.y, floor, 0, 0);
+		
+		// Floor
+		Image scaledFloorTile = floor.getScaledCopy(cam.getZoom());
+		// just caching values to limit calculations
+		float floorWidth = 60 * cam.getZoom();
+		float floorHeight = 30 * cam.getZoom();
+		g.fillRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
+		for (float y = 0, i = 0; i < height; y += floorHeight, i ++) {
+			for (float x = 0, j = 0; j < width; x += floorWidth, j ++) {
+				
+				/* The commented out line would draw with a cached scaled floor (= more efficient) but it seems to leave
+				 * gaps between the tiles frequently. This should be fixed. */
+				scaledFloorTile.draw(screenPos.x + x,  screenPos.y + y);
+				//floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
+			}
+		}
+
 	}
 
 	public void addWalls(Container target) {
@@ -41,5 +62,6 @@ public class Room extends Entity {
 		target.add(new Wall(this,position.x, position.y + size.y + 15, 1, size.x));
 
 	}
+	
 
 }
