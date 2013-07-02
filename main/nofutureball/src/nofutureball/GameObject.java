@@ -26,7 +26,7 @@ public class GameObject extends Animatable {
 	public void update() {
 		//stayOnRoom();
 
-		//collision();
+		collision();
 		position.x += speed.x;
 		position.y += speed.y;
 
@@ -53,12 +53,14 @@ public class GameObject extends Animatable {
 			Entity e=parent.get(i);
 			if(e==this) continue;
 			
-			//System.out.println("test");
+			
 			
 			switch (e.getClass().getName()){
-			case "Wall":				
+			case "Wall":
+					System.out.println("wall");
 				break;
 			case "GameObject":
+					System.out.println("test");
 				break;
 			}
 		}
