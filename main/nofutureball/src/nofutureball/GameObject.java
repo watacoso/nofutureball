@@ -37,21 +37,24 @@ public class GameObject extends Animatable {
 		
 		if(!transition){
 			if(!onRoom()){
-				transition=true;
-				System.out.println(transition);
 				for(int i=0;i<room.doors.size();i++){
 					Door d=room.doors.get(i);
 					if(collisionBox.checkCollision(d)){
 						door=d;
-						System.out.println("test"+d.position.x);
+						transition=true;
+						System.out.println(transition);
+						System.out.println(d);
+						
 					}
 						
 				}
 			}
 		}
 		else{
+			//System.out.println(door.position);
 			if(!collisionBox.checkCollision(door)){
-				room=door.rA!=room?door.rA:door.rB;
+				if(!onRoom())
+					room=door.rA!=room?door.rA:door.rB;		
 				door=null;
 				transition=false;
 				System.out.println(transition);
@@ -61,34 +64,18 @@ public class GameObject extends Animatable {
 	}
 
 	private boolean onRoom() {
-		if (collisionBox.position.x < room.position.x-10)
+		if (collisionBox.position.x < room.position.x)
 			return false;
-		if (collisionBox.position.y < room.position.y-10)
+		if (collisionBox.position.y < room.position.y)
 			return false;
-		if (collisionBox.position.x + collisionBox.size.x > room.position.x + room.size.x+10)
+		if (collisionBox.position.x + collisionBox.size.x > room.position.x + room.size.x)
 			return false;
-		if (collisionBox.position.y + collisionBox.size.y > room.position.y + room.size.y+10)
+		if (collisionBox.position.y + collisionBox.size.y > room.position.y + room.size.y)
 			return false;
 		return true;
 	}
 	
-	private boolean onDoor(Door d){
-		if (collisionBox.position.x + collisionBox.size.x/2< d.position.x)
-			return false;
-		if (collisionBox.position.y + collisionBox.size.y/2< d.position.y)
-			return false;
-		if (collisionBox.position.x + collisionBox.size.x/2 > d.position.x + d.size.x)
-			return false;
-		if (collisionBox.position.y + collisionBox.size.y/2 > d.position.y + d.size.y)
-			return false;
-		return true;
-	}
 
-	public void travel() {
-
-	}
-
-	
 	private void collisionTest() {
 		
 		Wall w;
