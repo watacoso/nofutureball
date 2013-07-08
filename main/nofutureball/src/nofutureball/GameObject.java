@@ -6,7 +6,7 @@ public class GameObject extends Animatable {
 
 	public Vector2f speed;
 
-	private CollisionBox collisionBox;
+	public CollisionBox collisionBox;
 	private Vector2f boxPos, boxSize;
 
 	public Room room;
@@ -15,32 +15,33 @@ public class GameObject extends Animatable {
 		super(x + room.position.x, y + room.position.y, width, height,
 				width / 2, height / 2);
 		this.room = room;
-		collisionBox=new CollisionBox(this.position.x,this.position.y+this.size.y/2,this.size.x,this.size.y);
+		collisionBox=new CollisionBox(this.position.x,this.position.y+this.size.y/2,this.size.x,this.size.y/2);
 
 		speed = new Vector2f(0, 0);
-		boxPos = new Vector2f(0, height / 2);
-		boxSize = new Vector2f(width, height / 2);
+
 		// TODO Auto-generated constructor stub
 	}
 
 	public void update() {
 		//stayOnRoom();
 
-		//collision();
+		collisionTest();
 		position.x += speed.x;
 		position.y += speed.y;
-
+		collisionBox.position.x+=speed.x;
+		collisionBox.position.y+=speed.y;
 	}
 
-	public void stayOnRoom() {
+	public boolean intoRoom() {
 		if (position.x + boxPos.x < room.position.x)
-			speed.x = Math.abs(speed.x) * 0.5f;
+			return false;
 		if (position.y + boxPos.y < room.position.y)
-			speed.y = Math.abs(speed.y) * 0.5f;
+			return false;
 		if (position.x + boxPos.x + boxSize.x > room.position.x + room.size.x)
-			speed.x = -Math.abs(speed.x) * 0.5f;
+			return false;
 		if (position.y + boxPos.y + boxSize.y > room.position.y + room.size.y)
-			speed.y = -Math.abs(speed.y) * 0.5f;
+			return false;
+		return true;
 	}
 
 	public void travel() {
@@ -48,21 +49,65 @@ public class GameObject extends Animatable {
 	}
 
 	
-	/*private void collision() {
+	private void collisionTest() {
 		for(int i=0;i<parent.size();i++){
 			Entity e=parent.get(i);
 			if(e==this) continue;
+
+			//System.out.println(e.getClass().getName());
 			
-			//System.out.println("test");
-			
-			switch (e.getClass().getName()){
-			case "Wall":				
+			switch (e.getClass().getName()) {
+			case "nofutureball.Wall":
+					if(collisionBox.checkCollision(e)){
+						String direction=collisionBox.checkBoxSide(e);
+						switch (direction){
+						case "left":
+							speed.x=Math.abs(speed.x);
+							break;
+						case "right":
+							speed.x=-Math.abs(speed.x);
+							break;
+						case "top":
+							speed.y=Math.abs(speed.y);
+							break;
+						case "bottom":
+							speed.y=-Math.abs(speed.y);
+							break;
+						}
+						 System.out.println(direction);
+					}
+					
 				break;
-			case "GameObject":
+			case "nofutureball.Player":
+				Player p=(Player) e;
+				if(collisionBox.checkCollision(p.collisionBox)){
+					String direction=collisionBox.checkBoxSide(p.collisionBox);
+					switch (direction){
+					case "left":
+						speed.x=Math.abs(speed.x);
+						break;
+					case "right":
+						speed.x=-Math.abs(speed.x);
+						break;
+					case "top":
+						speed.y=Math.abs(speed.y);
+						break;
+					case "bottom":
+						speed.y=-Math.abs(speed.y);
+						break;
+					}
+					 System.out.println(direction);
+				}
 				break;
 			}
 		}
-	}*/
+	}
+	
+	@SuppressWarnings("unused")
+	private void handleCollision(){
+		
+	}
+	
 	
 	class CollisionBox extends Entity{
 

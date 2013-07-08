@@ -105,4 +105,36 @@ public abstract class Entity implements Comparable<Entity> {
 	{
 		return size.y * zoom;
 	}*/
+	
+	
+	protected boolean checkCollision(Entity e){
+		if(position.x>e.position.x+e.size.x ||
+		   position.x+size.x<e.position.x)
+			return false;
+		if(position.y>e.position.y+e.size.y ||
+		   position.y+size.y<e.position.y)
+			return false;
+		return true;
+		
+	}
+	
+	protected String checkBoxSide(Entity e){
+		Vector2f pos1=new Vector2f(position.x+size.x/2,position.y+size.y/2);
+		Vector2f pos2=new Vector2f(e.position.x+e.size.x/2,e.position.y+e.size.y/2);
+		
+		float overlapX=Math.min(position.x+size.x, e.position.x+e.size.x)-
+				       Math.max(position.x, e.position.x);
+		
+		float overlapY=Math.min(position.y+size.y, e.position.y+e.size.y)-
+				        Math.max(position.y, e.position.y);
+		
+		if(overlapY>overlapX){
+			if(pos1.x<=pos2.x)
+				return "right";
+			return "left";
+		}
+		if(pos1.y>=pos2.y)
+			return "top";
+		return "bottom";
+	}
 }

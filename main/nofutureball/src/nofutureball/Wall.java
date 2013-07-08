@@ -9,8 +9,8 @@ public class Wall extends Entity {
 	Graphics g;
 	private int type;
 
-	final int padding = 15;
-	final float height = 80;
+	final int padding = Room.wallSpessor;
+	static final float height = 20;
 	float length;
 	
 	public Room room;
@@ -19,7 +19,7 @@ public class Wall extends Entity {
 	public Wall(Room room,float x, float y, int type, float length) { // 1:horizzontalSection
 															// 2:vertical
 															// (3:horizzontalFull)
-		super(x, y);
+		super(x, y-Room.wallSpessor);
 		this.type = type;
 		this.length = length;
 
@@ -29,6 +29,7 @@ public class Wall extends Entity {
 				size.y = padding;
 				break;
 			case 2:
+				position.y+=Room.wallSpessor;
 				size.y = length;
 				size.x = padding;
 				break;
@@ -48,12 +49,10 @@ public class Wall extends Entity {
 		
 		switch (type) {
 			case 1:
-				g.setColor(g.getBackground());
-				g.fillRect( screenPos.x,  (screenPos.y - _height), _length, _padding);
 				g.setColor(Color.decode("#45495F"));
-				g.fillRect( screenPos.x,  (screenPos.y - _height), _length, _height);
+				g.fillRect( screenPos.x,  (screenPos.y - _height+_padding), _length, _height);
 				g.setColor(Color.decode("#9AA0B6"));
-				g.fillRect( (screenPos.x),  (screenPos.y - _height), _length, _padding);
+				g.fillRect( (screenPos.x),  (screenPos.y - _height+_padding), _length, _padding);
 	
 				break;
 			case 2:
