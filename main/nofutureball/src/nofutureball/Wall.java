@@ -10,7 +10,7 @@ public class Wall extends Entity {
 	private int type;
 
 	final int padding = Room.wallSpessor;
-	static final float height = 20;
+	static final float height = 50;
 	float length;
 	
 	public Room room;
@@ -35,6 +35,7 @@ public class Wall extends Entity {
 				break;
 		}
 		this.room=room;
+		room.walls.add(this);
 		g = new Graphics();
 
 	}

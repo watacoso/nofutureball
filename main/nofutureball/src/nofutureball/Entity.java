@@ -55,29 +55,10 @@ public abstract class Entity implements Comparable<Entity> {
 			return 1;
 		if (o.position.y+o.size.y  > this.position.y+this.size.y)
 			return -1;
-		return -1;
+		return 0;
 	}
 	
-	// I don't think I'll need these, unless we make containers with non-null position (not (0, 0))
-	/*public Vector2f getAbsolutePos()
-	{
-		if (parent != null) {
-			return parent.getAbsolutePos().add(position);
-		} else {
-			return position;
-		}
-	}
-	public Vector2f getPosRelativeTo(Entity p)
-	{
-		if (this == p) {
-			return position;
-		} else if (parent != null && this != p) {
-			return parent.getPosRelativeTo(p).add(position);
-		} else {
-			System.out.println("Entity.getPosRelativeTo: parent specified is not one of my parents");
-			return new Vector2f();
-		}
-	}*/
+	
 
 	// Feel free to make getScreenPos(Vector2f offset), if you need that. (just replace camera.position with offset)
 	/**
@@ -96,17 +77,7 @@ public abstract class Entity implements Comparable<Entity> {
 	{
 		return size.y * camera.getZoom();
 	}
-	
-	/*protected float getScaledWidth(float zoom)
-	{
-		return size.x * zoom;
-	}
-	protected float getScaledHeight(float zoom)
-	{
-		return size.y * zoom;
-	}*/
-	
-	
+		
 	protected boolean checkCollision(Entity e){
 		if(position.x>e.position.x+e.size.x ||
 		   position.x+size.x<e.position.x)

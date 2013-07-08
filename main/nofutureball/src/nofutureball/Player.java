@@ -9,7 +9,7 @@ import com.google.gson.internal.LinkedTreeMap;
 
 public class Player extends GameObject {
 
-	private float maxSpeed = 8;
+	private float maxSpeed = 10;
 
 	public static LinkedTreeMap<String, ?> STATS = PropsBuilder
 			.loadProp("player.json");

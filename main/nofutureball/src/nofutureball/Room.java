@@ -13,12 +13,14 @@ public class Room extends Entity {
 
 	public Boolean occupied;
 	public ArrayList<Door> doors;
+	public ArrayList<Wall> walls;
 	private Graphics g = new Graphics();
 	Image floor;
 	
 	public static int wallSpessor=15;
 	public static int tileWidth=60;
 	public static int tileHeight=30;
+	
 	public Room(float x, float y, int width, int height) {
 		super(x, y, width * tileWidth, height * tileHeight);
 		this.width = width;
@@ -30,19 +32,21 @@ public class Room extends Entity {
 			e.printStackTrace();
 		}
 		doors=new ArrayList<Door>();
+		walls=new ArrayList<Wall>();
 	}
 	
 	public Room(int width, int height) {
 		super(0, 0, width * tileWidth, height * tileHeight);
 		this.width = width;
 		this.height = height;
-		try {
-			floor = new Image("assets/sprites/floorTiles.png");
-		} catch (SlickException e) {
+		//try {
+		//	floor = new Image("assets/sprites/floorTiles.png");
+		//} catch (SlickException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//	e.printStackTrace();
+		//}
 		doors=new ArrayList<Door>();
+		walls=new ArrayList<Wall>();
 	}
 	
 	/** Number of tiles on the x-axis */
@@ -59,7 +63,7 @@ public class Room extends Entity {
 		
 		
 		// Floor
-		Image scaledFloorTile = floor.getScaledCopy(cam.getZoom());
+		//Image scaledFloorTile = floor.getScaledCopy(cam.getZoom());
 		// just caching values to limit calculations
 		float floorWidth = tileWidth * cam.getZoom();
 		float floorHeight = tileHeight * cam.getZoom();
@@ -69,15 +73,15 @@ public class Room extends Entity {
 		g.drawRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
 		g.setColor(Color.decode("#565C76"));
 		g.fillRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
-		for (float y = 0, i = 0; i < height; y += floorHeight, i ++) {
+		/*for (float y = 0, i = 0; i < height; y += floorHeight, i ++) {
 			for (float x = 0, j = 0; j < width; x += floorWidth, j ++) {
 				
 				/* The commented out line would draw with a cached scaled floor (= more efficient) but it seems to leave
-				 * gaps between the tiles frequently. This should be fixed. */
+				 * gaps between the tiles frequently. This should be fixed. 
 				scaledFloorTile.draw(screenPos.x + x,  screenPos.y + y);
 				//floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
 			}
-		}
+		}*/
 		
 
 	}
@@ -90,7 +94,6 @@ public class Room extends Entity {
 			
 			if(r.side=="top"||r.side=="bottom"){
 				if(position.y==r.position.y+15){
-					System.out.println("top");
 					target.add(new Wall(this,position.x+TX, position.y, 1, r.position.x-position.x+TX));
 					TX=r.position.x-position.x+r.size.x;
 				}
@@ -117,6 +120,18 @@ public class Room extends Entity {
 		target.add(new Wall(this,position.x + size.x, position.y+RY, 2, size.y-RY));
 		target.add(new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 1, size.x-BX));
 
+	}
+	
+	
+	protected boolean checkCollision(Room e,float span){
+		if(position.x-span>e.position.x+e.size.x ||
+		   position.x+size.x+span<e.position.x)
+			return false;
+		if(position.y-span>e.position.y+e.size.y ||
+		   position.y+size.y+span<e.position.y)
+			return false;
+		return true;
+		
 	}
 	
 
