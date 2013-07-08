@@ -38,7 +38,7 @@ public class Room extends Entity {
 		g.setColor(Color.decode("#565C76"));
 		
 		// Floor
-		Image scaledFloorTile = floor.getScaledCopy(cam.getZoom());
+		Image scaledFloorTile = floor.getScaledCopy(cam.getZoom() * 1.01f);
 		// just caching values to limit calculations
 		float floorWidth = 60 * cam.getZoom();
 		float floorHeight = 30 * cam.getZoom();
@@ -48,7 +48,7 @@ public class Room extends Entity {
 				
 				/* The commented out line would draw with a cached scaled floor (= more efficient) but it seems to leave
 				 * gaps between the tiles frequently. This should be fixed. */
-				scaledFloorTile.draw(screenPos.x + x,  screenPos.y + y);
+				scaledFloorTile.draw((int)(screenPos.x + x - 0.5),  (int)(screenPos.y + y - 0.5));
 				//floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
 			}
 		}

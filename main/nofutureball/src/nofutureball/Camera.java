@@ -18,6 +18,8 @@ public class Camera {
 	public Vector2f position = new Vector2f();
 	private float zoom;
 	
+	private final float maxZoom = 1;
+	
 	public Camera(Container follower){
 
 		setZoom(1);
@@ -32,6 +34,7 @@ public class Camera {
 	
 	// Controls how fast the follower can follow the target. The higher the slower.
 	private final int quotient = 10;
+	
 	private final int cameraMargin = 90;
 	
 	public void update()
@@ -83,11 +86,18 @@ public class Camera {
 		} else {
 			targetZoom = 1/ ((float) bound.height / (float) NoFutureBall.HEIGHT);
 		}
-
-		zoom += (targetZoom - zoom) / (quotient * 2);
+		setZoom(getZoom() + (targetZoom - zoom) / (quotient * 2));
 	}
 	public void setZoom(float zoom){
-		if(zoom <= 0) return;
+		System.out.println(zoom);
+		if(zoom <= 0) {
+			zoom = 0.00001f;
+			return;
+		}
+		else if (zoom >= maxZoom) {
+			zoom = maxZoom;
+			return;
+		}
 		this.zoom = zoom;
 	}
 	public float getZoom()

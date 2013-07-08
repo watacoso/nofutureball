@@ -48,7 +48,7 @@ public class GameObject extends Animatable {
 	}
 
 	
-	private void collision() {
+	/*private void collision() {
 		for(int i=0;i<parent.size();i++){
 			Entity e=parent.get(i);
 			if(e==this) continue;
@@ -62,8 +62,7 @@ public class GameObject extends Animatable {
 				break;
 			}
 		}
-	}
-	
+	}*/
 	
 	class CollisionBox extends Entity{
 
