@@ -4,18 +4,22 @@ public class Door extends Entity{
 	public Room rA,rB;
 	public int width;
 	public String side;
-	public Door(Room rA,Room rB,int doorWidth) {
+	public Door(int doorWidth) {
 		super(0, 0);
 		width=doorWidth;
-		this.rA=rA;
-		this.rB=rB;
-		rA.doors.add(this);
-		rB.doors.add(this);
+
 	}
 	
 	public void setPosition(float x,float y){
 		position.x=x;
 		position.y=y;
+	}
+	
+	public void setRooms(Room rA,Room rB){
+		this.rA=rA;
+		this.rB=rB;
+		rA.doors.add(this);
+		rB.doors.add(this);
 	}
 	
 	public void setSide(String side){

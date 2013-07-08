@@ -13,12 +13,14 @@ public class Room extends Entity {
 
 	public Boolean occupied;
 	public ArrayList<Door> doors;
+	public ArrayList<Wall> walls;
 	private Graphics g = new Graphics();
 	Image floor;
 	
 	public static int wallSpessor=15;
 	public static int tileWidth=60;
 	public static int tileHeight=30;
+	
 	public Room(float x, float y, int width, int height) {
 		super(x, y, width * tileWidth, height * tileHeight);
 		this.width = width;
@@ -30,6 +32,7 @@ public class Room extends Entity {
 			e.printStackTrace();
 		}
 		doors=new ArrayList<Door>();
+		walls=new ArrayList<Wall>();
 	}
 	
 	public Room(int width, int height) {
@@ -39,10 +42,10 @@ public class Room extends Entity {
 		try {
 			floor = new Image("assets/sprites/floorTiles.png");
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		doors=new ArrayList<Door>();
+		walls=new ArrayList<Wall>();
 	}
 	
 	/** Number of tiles on the x-axis */
@@ -90,7 +93,6 @@ public class Room extends Entity {
 			
 			if(r.side=="top"||r.side=="bottom"){
 				if(position.y==r.position.y+15){
-					System.out.println("top");
 					target.add(new Wall(this,position.x+TX, position.y, 1, r.position.x-position.x+TX));
 					TX=r.position.x-position.x+r.size.x;
 				}
@@ -117,6 +119,18 @@ public class Room extends Entity {
 		target.add(new Wall(this,position.x + size.x, position.y+RY, 2, size.y-RY));
 		target.add(new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 1, size.x-BX));
 
+	}
+	
+	
+	protected boolean checkCollision(Room e,float span){
+		if(position.x-span>e.position.x+e.size.x ||
+		   position.x+size.x+span<e.position.x)
+			return false;
+		if(position.y-span>e.position.y+e.size.y ||
+		   position.y+size.y+span<e.position.y)
+			return false;
+		return true;
+		
 	}
 	
 
