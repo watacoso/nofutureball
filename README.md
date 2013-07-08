@@ -29,18 +29,24 @@ You decide that the shield augmentation would fit nicely with your rifle so you 
 ### Classes / Base Gear
 Visual differences between classes/base gear is based on the security guard helmet each guard wears and the primary weapon. Base Attributes are on the scale of 0-10 but can get past 10 with the help of augmentations later on.
 
-- **Sharpshooter**
+Each class has a base weapon which augmentations affect later on. It can be thought of as "spell upgrades".
+
+**Sharpshooter**
+The sniper of the team. Armed with a long range rifle that allows them to focus on easily taking out enemies from distance. He's also very fast but with light armor to help him keep his distance
+
 	- Visuals
 		- A helmet with an eyesight
 		- A rifle
 	- Attributes
-		- Type of Attack: Projectile
+		- Type of Attack: Projectile/Bullet
 		- Long Range DMG: 8
 		- Short Range DMG: 1
 		- Armor: 5
 		- Speed: 6
 
-- **Melee Fighter**
+**Melee Fighter**
+A heavy fighter, armed with a shock club that electrocutes his enemies.
+
 	- Visuals
 		- A rough and dark colored heavy helmet
 		- A electrical shock blunt weapon (club?)
@@ -51,7 +57,9 @@ Visual differences between classes/base gear is based on the security guard helm
 		- Armor: 10 
 		- Speed: 4
 
-- **Melee AoE Security Guard with a shockwave attack**
+- **Melee AoE Security Guard with a Electric shockwave attack**
+Area of Effect/Crowd Control specialist. Sends out electric charges from himself damaging every nearby enemy. 
+
 	- Visuals
 		- Blue helmet with animated electrical sparks
 	- Attributes
@@ -62,13 +70,19 @@ Visual differences between classes/base gear is based on the security guard helm
 		- Speed: 5
 
 ## Items and Augmentations
-There is the possibility of re-using these so called augmentations on enemies also to add variations.
+There are three kind of augmentations and only one from each category can be used. In other words, the player can only use one weapon augmentation, one weapon impact augmentation and one armor augmentation.
+
+Augmentations are received by entering (and possibly activating with a button) a tile that contains a "augmentation station" colored with the icon for a said augmentation. If a player has an augmentation before, he will "drop" the previous one and pick up the new one. The augmentation station will have the old one the player had afterwards for other players to pick up.
+
+Weapon augmentations affect the weapon itself. How many projectiles and how much range.
+
+Enemies will have the possibility to be spawned with said augmentations to increase variety.
 
 - **Weapon Augmentations**
 	- Triple Shot
-		- Fire three projectiles. One straight ahead and the other two at 45 degree angle.
+		- Fire three projectiles. One straight ahead and the other two at 45 degree angle. Gives shockclub melee player slight Area of Effect, and gives area of effect shockwave player 2 "light shockwave grenades" to the sides.
 	- Increase Range
-		- Adds electrical lightning to shockclub, and allows you to throw shockwave grenades rather than them originating from the player
+		- Adds electrical lightning to melee shockclub with slight range. And allows AoE players to throw shockwave grenades rather than the shockwaves originating from the player
 		- Increase Long Range DMG by 4
 		- Decrease short range DMG by 2
 	- Melee
@@ -78,7 +92,7 @@ There is the possibility of re-using these so called augmentations on enemies al
 
 - **Weapon Impact Augmentation**
 	- Explosives
-		- Adds AoE range to any weapon
+		- Adds AoE range to any weapon impact
 		- Reduces long/short range damage by 2
 	- Healing Properties
 		- Heals as much as long/short range dmg
@@ -88,6 +102,8 @@ There is the possibility of re-using these so called augmentations on enemies al
 		- Does 1 DMG if enemies walk into it
 		- Lasts 3 seconds
 		- Friendly bullets can penetrate shield
+		- Allies can penetrate shield
+		- AoE Shockwave player can create a shield around himself and his friends.
 
 - **Armor Augmentation**
 	- Spiked armor
@@ -97,44 +113,21 @@ There is the possibility of re-using these so called augmentations on enemies al
 	- Nano Healing Armor
 		- +2 Speed
 		- -2 Armor
-		- +1 HP to allies every 5 seconds
+		- +1 HP to yourself every 5 seconds
 	- Heavy armor
 		- +5 Armor
 		- -2 Speed
 
 ## Enemies
-- **Standard Worker** (10 skill points)
-	- Visuals
-		- Civilian looking
-		- Armed with a blunt object
-	- Attributes
-		- Type of Attack: Melee
-		- Long Range DMG: 0
-		- Short Range DMG: 1
-		- Armor: 4
-		- Speed: 5
-		
-- **Molotov Cocktail Worker** (13 skill points)
-	- Visuals
-		- Civilian looking
-		- Armed with a molotov cocktail (AoE)
-	- Attributes
-		- Type of Attack: AoE
-		- Long Range DMG: 3
-		- Short Range DMG: 0
-		- Armor: 5
-		- Speed: 4
 
-- **Security Guard Traitor** (15 skill points)
-	- Visuals
-		- Same base sprite as players but differently colored
-		- Armed with a pistol
-	- Attributes
-		- Type of Attack: Projectile
-		- Long Range DMG: 1
-		- Short Range DMG: 4
-		- Armor: 7
-		- Speed: 3
+**Standard Worker Robot**
+work in progress!
+
+**Turret Robot**
+work in progress!
+
+**Stormer**
+work in progress!
 
 ## Controls
 - WASD/Analog stick movement
