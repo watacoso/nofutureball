@@ -51,7 +51,6 @@ public class GameObject extends Animatable {
 			}
 		}
 		else{
-			//System.out.println(door.position);
 			if(!collisionBox.checkCollision(door)){
 				if(!onRoom())
 					room=door.rA!=room?door.rA:door.rB;		
@@ -128,7 +127,6 @@ public class GameObject extends Animatable {
 			}
 		}
 	}
-	
 	
 	@SuppressWarnings("unused")
 	private void handleCollision(){
