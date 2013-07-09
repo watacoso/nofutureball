@@ -89,7 +89,7 @@ public class Camera {
 		setZoom(getZoom() + (targetZoom - zoom) / (quotient * 2));
 	}
 	public void setZoom(float zoom){
-		System.out.println(zoom);
+		//System.out.println(zoom);
 		if(zoom <= 0) {
 			zoom = 0.00001f;
 			return;

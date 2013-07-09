@@ -11,8 +11,8 @@ public class NoFutureBall {
 
 	private static GameContainer gameContainer;
 
-	public final static int WIDTH = 640;
-	public final static int HEIGHT = 480;
+	public final static int WIDTH = 800;
+	public final static int HEIGHT = 600;
 	public final static int FPS = 60;
 
 	public static void main(String[] args) {

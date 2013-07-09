@@ -45,8 +45,8 @@ public class Game extends BasicGame {
 		ArrayList<Player> players = new ArrayList<Player>();
 		players.add(new Player(level.getStartRoom(),100, 40, KeySet.ONE));
 		players.add(new Player(level.getStartRoom(), 200, 40, KeySet.TWO));
-		//players.add(new Player(r2, 100, 100, KeySet.THREE));
-		//players.add(new Player(r3, 0, 100, KeySet.FOUR));
+		players.add(new Player(level.getStartRoom(), 100, 100, KeySet.THREE));
+		players.add(new Player(level.getStartRoom(), 300, 100, KeySet.FOUR));
 		startNewGame(players);
 		SoundManager.load();
 		SoundManager.mixedSound("Pickup");

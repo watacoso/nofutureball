@@ -8,7 +8,7 @@ public class GameObject extends Animatable {
 
 	public CollisionBox collisionBox;
 
-	public Room room;
+	public Room room,nextRoom;
 	public Door door;
 	private boolean transition=false;
 	
@@ -36,7 +36,7 @@ public class GameObject extends Animatable {
 	private void testLocation(){
 		
 		if(!transition){
-			if(!onRoom()){
+			if(!onRoom(room)){
 				for(int i=0;i<room.doors.size();i++){
 					Door d=room.doors.get(i);
 					if(collisionBox.checkCollision(d)){
@@ -52,8 +52,11 @@ public class GameObject extends Animatable {
 		}
 		else{
 			if(!collisionBox.checkCollision(door)){
-				if(!onRoom())
-					room=door.rA!=room?door.rA:door.rB;		
+				if(!onRoom(room)){
+					nextRoom=door.rA!=room?door.rA:door.rB;
+					if(onRoom(nextRoom))
+						room=nextRoom;
+				}
 				door=null;
 				transition=false;
 				System.out.println(transition);
@@ -62,7 +65,7 @@ public class GameObject extends Animatable {
 		}
 	}
 
-	private boolean onRoom() {
+	private boolean onRoom(Room room) {
 		if (collisionBox.position.x < room.position.x)
 			return false;
 		if (collisionBox.position.y < room.position.y)
