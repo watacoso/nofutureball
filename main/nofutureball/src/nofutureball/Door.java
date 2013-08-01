@@ -1,4 +1,7 @@
 package nofutureball;
+
+import org.newdawn.slick.Color;
+
 public class Door extends Entity{
 
 	public Room rA,rB;
@@ -31,6 +34,9 @@ public class Door extends Entity{
 			size.y = width*Room.tileHeight;
 			size.x = Room.wallSpessor;
 		}
+		
+		pivot.x=size.x/2;
+		pivot.y=size.y/2;
 		this.side=side;
 	}
 	
@@ -51,9 +57,10 @@ public class Door extends Entity{
 		}
 	}
 	
+
 	public void render(Camera cam){
-		
-	}
+		super.render(cam);
+	}	
 
 }
 	

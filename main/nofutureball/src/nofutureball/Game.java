@@ -43,10 +43,13 @@ public class Game extends BasicGame {
 		AnimationSource.init();
 		NoFutureBall.setGameContainer(gc);
 		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player(level.getStartRoom(),100, 40, KeySet.ONE));
-		players.add(new Player(level.getStartRoom(), 200, 40, KeySet.TWO));
-		players.add(new Player(level.getStartRoom(), 100, 100, KeySet.THREE));
-		players.add(new Player(level.getStartRoom(), 300, 100, KeySet.FOUR));
+		//players.add(new Player(level.getStartRoom(),100, 40, KeySet.ONE));
+		Player p=new Player(level.getStartRoom(), 200, 40, KeySet.TWO);
+		Enemy e=new Enemy(level.getStartRoom(), 200, 200,p);
+		players.add(p);
+		entities.add(e);
+		//players.add(new Player(level.getStartRoom(), 100, 100, KeySet.THREE));
+		//players.add(new Player(level.getStartRoom(), 300, 100, KeySet.FOUR));
 		startNewGame(players);
 		SoundManager.load();
 		SoundManager.mixedSound("Pickup");
@@ -72,5 +75,8 @@ public class Game extends BasicGame {
 		gameContainer.render(cam);
 		cam.update();
 	}
+	
+	
+
 
 }

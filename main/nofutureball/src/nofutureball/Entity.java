@@ -1,5 +1,6 @@
 package nofutureball;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -21,7 +22,7 @@ public abstract class Entity implements Comparable<Entity> {
 	public Entity(float x, float y, float width, float height) {
 		position = new Vector2f(x, y);
 		size = new Vector2f(width, height);
-		pivot = new Vector2f(0, 0);
+		pivot = new Vector2f(width/2, height/2);
 	}
 
 	public Entity(float x, float y, float width, float height, float pivotX, float pivotY) {
@@ -42,7 +43,10 @@ public abstract class Entity implements Comparable<Entity> {
 	
 	public void render(Camera cam) {
 		Vector2f screenPos = getScreenPos(cam);
+		g.setColor(Color.white);
 		g.drawRect(screenPos.x, screenPos.y, getScaledWidth(cam), getScaledHeight(cam));
+		g.setColor(Color.blue);
+		g.fillRect(screenPos.x+pivot.x-2, screenPos.y+pivot.y-2, 4, 4);
 	}
 	/*public void render(Vector2f screenPosThatsAlreadyBeenDerivedFromCam, float zoom)
 	{
@@ -107,5 +111,18 @@ public abstract class Entity implements Comparable<Entity> {
 		if(pos1.y>=pos2.y)
 			return "top";
 		return "bottom";
+	}
+	
+	
+	public static float getDistance(Entity A,Entity B){
+		float X=B.position.x+B.pivot.x-A.position.x-A.pivot.x;
+		float Y=B.position.y+B.pivot.y-A.position.y-A.pivot.y;
+		return (float) Math.sqrt(X*X+Y*Y);
+	}
+	public static Vector2f getDirectionVector(Entity A,Entity B){
+		float X=B.position.x+B.pivot.x-A.position.x-A.pivot.x;
+		float Y=B.position.y+B.pivot.y-A.position.y-A.pivot.y;
+		float l=(float) Math.sqrt(X*X+Y*Y);
+		return new Vector2f(X/l,Y/l);
 	}
 }

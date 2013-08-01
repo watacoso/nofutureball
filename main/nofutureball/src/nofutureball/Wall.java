@@ -34,6 +34,8 @@ public class Wall extends Entity {
 				size.x = padding;
 				break;
 		}
+		pivot.x=size.x/2;
+		pivot.y=size.y/2;
 		this.room=room;
 		room.walls.add(this);
 		g = new Graphics();
