@@ -7,7 +7,7 @@ public class Level {
 	public Room startRoom;
 	private Container entities,map;
 	
-	public int nRooms=50;
+	public int nRooms=20;
 	
 	public Level(Container entities,Container map){
 		this.map=map;

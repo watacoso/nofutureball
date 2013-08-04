@@ -23,12 +23,13 @@ public abstract class Animatable extends Entity {
 	public void render(Camera cam)
 	{
 		Vector2f screenPos = getScreenPos(cam);
-		super.render(cam);
+		
 		if (animations != null) {
 			animations.getCurrentlyPlaying().draw(screenPos.x, screenPos.y, getScaledWidth(cam), getScaledHeight(cam));
 		} else {
 			System.out.println("ERRRROOOOR: You have to override the animations property in subclasses!");
 		}
+		super.render(cam);
 	}
 	
 	  //////////////////YY\\\\\\\\\\\\\\\\\\
@@ -42,8 +43,9 @@ public abstract class Animatable extends Entity {
 	// assets/, remember to update this:
 
 	public static enum SUBCLASS implements StringEnum {
-		PLAYER("PLAYER", 30, 63);
-
+		PLAYER("PLAYER", 30, 63),
+		ENEMY("ENEMY", 30, 63);
+		
 		SUBCLASS(String str, int gridWidth, int gridHeight) {
 			this.str = str;
 			this.gridWidth = gridWidth;
