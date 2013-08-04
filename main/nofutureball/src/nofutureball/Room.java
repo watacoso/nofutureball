@@ -82,7 +82,7 @@ public class Room extends Entity {
 				/* The commented out line would draw with a cached scaled floor (= more efficient) but it seems to leave
 				 * gaps between the tiles frequently. This should be fixed. */
 
-				scaledFloorTile.draw((int)(screenPos.x + x - 1),  (int)(screenPos.y + y - 1));
+				//scaledFloorTile.draw((int)(screenPos.x + x - 1),  (int)(screenPos.y + y - 1));
 
 				//floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
 			}

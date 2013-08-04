@@ -17,14 +17,15 @@ public class GameObject extends Animatable {
 				width / 2, height / 2);
 		this.room = room;
 		
-		collisionBox=new CollisionBox(this.position.x,this.position.y+this.size.y/2,this.size.x,this.size.y/2);
+		collisionBox = new CollisionBox(this.position.x,this.position.y+this.size.y/2,this.size.x,this.size.y/2);
 		//System.out.println(position.y-room.position.y+collisionBox.position.x);
 		speed = new Vector2f(0, 0);
 
 		// TODO Auto-generated constructor stub
 	}
 
-	public void update() {
+	@Override
+	public void update(Game game) {
 		collisionTest();
 		testLocation();
 		position.x += speed.x;
