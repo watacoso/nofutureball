@@ -43,13 +43,20 @@ public class Game extends BasicGame {
 		AnimationSource.init();
 		NoFutureBall.setGameContainer(gc);
 		ArrayList<Player> players = new ArrayList<Player>();
+/*<<<<<<< HEAD
+		players.add(new Sharpshooter(level.getStartRoom(),100, 40, KeySet.ONE));
+		players.add(new Sharpshooter(level.getStartRoom(), 200, 40, KeySet.TWO));
+		players.add(new Sharpshooter(level.getStartRoom(), 100, 100, KeySet.THREE));
+		players.add(new Sharpshooter(level.getStartRoom(), 300, 100, KeySet.FOUR));
+//=======*/
 		//players.add(new Player(level.getStartRoom(),100, 40, KeySet.ONE));
-		Player p=new Player(level.getStartRoom(), 200, 40, KeySet.TWO);
-		Enemy e=new Enemy(level.getStartRoom(), 200, 200,p);
+		Player p = new Sharpshooter(level.getStartRoom(),100, 40, KeySet.ONE);
+		Enemy e = new Enemy(level.getStartRoom(), 200, 200,p);
 		players.add(p);
 		entities.add(e);
 		//players.add(new Player(level.getStartRoom(), 100, 100, KeySet.THREE));
 		//players.add(new Player(level.getStartRoom(), 300, 100, KeySet.FOUR));
+//>>>>>>> 37c22be8dd0f367ae9b8b9ff633bf573634299aa*/
 		startNewGame(players);
 		SoundManager.load();
 		SoundManager.mixedSound("Pickup");
@@ -61,10 +68,11 @@ public class Game extends BasicGame {
 			cam.addTarget(player);
 		}
 	}
+	
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		gameContainer.update();
+		gameContainer.update(this);
 		cam.update();
 		Debugging.update();
 	}

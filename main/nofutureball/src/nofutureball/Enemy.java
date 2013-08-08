@@ -43,7 +43,7 @@ public class Enemy extends GameObject {
 		steering=getDirectionVector(target);
 	}
 
-	public void update() {
+	public void update(Game game) {
 		
 		if(targetRoom!=target.room && target!=null){
 			if(room==target.room)
@@ -155,7 +155,8 @@ public class Enemy extends GameObject {
 			animations.setAnimation(Facing.RIGHT);
 
 		Entity.truncate(speed.add(steering),maxSpeed);
-		super.update();
+		super.update(game);
+
 	}
 		
 	private ArrayList<Door> getPathFrom(Room room,Door door){

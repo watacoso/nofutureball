@@ -33,7 +33,7 @@ public abstract class Entity implements Comparable<Entity> {
 
 	// update()
 	
-	public void update() {
+	public void update(Game game) {
 
 	}
 

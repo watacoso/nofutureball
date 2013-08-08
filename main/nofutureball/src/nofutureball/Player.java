@@ -7,8 +7,11 @@ import org.newdawn.slick.geom.Vector2f;
 
 import com.google.gson.internal.LinkedTreeMap;
 
-public class Player extends GameObject {
+public abstract class Player extends GameObject {
 
+	public Weapon weapon;
+	
+	
 	private float maxSpeed = 10;
 
 	public static LinkedTreeMap<String, ?> STATS = PropsBuilder
@@ -28,8 +31,9 @@ public class Player extends GameObject {
 		animations = AnimationSet
 				.createAnimationSet(Animatable.SUBCLASS.PLAYER);
 	}
-
-	public void update() {
+	
+	@Override
+	public void update(Game game) {
 		Input input = NoFutureBall.getGameContainer().getInput();
 
 		Point direction = new Point(0, 0);
@@ -59,7 +63,7 @@ public class Player extends GameObject {
 			animations.setAnimation(Facing.RIGHT);
 		}
 
-		super.update();
+		super.update(game);
 	}
 
 }
