@@ -29,7 +29,7 @@ public abstract class Animatable extends Entity {
 		} else {
 			System.out.println("ERRRROOOOR: You have to override the animations property in subclasses!");
 		}
-		super.render(cam);
+		//super.render(cam);
 	}
 	
 	  //////////////////YY\\\\\\\\\\\\\\\\\\

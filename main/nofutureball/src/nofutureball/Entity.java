@@ -114,15 +114,12 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 	
 	
-	public static float getDistance(Entity A,Entity B){
-		float X=B.position.x+B.pivot.x-A.position.x-A.pivot.x;
-		float Y=B.position.y+B.pivot.y-A.position.y-A.pivot.y;
-		return (float) Math.sqrt(X*X+Y*Y);
-	}
-	public static Vector2f getDirectionVector(Entity A,Entity B){
-		float X=B.position.x+B.pivot.x-A.position.x-A.pivot.x;
-		float Y=B.position.y+B.pivot.y-A.position.y-A.pivot.y;
-		float l=(float) Math.sqrt(X*X+Y*Y);
-		return new Vector2f(X/l,Y/l);
+	
+	
+
+	
+	public static void truncate(Vector2f A,float B){
+		if(A.length()>B)
+		 A.normalise().scale(B);
 	}
 }

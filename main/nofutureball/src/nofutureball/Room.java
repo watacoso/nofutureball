@@ -24,7 +24,7 @@ public class Room extends Entity {
 	public int numActors;
 	
 	public Room(float x, float y, int width, int height) {
-		super(x, y, width * tileWidth, height * tileHeight);
+		super(x, y, width * tileWidth, height * tileHeight,width * tileWidth/2,height * tileHeight/2);
 		this.width = width;
 		this.height = height;
 		try {

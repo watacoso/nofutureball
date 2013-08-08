@@ -30,7 +30,7 @@ public class Wall extends Entity {
 				break;
 			case 2:
 				position.y+=Room.wallSpessor;
-				size.y = length;
+				size.y = length+padding;
 				size.x = padding;
 				break;
 		}
@@ -65,6 +65,7 @@ public class Wall extends Entity {
 				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding * 2);
 				break;
 		}
+		super.render(camera);
 	}
 
 }

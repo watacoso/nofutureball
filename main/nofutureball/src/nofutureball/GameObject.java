@@ -148,6 +148,25 @@ public class GameObject extends Animatable {
 	}
 	
 
+	public  float getDistance(Entity B){
+		float X=B.position.x+B.pivot.x-collisionBox.position.x-collisionBox.pivot.x;
+		float Y=B.position.y+B.pivot.y-collisionBox.position.y-collisionBox.pivot.y;
+		return (float) Math.sqrt(X*X+Y*Y);
+	}
+	public  Vector2f getDirectionVector(Entity B){
+		float X=B.position.x+B.pivot.x-collisionBox.position.x-collisionBox.pivot.x;
+		float Y=B.position.y+B.pivot.y-collisionBox.position.y-collisionBox.pivot.y;
+		float l=(float) Math.sqrt(X*X+Y*Y);
+		return new Vector2f(X/l,Y/l);
+	}
+	
+	public  Vector2f getDirectionVector(float x,float y){
+		float X=x-collisionBox.position.x-collisionBox.pivot.x;
+		float Y=y-collisionBox.position.y-collisionBox.pivot.y;
+		float l=(float) Math.sqrt(X*X+Y*Y);
+		return new Vector2f(X/l,Y/l);
+	}
+	
 	
 	
 	class CollisionBox extends Entity{
