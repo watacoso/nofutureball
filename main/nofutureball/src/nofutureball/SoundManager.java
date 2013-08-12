@@ -20,7 +20,7 @@ public class SoundManager {
 	public static void playSoundEffect(String key) {
 
 		AudioInfo a = ac.sounds.get(key);
-		System.out.println("assets/sounds/" + a.href);
+		//System.out.println("assets/sounds/" + a.href);
 		try {
 			Sound s = new Sound("assets/sounds/" + a.href);
 			if (a.loop)

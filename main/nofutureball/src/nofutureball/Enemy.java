@@ -8,15 +8,15 @@ import org.newdawn.slick.geom.Vector2f;
 
 import com.google.gson.internal.LinkedTreeMap;
 
-public class Enemy extends GameObject {
+public class Enemy extends GameObject implements Actor{
 
-	private float maxSpeed = 4f;
+	
 	private float maxForce = 0.2f;
 	private Player target;
 	private Vector2f direction=new Vector2f(0,0);
 	private Vector2f steering=new Vector2f(0,0);
 	private Vector2f torque=new Vector2f(0,0);
-
+	
 	private ArrayList<Door> path;
 	private int pathIndex;
 	private Room targetRoom=null;
@@ -26,21 +26,32 @@ public class Enemy extends GameObject {
 	private boolean roomTravel=false;
 	private boolean onDoor=false;
 	
-	
-	public static LinkedTreeMap<String, ?> STATS = PropsBuilder
-			.loadProp("player.json");
+	public String action="IDLE";
+	public String facing="LEFT";
+	public float health;
 
 	public Enemy(Room room, float x, float y) {
-		super(room, x, y, 30, 63);
-		animations = AnimationSet.createAnimationSet(Animatable.SUBCLASS.ENEMY);
+		super(room, x, y, 30, 63,true);
+		//animations = AnimationSet.createAnimationSet(Animatable.SUBCLASS.ENEMY);
+		
+		defineStats();
 		
 	}
 	
 	public Enemy(Room room, float x, float y,Player target) {
-		super(room, x, y, 30, 63);
-		animations = AnimationSet.createAnimationSet(Animatable.SUBCLASS.ENEMY);
+		super(room, x, y, 30, 63,true);
+		//animations = AnimationSet.createAnimationSet(Animatable.SUBCLASS.ENEMY);
 		this.target=target;
 		steering=getDirectionVector(target);
+		
+		defineStats();
+	}
+	
+	private void defineStats(){
+		maxSpeed=5;
+		maxHealth=100;
+		armor=1;
+		health=maxHealth;
 	}
 
 	public void update(Game game) {
@@ -63,7 +74,7 @@ public class Enemy extends GameObject {
 					
 					pathIndex=0;
 					roomTravel=nextRoom();
-					//System.out.println("roomTravel = "+roomTravel);
+
 				}
 			}
 		}
@@ -92,19 +103,19 @@ public class Enemy extends GameObject {
 					else
 						steering=getDirectionVector(position.x+pivot.x,stepDoor.position.y+stepDoor.pivot.y-100);
 				}
-				//direction=getDirectionVector(stepRoom);
+				
 				onDoor=true;
 			}
 			if(stepRoom==room){
 				roomTravel=nextRoom();
 				onDoor=false;
-				//System.out.println("roomTravel = "+roomTravel);
+			
 			}
 		}
 		else
 		if(target!=null){
 			//SUBSTITUTE WITH Local movement AI 
-			//if(torque.length()==0)
+			
 			steering=getDirectionVector(target).scale(maxForce);
 			//SUBSTITUTE WITH Local movement AI 
 		}
@@ -138,22 +149,17 @@ public class Enemy extends GameObject {
 		}*/
 		
 		if(speed.length()>=1){
-			animations.setAnimation(Animatable.STATE.WALKING);
-			//Vector2f Q=new Vector2f(position.x+pivot.x+direction.x*100,position.y+pivot.y+direction.y*100);
-			
-			//System.out.println(room.walls.size());
-			//for(int i=0;i<room.walls.size();i++)
-			//	if(pointInsideBox(Q,room.walls.get(i))){
-			//		avoidTorque(Q,room.walls.get(i));
-			//	}
+			action="WALKING";
 		}
 		else
-			animations.setAnimation(Animatable.STATE.IDLE);
+			action="IDLE";
 		if(direction.x<=0)
-			animations.setAnimation(Facing.LEFT);
+			facing="LEFT";
 		else
-			animations.setAnimation(Facing.RIGHT);
+			facing="RIGHT";
 
+		setAnimation("ENEMY",action+"_"+facing);
+		
 		Entity.truncate(speed.add(steering),maxSpeed);
 		super.update(game);
 
@@ -171,7 +177,6 @@ public class Enemy extends GameObject {
 			r=getDoorDestination(room,d);
 			if(r==target.room){
 				path.add(d);
-				//System.out.println("DOOR: "+d.side);
 				return path;
 			}
 		}
@@ -260,12 +265,57 @@ public class Enemy extends GameObject {
 		
 	}
 	
+	protected void handleObjectCollision(GameObject object,String direction){
+		if(object instanceof Player)
+		switch (direction){
+		case "left":
+			speed.x=Math.abs(speed.x)/2;
+			break;
+		case "right":
+			speed.x=-Math.abs(speed.x)/2;
+			break;
+		case "top":
+			speed.y=Math.abs(speed.y)/2;
+			break;
+		case "bottom":
+			speed.y=-Math.abs(speed.y)/2;
+			break;
+		}
+		if(object instanceof Bullet){
+			SoundManager.mixedSound("enemyDamage");
+			float k=object.knockback;
+			
+			switch (direction){
+			case "left":
+				speed.x=k;
+				break;
+			case "right":
+				speed.x=-k;
+				break;
+			case "top":
+				speed.y=k;
+				break;
+			case "bottom":
+				speed.y=-k;
+				break;
+			}
+			
+			health-=object.damage/armor;
+			
+			if(health<0)
+				die();
+			
+			object.die();
+		}
+	}
+	
 	
 	//DEBUG
 	
 	public void render(Camera cam)
 	{
 		super.render(cam);
+		/*
 		Vector2f screenPos = getScreenPos(cam);
 		Graphics g=new Graphics();
 		g.setLineWidth(1);
@@ -291,7 +341,19 @@ public class Enemy extends GameObject {
 		g.setColor(Color.yellow);
 		if(torque.length()>0)
 			g.drawLine(screenPos.x+size.x/2,screenPos.y+size.y*3/4,screenPos.x+size.x/2+ torque.x/torque.length()*15,screenPos.y+size.y*3/4+ torque.y/torque.length()*15);
+		*/
 		
+	}
+
+	@Override
+	public void execActive(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void execPassive(int index) {
+		// TODO Auto-generated method stub
 		
 	}
 	

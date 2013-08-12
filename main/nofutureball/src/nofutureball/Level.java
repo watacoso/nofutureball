@@ -12,7 +12,7 @@ public class Level {
 	public Level(Container entities,Container map){
 		this.map=map;
 		this.entities=entities;
-		startRoom=new Room(0,-120, 6, 20);
+		startRoom=new Room(0,0, 6, 20);
 		map.add(startRoom);
 	}
 	

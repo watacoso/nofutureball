@@ -43,7 +43,7 @@ public class Wall extends Entity {
 	}
 
 	public void render(Camera camera) {
-		
+		if(!room.visited) return;
 		Vector2f screenPos = getScreenPos(camera);
 		// _ means scaled, ok?
 		float _padding =padding * camera.getZoom();
@@ -65,7 +65,7 @@ public class Wall extends Entity {
 				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding * 2);
 				break;
 		}
-		super.render(camera);
+		//super.render(camera);
 	}
 
 }

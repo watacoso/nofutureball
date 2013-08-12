@@ -11,7 +11,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Room extends Entity {
 
-	public Boolean occupied;
+	
 	public ArrayList<Door> doors;
 	public ArrayList<Wall> walls;
 	private Graphics g = new Graphics();
@@ -21,6 +21,7 @@ public class Room extends Entity {
 	public static int tileWidth=60;
 	public static int tileHeight=30;
 	
+	public boolean visited=false;
 	public int numActors;
 	
 	public Room(float x, float y, int width, int height) {
@@ -57,11 +58,18 @@ public class Room extends Entity {
 	/** Number of tiles on the y-axis */
 	private int height = 0;
 
-	public void update() {
-
+	public void update(Game game) {
+		if(!visited)
+			if(numActors>0)
+				visited=true;
 	}
 
 	public void render(Camera cam) {
+		
+		
+		if(!visited) return;
+		
+		
 		Vector2f screenPos = getScreenPos(cam);
 		
 		
@@ -82,17 +90,17 @@ public class Room extends Entity {
 			g.setColor(Color.decode("#565C76"));
 		g.fillRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
 
-		/*for (float y = 0, i = 0; i < height; y += floorHeight, i ++) {
+		for (float y = 0, i = 0; i < height; y += floorHeight, i ++) {
 			for (float x = 0, j = 0; j < width; x += floorWidth, j ++) {
 				
 				// The commented out line would draw with a cached scaled floor (= more efficient) but it seems to leave
 				// gaps between the tiles frequently. This should be fixed. 
 
-				//scaledFloorTile.draw((int)(screenPos.x + x - 1),  (int)(screenPos.y + y - 1));
+				scaledFloorTile.draw((int)(screenPos.x + x - 1),  (int)(screenPos.y + y - 1));
 
 				//floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
 			}
-		}*/
+		}
 		
 
 	}

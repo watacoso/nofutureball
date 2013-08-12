@@ -26,16 +26,15 @@ public class Game extends BasicGame {
 		entities = new Container();
 		mapContainer = new Container();
 		ui = new Container();
-		
 		gameContainer.add(mapContainer);
 		gameContainer.add(entities);	
-		
+		gameContainer.add(ui);
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
-
+		ObjectAnimationList.init();
 		level=new Level(entities,mapContainer);
 		level.generateMap();
 		cam = new Camera(gameContainer);
@@ -43,20 +42,21 @@ public class Game extends BasicGame {
 		AnimationSource.init();
 		NoFutureBall.setGameContainer(gc);
 		ArrayList<Player> players = new ArrayList<Player>();
-/*<<<<<<< HEAD
-		players.add(new Sharpshooter(level.getStartRoom(),100, 40, KeySet.ONE));
-		players.add(new Sharpshooter(level.getStartRoom(), 200, 40, KeySet.TWO));
-		players.add(new Sharpshooter(level.getStartRoom(), 100, 100, KeySet.THREE));
-		players.add(new Sharpshooter(level.getStartRoom(), 300, 100, KeySet.FOUR));
-//=======*/
-		//players.add(new Player(level.getStartRoom(),100, 40, KeySet.ONE));
-		Player p = new Sharpshooter(level.getStartRoom(),100, 40, KeySet.ONE);
-		Enemy e = new Enemy(level.getStartRoom(), 200, 200,p);
-		players.add(p);
+
+		Player p1 = new Sharpshooter(level.getStartRoom(),100, 40, KeySet.ONE);
+		players.add(p1);
+		
+		Enemy e = new Enemy(level.getStartRoom(), 200, 200,p1);
+		Enemy e2 = new Enemy(level.getStartRoom(), 220, 230,p1);
+		Enemy e3 = new Enemy(level.getStartRoom(), 230, 220,p1);
+		Enemy e4 = new Enemy(level.getStartRoom(), 200, 240,p1);
+		Enemy e5 = new Enemy(level.getStartRoom(), 200, 250,p1);
+		
 		entities.add(e);
-		//players.add(new Player(level.getStartRoom(), 100, 100, KeySet.THREE));
-		//players.add(new Player(level.getStartRoom(), 300, 100, KeySet.FOUR));
-//>>>>>>> 37c22be8dd0f367ae9b8b9ff633bf573634299aa*/
+		entities.add(e2);
+		entities.add(e3);
+		entities.add(e4);
+		entities.add(e5);
 		startNewGame(players);
 		SoundManager.load();
 		SoundManager.mixedSound("Pickup");

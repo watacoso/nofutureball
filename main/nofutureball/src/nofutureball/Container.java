@@ -26,6 +26,10 @@ public class Container extends Entity {
 		element.parent = this;
 		list.add(element);
 	}
+	
+	public void remove(Entity element) {
+		list.remove(element);
+	}
 
 	public Entity get(int index) {
 		return list.get(index);

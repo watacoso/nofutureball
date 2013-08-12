@@ -2,21 +2,33 @@ package nofutureball;
 
 import org.newdawn.slick.geom.Vector2f;
 
-public class GameObject extends Animatable {
+public class GameObject extends ObjectAnimationList {
 
 	public Vector2f speed;
-
 	public CollisionBox collisionBox;
-
 	public Room room,nextRoom;
 	public Door door;
 	private boolean transition=false;
+	private boolean countMe;
 	
-	public GameObject(Room room, float x, float y, float width, float height) {
+	public int maxHealth,
+	damage,
+	armor,
+	maxSpeed,
+	regen,
+	attackSpeed,
+	range,
+	knockback;
+	
+	
+	public GameObject(Room room, float x, float y, float width, float height,boolean countMe) {
 		super(x + room.position.x, y + room.position.y, width, height,
 				width / 2, height / 2);
+		
+		this.countMe=countMe;
 		this.room = room;
-		this.room.numActors++;
+		if(countMe)
+			this.room.numActors++;
 		
 		collisionBox = new CollisionBox(this.position.x,this.position.y+this.size.y/2,this.size.x,this.size.y/2);
 		//System.out.println(position.y-room.position.y+collisionBox.position.x);
@@ -24,6 +36,8 @@ public class GameObject extends Animatable {
 
 		// TODO Auto-generated constructor stub
 	}
+	
+
 
 	@Override
 	public void update(Game game) {
@@ -59,8 +73,10 @@ public class GameObject extends Animatable {
 					nextRoom=door.rA!=room?door.rA:door.rB;
 					if(onRoom(nextRoom)){
 						//System.out.println("into new Room "+nextRoom);
+						if(countMe)
 						room.numActors--;
 						room=nextRoom;
+						if(countMe)
 						room.numActors++;
 					}
 				}
@@ -87,7 +103,6 @@ public class GameObject extends Animatable {
 		return true;
 	}
 	
-
 	private void collisionTest() {
 		
 		Wall w;
@@ -113,7 +128,7 @@ public class GameObject extends Animatable {
 		}
 	}
 	
-	private void handleWallCollision(Wall wall,String direction){
+	protected void handleWallCollision(Wall wall,String direction){
 		switch (direction){
 		case "left":
 			speed.x=Math.abs(speed.x)/2;
@@ -130,7 +145,7 @@ public class GameObject extends Animatable {
 		}
 	}
 	
-	private void handleObjectCollision(GameObject object,String direction){
+	protected void handleObjectCollision(GameObject object,String direction){
 		if(object instanceof Player)
 		switch (direction){
 		case "left":
@@ -148,12 +163,12 @@ public class GameObject extends Animatable {
 		}
 	}
 	
-
 	public  float getDistance(Entity B){
 		float X=B.position.x+B.pivot.x-collisionBox.position.x-collisionBox.pivot.x;
 		float Y=B.position.y+B.pivot.y-collisionBox.position.y-collisionBox.pivot.y;
 		return (float) Math.sqrt(X*X+Y*Y);
 	}
+	
 	public  Vector2f getDirectionVector(Entity B){
 		float X=B.position.x+B.pivot.x-collisionBox.position.x-collisionBox.pivot.x;
 		float Y=B.position.y+B.pivot.y-collisionBox.position.y-collisionBox.pivot.y;
@@ -168,8 +183,12 @@ public class GameObject extends Animatable {
 		return new Vector2f(X/l,Y/l);
 	}
 	
-	
-	
+	public void die(){
+		if(countMe)
+			room.numActors--;
+		parent.remove(this);
+	}
+		
 	class CollisionBox extends Entity{
 
 		public CollisionBox(float x, float y, float width, float height) {

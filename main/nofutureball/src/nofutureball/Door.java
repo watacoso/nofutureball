@@ -1,6 +1,5 @@
 package nofutureball;
 
-import org.newdawn.slick.Color;
 
 public class Door extends Entity{
 
@@ -59,7 +58,7 @@ public class Door extends Entity{
 	
 
 	public void render(Camera cam){
-		super.render(cam);
+	//	super.render(cam);
 	}	
 
 }

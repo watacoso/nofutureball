@@ -9,6 +9,7 @@ public abstract class Entity implements Comparable<Entity> {
 	public Vector2f position;
 	public Vector2f pivot;
 	public Vector2f size;
+	public boolean dead=false;
 
 	public Container parent = null;
 	private Graphics g = new Graphics();

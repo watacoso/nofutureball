@@ -6,4 +6,16 @@ public class Meele extends Player {
 		super(room, x, y, keySet);
 	}
 
+	@Override
+	public void execActive(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void execPassive(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

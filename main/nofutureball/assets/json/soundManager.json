@@ -1,17 +1,20 @@
 {
 	sounds:{
-			"Pickup01":{href:"PlayerPickup01.ogg",volume:0.2,pitch:1,loop:false},
-			"Pickup02":{href:"PlayerPickup02.ogg",volume:0.2,pitch:1,loop:false},
-			"Pickup03":{href:"PlayerPickup03.ogg",volume:0.2,pitch:1,loop:false},
-			sound4:{href:"fileName",volume:100,pitch:50,loop:false},
-			sound5:{href:"fileName",volume:100,pitch:50,loop:false},
-			sound6:{href:"fileName",volume: 12,pitch:50,loop:false},
-			sound7:{href:"fileName",volume:100,pitch:50, loop:true},
-			soundA:{href:"fileName",volume:100,pitch:50,loop:false},
-			soundV:{href:"fileName",volume:100,pitch:50,loop:false},
-			soundC:{href:"fileName",volume: 70,pitch:50, loop:true},
-			soundW:{href:"fileName",volume:100,pitch:50,loop:false},
-			soundE:{href:"fileName",volume:100,pitch:50,loop:false}
+			"PlayerPickup01":{href:"PlayerPickup01.ogg",volume:0.2,pitch:1,loop:false},
+			"PlayerPickup02":{href:"PlayerPickup02.ogg",volume:0.2,pitch:1,loop:false},
+			"PlayerPickup03":{href:"PlayerPickup03.ogg",volume:0.2,pitch:1,loop:false},
+			"PlayerRifleShot01":{href:"PlayerRifleShot01.ogg",volume:0.5,pitch:0.7,loop:false},
+			"PlayerRifleShot02":{href:"PlayerRifleShot02.ogg",volume:0.5,pitch:0.7,loop:false},
+			"PlayerRifleShot03":{href:"PlayerRifleShot03.ogg",volume:0.5,pitch:0.7,loop:false},
+			"EnemyDamageInflicted01":{href:"EnemyDamageInflicted01.ogg",volume:0.5,pitch:0.7,loop:false},
+			"EnemyDamageInflicted02":{href:"EnemyDamageInflicted02.ogg",volume:0.5,pitch:0.7,loop:false},
+			"EnemyDamageInflicted03":{href:"EnemyDamageInflicted03.ogg",volume:0.5,pitch:0.7,loop:false},
+			"AugmentationExplosion01":{href:"AugmentationExplosion01.ogg",volume:0.5,pitch:0.7,loop:false},
+			"AugmentationExplosion02":{href:"AugmentationExplosion02.ogg",volume:0.5,pitch:0.7,loop:false},
+			"AugmentationExplosion03":{href:"AugmentationExplosion03.ogg",volume:0.5,pitch:0.7,loop:false},
+			"PlayerShockwave01":{href:"PlayerShockwave01.ogg",volume:0.5,pitch:0.7,loop:false},
+			"PlayerShockwave02":{href:"PlayerShockwave02.ogg",volume:0.5,pitch:0.7,loop:false},
+			"PlayerShockwave03":{href:"PlayerShockwave03.ogg",volume:0.5,pitch:0.7,loop:false}
 		},
 	music:{
 		main:{href:"music01.ogg",volume:100,pitch:50,loop:false},
@@ -20,8 +23,11 @@
 	},
 
 	mixedEffects:{
-		Pickup:["Pickup01","Pickup02","Pickup03"],
-		shoot:["sound2","sound4","soundC","soundW"]
+		Pickup:["PlayerPickup01","PlayerPickup02","PlayerPickup03"],
+		shot:["PlayerRifleShot01","PlayerRifleShot02","PlayerRifleShot03"],
+		enemyDamage:["EnemyDamageInflicted01","EnemyDamageInflicted02","EnemyDamageInflicted03"],
+		explosion:["AugmentationExplosion01","AugmentationExplosion02","AugmentationExplosion03"],
+		shockwave:["PlayerShockwave01","PlayerShockwave02","PlayerShockwave03"]
 		},
 
 	extendedEffects:{

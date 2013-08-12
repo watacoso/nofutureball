@@ -1,0 +1,14 @@
+{
+	maxHealth:15,
+	damage:20,
+	armor:5,
+	speed:2,
+	regen:0,
+	attackSpeed:5,
+	bulletSpeed:10,
+	range:10,
+	knockback:0,
+	bulletSize:3,
+	weapon:'rifle',
+	description:'Exploiting plasma enclosure, the suit is able to produce concentrated energy bullets, able to perforate almost any kind of metal'
+}

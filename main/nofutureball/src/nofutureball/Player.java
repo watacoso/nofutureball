@@ -1,42 +1,51 @@
 package nofutureball;
 
-import java.awt.Point;
-
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
-import com.google.gson.internal.LinkedTreeMap;
-
-public abstract class Player extends GameObject {
+public abstract class Player extends GameObject implements Actor{
 
 	public Weapon weapon;
 	
 	
 	private float maxSpeed = 10;
+	public Vector2f direction,lastDirection;
+	
+	
+	public Augmentation passive, active; 
+	
 
-	public static LinkedTreeMap<String, ?> STATS = PropsBuilder
-			.loadProp("player.json");
+	public String action="IDLE";
+	public String facing="LEFT";
+	public float health=maxHealth;
+
 
 	public Player(Room room, float x, float y, KeySet keySet) {
-		super(room, x, y, 30, 63);
+		super(room, x, y, 30, 63,true);
 		this.keySet = keySet;
-		animations = AnimationSet
-				.createAnimationSet(Animatable.SUBCLASS.PLAYER);
+		//animations = AnimationSet
+		//		.createAnimationSet(Animatable.SUBCLASS.PLAYER);
+		
+		direction = new Vector2f(0, 0);
+		lastDirection = new Vector2f(-1, 0);
 	}
 
-	private KeySet keySet = KeySet.ONE;
+	protected KeySet keySet = KeySet.ONE;
 
 	public Player(Room room, float x, float y) {
-		super(room, x, y, 30, 63);
-		animations = AnimationSet
-				.createAnimationSet(Animatable.SUBCLASS.PLAYER);
+		super(room, x, y, 30, 63,true);
+		//animations = AnimationSet
+		//		.createAnimationSet(Animatable.SUBCLASS.PLAYER);
+		
+		direction = new Vector2f(0, 0);
+		lastDirection = new Vector2f(-1, 0);
 	}
 	
 	@Override
 	public void update(Game game) {
 		Input input = NoFutureBall.getGameContainer().getInput();
 
-		Point direction = new Point(0, 0);
+		
 		Vector2f goalSpeed = new Vector2f(0, 0);
 
 		direction.x = (input.isKeyDown(keySet.right) ? 1 : 0)
@@ -44,6 +53,10 @@ public abstract class Player extends GameObject {
 		direction.y = (input.isKeyDown(keySet.down) ? 1 : 0)
 				- (input.isKeyDown(keySet.up) ? 1 : 0);
 
+		truncate(direction,1);
+		
+		if(direction.length()!=0)	lastDirection.set(direction);
+		
 		goalSpeed.x = (float) (maxSpeed * (direction.x != 0 ? direction.x * 0.9
 				: direction.x));
 		goalSpeed.y = (float) (maxSpeed * (direction.y != 0 ? direction.y * 0.8
@@ -51,18 +64,18 @@ public abstract class Player extends GameObject {
 
 		speed.x += (goalSpeed.x - this.speed.x) / 20;
 		speed.y += (goalSpeed.y - this.speed.y) / 20;
-
+		
 		if (direction.x != 0 || direction.y != 0) {
-			animations.setAnimation(Animatable.STATE.WALKING);
+			action="WALKING";
 		} else {
-			animations.setAnimation(Animatable.STATE.IDLE);
+			action="IDLE";
 		}
 		if (input.isKeyDown(keySet.left)) {
-			animations.setAnimation(Facing.LEFT);
+			facing="LEFT";
 		} else if (input.isKeyDown(keySet.right)) {
-			animations.setAnimation(Facing.RIGHT);
+			facing="RIGHT";
 		}
-
+		setAnimation("PLAYER",action+"_"+facing);
 		super.update(game);
 	}
 
