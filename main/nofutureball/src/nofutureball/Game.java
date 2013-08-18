@@ -13,7 +13,7 @@ public class Game extends BasicGame {
 	public Container mapContainer = null;
 	public Container entities = null;
 	public Container ui = null;
-	
+	public Container players = null;
 	public Level level;
 	
 
@@ -25,7 +25,9 @@ public class Game extends BasicGame {
 		gameContainer = new Container();
 		entities = new Container();
 		mapContainer = new Container();
+		players = new Container();
 		ui = new Container();
+		
 		gameContainer.add(mapContainer);
 		gameContainer.add(entities);	
 		gameContainer.add(ui);
@@ -41,31 +43,31 @@ public class Game extends BasicGame {
 
 		AnimationSource.init();
 		NoFutureBall.setGameContainer(gc);
-		ArrayList<Player> players = new ArrayList<Player>();
+		
 
 		Player p1 = new Sharpshooter(level.getStartRoom(),100, 40, KeySet.ONE);
 		players.add(p1);
 		
-		Enemy e = new Enemy(level.getStartRoom(), 200, 200,p1);
-		Enemy e2 = new Enemy(level.getStartRoom(), 220, 230,p1);
-		Enemy e3 = new Enemy(level.getStartRoom(), 230, 220,p1);
-		Enemy e4 = new Enemy(level.getStartRoom(), 200, 240,p1);
-		Enemy e5 = new Enemy(level.getStartRoom(), 200, 250,p1);
+		//Enemy e = new Enemy(level.getStartRoom(), 200, 200,p1);
+		//Enemy e2 = new Enemy(level.getStartRoom(), 220, 230,p1);
+		//Enemy e3 = new Enemy(level.getStartRoom(), 230, 220,p1);
+		//Enemy e4 = new Enemy(level.getStartRoom(), 200, 240,p1);
+		//Enemy e5 = new Enemy(level.getStartRoom(), 200, 250,p1);
 		
-		entities.add(e);
-		entities.add(e2);
-		entities.add(e3);
-		entities.add(e4);
-		entities.add(e5);
+		//entities.add(e);
+		//entities.add(e2);
+		//entities.add(e3);
+		//entities.add(e4);
+		//entities.add(e5);
 		startNewGame(players);
 		SoundManager.load();
 		SoundManager.mixedSound("Pickup");
 	}
 
-	public void startNewGame(ArrayList<Player> players) {
-		for (Player player : players) {
-			entities.add(player);
-			cam.addTarget(player);
+	public void startNewGame(Container players) {
+		for (int i=0;i<players.size();i++) {
+			entities.add(players.get(i));
+			cam.addTarget(players.get(i));
 		}
 	}
 	

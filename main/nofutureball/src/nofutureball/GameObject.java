@@ -10,8 +10,9 @@ public class GameObject extends ObjectAnimationList {
 	public Door door;
 	private boolean transition=false;
 	private boolean countMe;
-	
-	public int maxHealth,
+	private boolean dead=false;
+	private boolean collide=true;
+	public float maxHealth,
 	damage,
 	armor,
 	maxSpeed,
@@ -27,8 +28,9 @@ public class GameObject extends ObjectAnimationList {
 		
 		this.countMe=countMe;
 		this.room = room;
-		if(countMe)
-			this.room.numActors++;
+		if(countMe){
+			room.numActors++;
+		}
 		
 		collisionBox = new CollisionBox(this.position.x,this.position.y+this.size.y/2,this.size.x,this.size.y/2);
 		//System.out.println(position.y-room.position.y+collisionBox.position.x);
@@ -37,11 +39,13 @@ public class GameObject extends ObjectAnimationList {
 		// TODO Auto-generated constructor stub
 	}
 	
-
+	public void setCollision(boolean value){
+		collide=value;
+	}
 
 	@Override
 	public void update(Game game) {
-		collisionTest();
+		if(collide)collisionTest();
 		testLocation();
 		position.x += speed.x;
 		position.y += speed.y;
@@ -80,12 +84,12 @@ public class GameObject extends ObjectAnimationList {
 						room.numActors++;
 					}
 				}
-				else
-					//System.out.println("still on Room "+room);
+				else{
+					
+				}
 				door=null;
 				transition=false;
-				//System.out.println("into Room");
-				//System.out.println(room);
+
 			}
 			
 		}
@@ -149,16 +153,16 @@ public class GameObject extends ObjectAnimationList {
 		if(object instanceof Player)
 		switch (direction){
 		case "left":
-			speed.x=Math.abs(speed.x)/2;
+			speed.x=1;
 			break;
 		case "right":
-			speed.x=-Math.abs(speed.x)/2;
+			speed.x=-1;
 			break;
 		case "top":
-			speed.y=Math.abs(speed.y)/2;
+			speed.y=1;
 			break;
 		case "bottom":
-			speed.y=-Math.abs(speed.y)/2;
+			speed.y=-1;
 			break;
 		}
 	}
@@ -184,8 +188,12 @@ public class GameObject extends ObjectAnimationList {
 	}
 	
 	public void die(){
-		if(countMe)
+		if(dead) return;
+		dead=true;
+		if(countMe){
 			room.numActors--;
+			System.out.println(room.numActors);
+		}
 		parent.remove(this);
 	}
 		

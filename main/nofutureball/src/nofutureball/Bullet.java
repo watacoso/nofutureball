@@ -39,6 +39,11 @@ public class Bullet extends GameObject {
 		setAnimation("BULLETS","STANDARD");
 	}
 	
+	public void render (Camera cam){
+		if(room.numActors>0)
+			super.render(cam);
+	}
+	
 
 	
 	protected void handleWallCollision(Wall wall,String direction){

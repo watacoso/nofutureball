@@ -20,12 +20,14 @@ public class Room extends Entity {
 	public static int wallSpessor=15;
 	public static int tileWidth=60;
 	public static int tileHeight=30;
-	
+	public int width,height;
+	public Vector2f flowVector=new Vector2f();
 	public boolean visited=false;
 	public int numActors;
 	
 	public Room(float x, float y, int width, int height) {
 		super(x, y, width * tileWidth, height * tileHeight,width * tileWidth/2,height * tileHeight/2);
+		
 		this.width = width;
 		this.height = height;
 		try {
@@ -53,10 +55,7 @@ public class Room extends Entity {
 		walls=new ArrayList<Wall>();
 	}
 	
-	/** Number of tiles on the x-axis */
-	private int width = 0;
-	/** Number of tiles on the y-axis */
-	private int height = 0;
+
 
 	public void update(Game game) {
 		if(!visited)
@@ -67,7 +66,7 @@ public class Room extends Entity {
 	public void render(Camera cam) {
 		
 		
-		if(!visited) return;
+		//if(!visited) return;
 		
 		
 		Vector2f screenPos = getScreenPos(cam);
@@ -110,8 +109,29 @@ public class Room extends Entity {
 		float LY=0,RY=0,TX=0,BX=0;
 		for(int i=0;i<doors.size();i++){
 			Door r=doors.get(i);
+			//System.out.println(r.getSide(this));
 			
-			if(r.side=="top"||r.side=="bottom"){
+			switch (r.getSide(this)){
+				case "top":
+					target.add(new Wall(this,position.x+TX, position.y, 1, r.getRelativePos(this)*Room.tileWidth-TX));
+					TX=r.getRelativePos(this)*Room.tileWidth+r.size.x;
+					break;
+				case "bottom":
+					target.add(new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 1, r.getRelativePos(this)*Room.tileWidth-BX));
+					BX=r.getRelativePos(this)*Room.tileWidth+r.size.x;
+					break;
+				case "left":
+					target.add(new Wall(this,position.x - wallSpessor, position.y+LY, 2, r.getRelativePos(this)*Room.tileHeight-LY-wallSpessor));
+					LY=r.getRelativePos(this)*Room.tileHeight+r.size.y;
+					break;
+				case "right":
+					target.add(new Wall(this,position.x + size.x, position.y+RY, 2, r.getRelativePos(this)*Room.tileHeight-RY-wallSpessor));
+					RY=r.getRelativePos(this)*Room.tileHeight+r.size.y;
+					System.out.println(RY);
+					break;
+			}
+			
+		/*	if(r.side=="top"||r.side=="bottom"){
 				if(position.y==r.position.y+15){
 					target.add(new Wall(this,position.x+TX, position.y, 1, r.position.x-position.x+TX));
 					TX=r.position.x-position.x+r.size.x;
@@ -130,7 +150,7 @@ public class Room extends Entity {
 					target.add(new Wall(this,position.x + size.x, position.y+RY, 2, r.position.y-position.y+RY-15));
 					RY=r.position.y-position.y+r.size.y;
 				}
-			}
+			}*/
 
 		}
 		
@@ -141,6 +161,9 @@ public class Room extends Entity {
 
 	}
 	
+	public void addPanel(Container target,String type){
+		target.add(new Panel(this,30,type));
+	}
 	
 	protected boolean checkCollision(Room e,float span){
 		if(position.x-span>e.position.x+e.size.x ||

@@ -29,7 +29,7 @@ public class ObjectAnimationList extends Entity{
 	public static void init(){
 		animationList=new HashMap<String, HashMap<String,Animation>>();
 		
-		//PLAYER//
+		//PLAYER TMP//
 		
 		setSpriteSheet("assets/sprites/PLAYER_IDLE.png",30,63);
 		addAnimation("PLAYER","IDLE_LEFT",buildAnimation(0,4,100),false);
@@ -38,7 +38,7 @@ public class ObjectAnimationList extends Entity{
 		addAnimation("PLAYER","WALKING_LEFT",buildAnimation(0,4,100),false);
 		addAnimation("PLAYER","WALKING_RIGHT",buildAnimation(0,4,100),true);
 		
-		///ENEMY//
+		///ENEMY TMP//
 		
 		setSpriteSheet("assets/sprites/ENEMY_IDLE.png",30,63);
 		addAnimation("ENEMY","IDLE_LEFT",buildAnimation(0,4,100),false);
@@ -47,10 +47,15 @@ public class ObjectAnimationList extends Entity{
 		addAnimation("ENEMY","WALKING_LEFT",buildAnimation(0,4,100),false);
 		addAnimation("ENEMY","WALKING_RIGHT",buildAnimation(0,4,100),true);
 		
-		//BULLET//
+		//BULLETS//
 		
 		setSpriteSheet("assets/sprites/BULLETS.png",20, 20);
 		addAnimation("BULLETS","STANDARD",buildAnimation(0,3,100),false);
+		
+		//PANELS//
+		
+		setSpriteSheet("assets/sprites/PANELS.png",48, 70);
+		addAnimation("PANEL","TEMP",buildAnimation(0,1,100),false);
 		
 	}
 	
@@ -106,8 +111,6 @@ public class ObjectAnimationList extends Entity{
 		if (currentAnimation != null) {
 			Vector2f screenPos = getScreenPos(cam);
 			currentAnimation.draw(screenPos.x, screenPos.y, getScaledWidth(cam), getScaledHeight(cam));
-		} else {
-			System.out.println("ERRRROOOOR: You have to override the animations property in subclasses!");
 		}
 		//super.render(cam);
 	}

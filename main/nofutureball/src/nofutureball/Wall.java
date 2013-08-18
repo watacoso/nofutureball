@@ -10,7 +10,8 @@ public class Wall extends Entity {
 	private int type;
 
 	final int padding = Room.wallSpessor;
-	static final float height = 50;
+	static final float height = 10;
+	static final float lowHeight=10;
 	float length;
 	
 	public Room room;
@@ -29,7 +30,7 @@ public class Wall extends Entity {
 				size.y = padding;
 				break;
 			case 2:
-				position.y+=Room.wallSpessor;
+				position.y+=padding;
 				size.y = length+padding;
 				size.x = padding;
 				break;
@@ -43,26 +44,34 @@ public class Wall extends Entity {
 	}
 
 	public void render(Camera camera) {
-		if(!room.visited) return;
+		//if(true) return;
+		//if(!room.visited) return;
 		Vector2f screenPos = getScreenPos(camera);
 		// _ means scaled, ok?
 		float _padding =padding * camera.getZoom();
 		float _height = height * camera.getZoom();
 		float _length = length * camera.getZoom();
 		
+
+		
 		switch (type) {
 			case 1:
 				g.setColor(Color.decode("#45495F"));
-				g.fillRect( screenPos.x,  (screenPos.y - _height+_padding), _length, _height);
+				g.fillRect( screenPos.x,  (screenPos.y - _height), _length, _height+_padding);
 				g.setColor(Color.decode("#9AA0B6"));
-				g.fillRect( (screenPos.x),  (screenPos.y - _height+_padding), _length, _padding);
+				g.fillRect( (screenPos.x),  (screenPos.y - _height), _length, _padding);
 	
 				break;
 			case 2:
+				float t;
+				if(position.y-room.position.y==0)
+					t=_padding;
+				else
+					t=0;
 				g.setColor(Color.decode("#45495F"));
-				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding + _height);
+				g.fillRect( (screenPos.x),  (screenPos.y - _height-t), _padding, _length + _padding + _height+t);
 				g.setColor(Color.decode("#9AA0B6"));
-				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding * 2);
+				g.fillRect( (screenPos.x),  (screenPos.y - _height-t), _padding, _length + _padding+t);
 				break;
 		}
 		//super.render(camera);
