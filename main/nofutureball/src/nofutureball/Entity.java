@@ -46,8 +46,8 @@ public abstract class Entity implements Comparable<Entity> {
 		Vector2f screenPos = getScreenPos(cam);
 		g.setColor(Color.white);
 		g.drawRect(screenPos.x, screenPos.y, getScaledWidth(cam), getScaledHeight(cam));
-		g.setColor(Color.blue);
-		g.fillRect(screenPos.x+pivot.x-2, screenPos.y+pivot.y-2, 4, 4);
+		//g.setColor(Color.blue);
+		//g.fillRect(screenPos.x+pivot.x-2, screenPos.y+pivot.y-2, 4, 4);
 	}
 	/*public void render(Vector2f screenPosThatsAlreadyBeenDerivedFromCam, float zoom)
 	{

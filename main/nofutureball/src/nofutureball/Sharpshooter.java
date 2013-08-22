@@ -8,8 +8,8 @@ public class Sharpshooter extends Player {
 	private int shotTimer=0;
 
 	///////////////////////
-	public int bulletSize=10
-	,bulletSpeed=5;
+	public int bulletSize=64
+	,bulletSpeed=15;
 	///////////////////////
 	
 	
@@ -19,8 +19,8 @@ public class Sharpshooter extends Player {
 
 		//////////////////////
 		knockback=5;
-		attackSpeed=7;
-		range=200;
+		attackSpeed=15;
+		range=800;
 		damage=20;
 		//////////////////////
 		
@@ -63,15 +63,15 @@ public class Sharpshooter extends Player {
 	
 	private void standardShot(){
 		
-		Bullet b=new Bullet(this, bulletSize, lastDirection,bulletSpeed);
+		Bullet b=new Bullet(this, bulletSize, lastDirection,bulletSpeed+speed.length());
 		parent.add(b);
 	}
 	
 	private void tripleShot(){
 		
-		Bullet b1=new Bullet(this, bulletSize, lastDirection.add(15),bulletSpeed);
-		Bullet b2=new Bullet(this, bulletSize, lastDirection.sub(30),bulletSpeed);
-		Bullet b3=new Bullet(this, bulletSize, lastDirection.add(15),bulletSpeed);
+		Bullet b1=new Bullet(this, bulletSize, lastDirection.add(5),bulletSpeed+speed.length());
+		Bullet b2=new Bullet(this, bulletSize, lastDirection.sub(10),bulletSpeed+speed.length());
+		Bullet b3=new Bullet(this, bulletSize, lastDirection.add(5),bulletSpeed+speed.length());
 		parent.add(b1);
 		parent.add(b2);
 		parent.add(b3);

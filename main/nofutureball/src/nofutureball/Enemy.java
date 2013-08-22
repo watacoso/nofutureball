@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Vector2f;
 public class Enemy extends GameObject implements Actor{
 
 	
-	private float maxForce = 0.2f;
+	private float maxForce = 1;
 	private Player target;
 	private Vector2f direction=new Vector2f(0,0);
 	private Vector2f steering=new Vector2f(0,0);
@@ -32,14 +32,14 @@ public class Enemy extends GameObject implements Actor{
 	public float health;
 
 	public Enemy(Room room, float x, float y) {
-		super(room, x, y, 30, 63,true);
+		super(room, x, y, 128,256,true);
 		//animations = AnimationSet.createAnimationSet(Animatable.SUBCLASS.ENEMY);
 		defineStats();
 		
 	}
 	
 	public Enemy(Room room, float x, float y,Player target) {
-		super(room, x, y, 30, 63,true);
+		super(room, x, y, 128,256,true);
 		//animations = AnimationSet.createAnimationSet(Animatable.SUBCLASS.ENEMY);
 		this.target=target;
 		steering=getDirectionVector(target);
@@ -48,7 +48,7 @@ public class Enemy extends GameObject implements Actor{
 	}
 	
 	private void defineStats(){
-		maxSpeed=(float) (3f+Math.random()*3);
+		maxSpeed=(float) (10f+Math.random()*3);
 		maxHealth=100;
 		armor=1;
 		health=maxHealth;
@@ -143,6 +143,7 @@ public class Enemy extends GameObject implements Actor{
 			facing="LEFT";
 		else
 			facing="RIGHT";
+
 
 		setAnimation("ENEMY",action+"_"+facing);
 		

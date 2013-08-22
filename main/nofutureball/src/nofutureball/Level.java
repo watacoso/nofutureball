@@ -1,7 +1,5 @@
 package nofutureball;
 
-import java.util.Random;
-
 import org.newdawn.slick.geom.Vector2f;
 
 public class Level {
@@ -20,96 +18,34 @@ public class Level {
 	}
 	
 	public void generateMap(){
-		//startRoom.addPanel(entities,"TEST");
-		//expand(startRoom,0);
 		
+		//TEST 1
 		
-		appendRoom(startRoom,antiChamber(),1,0,0);
-		appendRoom(startRoom,antiChamber(),1,7,0);
-		appendRoom(startRoom,antiChamber(),-1,0,0);
-		appendRoom(startRoom,antiChamber(),-1,7,0);
-		appendRoom(startRoom,antiChamber(),0,0,0);
-		appendRoom(startRoom,antiChamber(),0,7,0);
-		appendRoom(startRoom,antiChamber(),2,0,0);
-		appendRoom(startRoom,antiChamber(),2,7,0);
-		//appendRoom(startRoom,antiChamber(),0,2,2);
-		//appendRoom(startRoom,genericRoom(),1,0,2);
-		
+		//appendRoom(startRoom,corridor(16,true),1,0,0);
+		//appendRoom(startRoom,corridor(16,true),-1,7,16);
+		//appendRoom(startRoom,corridor(8,false),0,0,0);
+		//appendRoom(startRoom,corridor(8,false),2,7,16);
+
+		//TEST 2
+		appendRoom(startRoom, lastRoom=corridor(6,true),0,2,0);
+		//lastRoom=corridor(6,false);
+		appendRoom(lastRoom , lastRoom=corridor(10,false),0,0,4);
+		appendRoom(lastRoom , squareRoom(6),-1,0,4);
+		appendRoom(lastRoom , squareRoom(6), 1,0,4);
+		appendRoom(lastRoom , squareRoom(6), 0,4,2);
 		renderAllWalls();
 	}
 	
-	
-	private void expand(Room r,int haltProbability){
-		
-		
-		if(nRooms<=0) return;
-		Random v=new Random();
-		int value;
-		String side = null;
-		Room exp = null;
-		for(int i=0;i<3;i++){
-			int attemps=3;
-			while(attemps>0){
-				value=v.nextInt(4);
-				switch(value){
-				case 0:
-					side="left";
-					break;
-				case 1:
-					side="right";
-					break;
-				case 2:
-					side="top";
-					break;
-				case 3:
-					side="bottom";
-					break;
-				}
-				value=v.nextInt(2);
-				switch(value){
-				case 0:
-					boolean n;
-					if(side=="left" || side=="right")
-						n=false;
-					else
-						n=true;
-					exp=corridor(r,n);
-					break;
-				case 1:
-					exp=genericRoom(r);
-					break;
-				case 2:
-					exp=specialRoom(r);
-					break;
-				}
 
-				value=v.nextInt(8);
-			
-				if(addRoom(r,exp,side,value-4,false)){
-					nRooms--;
-					//System.out.println(nRooms);
-					value=v.nextInt(50)+50;
-					if(value>haltProbability){
-							expand(exp,haltProbability);
-
-					}
-					lastRoom=exp;
-					continue;
-				}
-				else
-					attemps--;
-			}
-		}
-	}
 	
 	public boolean appendRoom(Room root,Room room,int dir,int doorPosA,int doorPosB){
 		Door door=new Door(2,root,room);
 		Vector2f flowVector=new Vector2f(root.flowVector);
 		
-		
 		flowVector.add(90*dir);
 		
 		room.flowVector=flowVector;
+		
 		if(Math.abs(flowVector.x)>Math.abs(flowVector.y)){
 			if(flowVector.x>0){
 				door.setPosition(root.position.x+root.size.x,root.position.y);
@@ -121,6 +57,8 @@ public class Level {
 				room.position.x=root.position.x-room.size.x-Room.wallSpessor;
 				door.setSide("left");
 			}
+			
+			
 			if(doorPosA<0)
 				doorPosA=0;
 			else if(doorPosA>root.height-door.width)
@@ -132,7 +70,7 @@ public class Level {
 				doorPosB=room.height-door.width;
 			
 			
-			door.position.y=doorPosA*Room.tileHeight;
+			door.position.y=root.position.y+doorPosA*Room.tileHeight;
 			room.position.y=door.position.y-doorPosB*Room.tileHeight;
 			
 		}
@@ -146,7 +84,9 @@ public class Level {
 				door.setPosition(root.position.x,root.position.y-Room.wallSpessor);
 				room.position.y=root.position.y-room.size.y-Room.wallSpessor;
 				door.setSide("top");
-			}
+			}		
+			
+			//System.out.println(doorPosA+" "+doorPosB+" "+root.width+" "+door.width);
 			
 			if(doorPosA<0)
 				doorPosA=0;
@@ -158,8 +98,9 @@ public class Level {
 			else if(doorPosB>room.width-door.width)
 				doorPosB=room.width-door.width;
 			
+			//System.out.println(doorPosA+" "+doorPosB);
 			
-			door.position.x=doorPosA*Room.tileWidth;
+			door.position.x=root.position.x+doorPosA*Room.tileWidth;
 			room.position.x=door.position.x-doorPosB*Room.tileWidth;
 			
 		}
@@ -172,7 +113,7 @@ public class Level {
 					return false;
 			}
 		}
-		System.out.println("Added room");
+		//System.out.println("Added room");
 		door.setRelativePos(doorPosA, doorPosB);
 		door.confirmRooms();
 		map.add(room);
@@ -182,79 +123,6 @@ public class Level {
 	}
 	
 	
-	public boolean addRoom(Room currentRoom,Room room,String side,int offset,boolean compositeRoom){
-		Door door=new Door(2,currentRoom,room);
-		switch (side){
-		case "left":
-			door.setPosition(currentRoom.position.x-Room.wallSpessor,currentRoom.position.y);
-			room.position.x=currentRoom.position.x-room.size.x-Room.wallSpessor;
-			break;
-		case "right":
-			door.setPosition(currentRoom.position.x+currentRoom.size.x,currentRoom.position.y);
-			room.position.x=currentRoom.position.x+currentRoom.size.x+Room.wallSpessor;
-			break;
-		case "top":
-			door.setPosition(currentRoom.position.x,currentRoom.position.y-Room.wallSpessor);
-			room.position.y=currentRoom.position.y-room.size.y-Room.wallSpessor;
-			break;
-		case "bottom":
-			door.setPosition(currentRoom.position.x,currentRoom.position.y+currentRoom.size.y);
-			room.position.y=currentRoom.position.y+currentRoom.size.y+Room.wallSpessor;
-			break;
-		}
-		door.setSide(side);
-		if(side=="left"||side=="right"){
-			float d=currentRoom.size.y/Room.tileHeight-door.width-2;
-			if(offset>d)
-				offset=(int) d;
-			else{
-			d=-room.size.y/Room.tileHeight+door.width+2;
-			
-			if(offset<d)
-				offset=(int) d;
-			}
-			
-			
-			room.position.y=currentRoom.position.y+offset*Room.tileHeight;
-			float min=Math.min(currentRoom.position.y+currentRoom.size.y, room.position.y+room.size.y);
-			float max=Math.max(currentRoom.position.y, room.position.y);
-			d=(min-max)/Room.tileHeight -door.width-2;
-			
-			door.position.y=(float) (max+Math.floor(Math.random()*d+1)*Room.tileHeight);
-			
-		}
-		else{
-			float d=currentRoom.size.x/Room.tileWidth-door.width-2;
-			if(offset>d)
-				offset=(int) d;
-			else{
-			d=-room.size.x/Room.tileWidth+door.width+2;
-			if(offset<d)
-				offset=(int) d;
-			}
-			
-			
-			room.position.x=currentRoom.position.x+offset*Room.tileWidth;
-			float min=Math.min(currentRoom.position.x+currentRoom.size.x, room.position.x+room.size.x);
-			float max=Math.max(currentRoom.position.x, room.position.x);
-			d=(min-max)/Room.tileWidth -door.width-2;
-			
-			door.position.x=(float) (max+Math.floor(Math.random()*d+1)*Room.tileWidth);
-		}
-		
-		for(int i=0;i<map.size();i++){
-			if(map.get(i).getClass()==Room.class && map.get(i)!=room && map.get(i)!=currentRoom){
-				Room r=(Room) map.get(i);
-				if(room.checkCollision(r,60)){
-					return false;
-				}
-			}
-		}
-		door.confirmRooms();
-		map.add(room);
-		map.add(door);
-		return true;		
-	}
 	
 	public Room getStartRoom(){
 		return startRoom;
@@ -268,32 +136,42 @@ public class Level {
 			t.addWalls(entities);
 			}
 		}
+		
+		for(int i=0;i<entities.size();i++){
+			if(entities.get(i).getClass()==Wall.class){
+				Wall w=(Wall) entities.get(i);
+				if(Math.abs(w.length)==0){
+					entities.remove(w);
+					w.room.walls.remove(w);
+					System.out.println(w.length);
+				}
+				
+				
+			}
+		}
+		
 	}
 	
-	//ROOM TYPES DEFINITION//
+	//ROOM TEMPLATES//
 	
-	private Room corridor(Room parent,boolean Horizzontal){
-		if(Horizzontal)
-			return new Room(4,(int) (Math.random()*1+4));
-		else
-			return new Room((int) (Math.random()*1+4),5);
+	//BASIC ROOMS//
+	
+	private Room squareRoom(int r){
+		r=(r>3?r:3);
+		return new Room(r,r*2);
 	}
-	
-	private Room genericRoom(Room parent){
-		return new Room((int) (Math.random()*10+4),(int) (Math.random()*10+8));
-	}
-	
-	private Room genericRoom(){
-		return new Room((int) (Math.random()*10+4),(int) (Math.random()*10+8));
-	}
-	
+		
 	private Room antiChamber(){
 		return new Room(2,3);
 	}
 	
-	private Room specialRoom(Room parent){
-		return new Room(4,5);
+	private Room corridor(int r,boolean vertical){
+		if(vertical)
+			return new Room(2,r>3?r:3);
+		else
+			return new Room(r>2?r:2,3);
 	}
+
 	
 	
 	

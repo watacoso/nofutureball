@@ -8,7 +8,7 @@ public abstract class Player extends GameObject implements Actor{
 	public Weapon weapon;
 	
 	
-	private float maxSpeed = 10;
+	private float maxSpeed = 40;
 	public Vector2f direction,lastDirection;
 	
 	
@@ -21,7 +21,7 @@ public abstract class Player extends GameObject implements Actor{
 
 
 	public Player(Room room, float x, float y, KeySet keySet) {
-		super(room, x, y, 30, 63,true);
+		super(room, x, y, 128,256,true);
 		this.keySet = keySet;
 		//animations = AnimationSet
 		//		.createAnimationSet(Animatable.SUBCLASS.PLAYER);
@@ -33,7 +33,7 @@ public abstract class Player extends GameObject implements Actor{
 	protected KeySet keySet = KeySet.ONE;
 
 	public Player(Room room, float x, float y) {
-		super(room, x, y, 30, 63,true);
+		super(room, x, y, 128,256,true);
 		//animations = AnimationSet
 		//		.createAnimationSet(Animatable.SUBCLASS.PLAYER);
 		

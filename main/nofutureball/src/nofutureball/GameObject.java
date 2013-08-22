@@ -56,14 +56,15 @@ public class GameObject extends ObjectAnimationList {
 	private void testLocation(){
 		
 		if(!transition){
-			if(!onRoom(room)){
+			if(!boxInside(room)){
 				for(int i=0;i<room.doors.size();i++){
 					Door d=room.doors.get(i);
-					if(collisionBox.checkCollision(d)){
+					if(pivotInside(d)){
 						door=d;
 						transition=true;
-						//System.out.println("into Door");
-						//System.out.println(d.side);
+						nextRoom=door.rA!=room?door.rA:door.rB;
+						//System.out.println("into Door at the "+d.getSide(room));
+						//System.out.println(d.getSide(room));
 						
 					}
 						
@@ -71,21 +72,22 @@ public class GameObject extends ObjectAnimationList {
 			}
 		}
 		else{
-			if(!collisionBox.checkCollision(door)){
-				if(!onRoom(room)){
+			if(!pivotInside(door)){
+				if(!pivotInside(room)){
 					//System.out.println("not in old Room "+room);
-					nextRoom=door.rA!=room?door.rA:door.rB;
-					if(onRoom(nextRoom)){
-						//System.out.println("into new Room "+nextRoom);
+					
+					if(pivotInside(nextRoom)){
+						//System.out.println("into new Room");
 						if(countMe)
 						room.numActors--;
 						room=nextRoom;
+						nextRoom=null;
 						if(countMe)
 						room.numActors++;
 					}
 				}
 				else{
-					
+					//.out.println("into old Room");
 				}
 				door=null;
 				transition=false;
@@ -95,24 +97,44 @@ public class GameObject extends ObjectAnimationList {
 		}
 	}
 
-	private boolean onRoom(Room room) {
-		if (collisionBox.position.x < room.position.x)
+	private boolean pivotInside(Entity e){
+		if (collisionBox.position.x + collisionBox.pivot.x < e.position.x)
 			return false;
-		if (collisionBox.position.y < room.position.y)
+		if (collisionBox.position.y + collisionBox.pivot.y < e.position.y)
 			return false;
-		if (collisionBox.position.x + collisionBox.size.x > room.position.x + room.size.x)
+		if (collisionBox.position.x + collisionBox.pivot.x > e.position.x + e.size.x)
 			return false;
-		if (collisionBox.position.y + collisionBox.size.y > room.position.y + room.size.y)
+		if (collisionBox.position.y + collisionBox.pivot.y > e.position.y + e.size.y)
 			return false;
 		return true;
 	}
 	
+	private boolean boxInside(Entity e){
+		if (collisionBox.position.x < e.position.x)
+			return false;
+		if (collisionBox.position.y < e.position.y)
+			return false;
+		if (collisionBox.position.x + collisionBox.size.x > e.position.x + e.size.x)
+			return false;
+		if (collisionBox.position.y + collisionBox.size.y > e.position.y + e.size.y)
+			return false;
+		return true;
+	}
+		
 	private void collisionTest() {
 		
 		Wall w;
 		for(int i=0;i<room.walls.size();i++){
 			w=room.walls.get(i);
-			if(collisionBox.checkCollision(w)){
+			if(Math.abs(w.length)>Room.wallSpessor && collisionBox.checkCollision(w)){
+				String direction=collisionBox.checkBoxSide(w);
+				handleWallCollision(w,direction);
+			}
+		}
+		if(nextRoom!=null)
+		for(int i=0;i<nextRoom.walls.size();i++){
+			w=nextRoom.walls.get(i);
+			if(Math.abs(w.length)>Room.wallSpessor && collisionBox.checkCollision(w)){
 				String direction=collisionBox.checkBoxSide(w);
 				handleWallCollision(w,direction);
 			}

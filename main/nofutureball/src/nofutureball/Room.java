@@ -17,9 +17,9 @@ public class Room extends Entity {
 	private Graphics g = new Graphics();
 	Image floor;
 	
-	public static int wallSpessor=15;
-	public static int tileWidth=60;
-	public static int tileHeight=30;
+	public static int wallSpessor=64;
+	public static int tileWidth=256;
+	public static int tileHeight=128;
 	public int width,height;
 	public Vector2f flowVector=new Vector2f();
 	public boolean visited=false;
@@ -74,7 +74,7 @@ public class Room extends Entity {
 		
 		// Floor
 
-		Image scaledFloorTile = floor.getScaledCopy(cam.getZoom() * 1.02f);
+		//Image scaledFloorTile = floor.getScaledCopy(cam.getZoom() * 1.02f);
 
 		// just caching values to limit calculations
 		float floorWidth = tileWidth * cam.getZoom();
@@ -95,9 +95,9 @@ public class Room extends Entity {
 				// The commented out line would draw with a cached scaled floor (= more efficient) but it seems to leave
 				// gaps between the tiles frequently. This should be fixed. 
 
-				scaledFloorTile.draw((int)(screenPos.x + x - 1),  (int)(screenPos.y + y - 1));
+				//scaledFloorTile.draw(screenPos.x + x - 1,  screenPos.y + y - 1);
 
-				//floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
+				floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
 			}
 		}
 		
@@ -107,58 +107,70 @@ public class Room extends Entity {
 	public void addWalls(Container target) {
 		Collections.sort(doors);
 		float LY=0,RY=0,TX=0,BX=0;
+		Wall w=null;
 		for(int i=0;i<doors.size();i++){
 			Door r=doors.get(i);
-			//System.out.println(r.getSide(this));
 			
+			w=null;
 			switch (r.getSide(this)){
 				case "top":
-					target.add(new Wall(this,position.x+TX, position.y, 1, r.getRelativePos(this)*Room.tileWidth-TX));
+					w=new Wall(this,position.x+TX, position.y, 1, r.getRelativePos(this)*Room.tileWidth-TX);
 					TX=r.getRelativePos(this)*Room.tileWidth+r.size.x;
+					System.out.println("test");
 					break;
 				case "bottom":
-					target.add(new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 1, r.getRelativePos(this)*Room.tileWidth-BX));
+					w=new Wall(this,position.x + BX, position.y + size.y + wallSpessor, 1, r.getRelativePos(this)*Room.tileWidth-BX);
 					BX=r.getRelativePos(this)*Room.tileWidth+r.size.x;
 					break;
 				case "left":
-					target.add(new Wall(this,position.x - wallSpessor, position.y+LY, 2, r.getRelativePos(this)*Room.tileHeight-LY-wallSpessor));
+					w=new Wall(this,position.x - wallSpessor, position.y+LY, 2, r.getRelativePos(this)*Room.tileHeight-LY-wallSpessor);
 					LY=r.getRelativePos(this)*Room.tileHeight+r.size.y;
 					break;
 				case "right":
-					target.add(new Wall(this,position.x + size.x, position.y+RY, 2, r.getRelativePos(this)*Room.tileHeight-RY-wallSpessor));
+					w=new Wall(this,position.x + size.x, position.y+RY, 2, r.getRelativePos(this)*Room.tileHeight-RY-wallSpessor);
 					RY=r.getRelativePos(this)*Room.tileHeight+r.size.y;
-					System.out.println(RY);
 					break;
 			}
-			
-		/*	if(r.side=="top"||r.side=="bottom"){
-				if(position.y==r.position.y+15){
-					target.add(new Wall(this,position.x+TX, position.y, 1, r.position.x-position.x+TX));
-					TX=r.position.x-position.x+r.size.x;
-				}
-				else{
-					target.add(new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 1, r.position.x-position.x+BX));
-					BX=r.position.x-position.x+r.size.x;
-				}
-			}
-			else{
-				if(position.x==r.position.x+15){
-					target.add(new Wall(this,position.x - wallSpessor, position.y+LY, 2, r.position.y-position.y+LY-15));
-					LY=r.position.y-position.y+r.size.y;
-				}
-				else{
-					target.add(new Wall(this,position.x + size.x, position.y+RY, 2, r.position.y-position.y+RY-15));
-					RY=r.position.y-position.y+r.size.y;
-				}
-			}*/
 
+			if(w!=null)
+				addWall(w,target);
+			
 		}
 		
-		target.add(new Wall(this,position.x+TX, position.y, 1, size.x-TX));
-		target.add(new Wall(this,position.x - wallSpessor, position.y+LY, 2, size.y-LY));
-		target.add(new Wall(this,position.x + size.x, position.y+RY, 2, size.y-RY));
-		target.add(new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 1, size.x-BX));
+		w=new Wall(this,position.x+TX, position.y, 1, size.x-TX);
+		addWall(w,target);
+		w=new Wall(this,position.x - wallSpessor, position.y+LY, 2, size.y-LY);
+		addWall(w,target);
+		w=new Wall(this,position.x + size.x, position.y+RY, 2, size.y-RY);
+		addWall(w,target);
+		w=new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 1, size.x-BX);
+		addWall(w,target);
 
+	}
+	
+	private void addWall(Wall w,Container target){
+		if(Math.abs(w.length)>wallSpessor){
+			float t=0;
+			if(w.position.y-position.y==0 && w.getType()==2 || w.position.x-position.x==0 && w.getType()==1){
+				t=wallSpessor;
+				if(w.getType()==2){
+					w.position.y-=t*2;
+					w.setLength(w.length+t);
+				}
+				else if(w.getType()==1){
+					w.position.x-=t;
+					w.setLength(w.length+t);
+				}
+			}
+			else if(w.getType()==2)
+				w.position.y-=t*2;
+			
+			
+			
+			target.add(w);
+			w.addWallToRoom(this);
+			
+		}
 	}
 	
 	public void addPanel(Container target,String type){

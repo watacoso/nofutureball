@@ -10,7 +10,7 @@ public class Wall extends Entity {
 	private int type;
 
 	final int padding = Room.wallSpessor;
-	static final float height = 10;
+	static final float height = 128;
 	static final float lowHeight=10;
 	float length;
 	
@@ -22,10 +22,17 @@ public class Wall extends Entity {
 															// (3:horizzontalFull)
 		super(x, y-Room.wallSpessor);
 		this.type = type;
-		this.length = length;
+		setLength(length);
+		g = new Graphics();
+	}
+	
+	public void setLength(float l){
+		this.length = l;
 
 		switch (type) {
 			case 1:
+				
+				//position.x-=padding;
 				size.x = length;
 				size.y = padding;
 				break;
@@ -37,10 +44,15 @@ public class Wall extends Entity {
 		}
 		pivot.x=size.x/2;
 		pivot.y=size.y/2;
+	}
+	
+	public void addWallToRoom(Room room){
 		this.room=room;
 		room.walls.add(this);
-		g = new Graphics();
-
+	}
+	
+	public int getType(){
+		return type;
 	}
 
 	public void render(Camera camera) {
@@ -56,25 +68,23 @@ public class Wall extends Entity {
 		
 		switch (type) {
 			case 1:
+				//if(true)return;
 				g.setColor(Color.decode("#45495F"));
 				g.fillRect( screenPos.x,  (screenPos.y - _height), _length, _height+_padding);
 				g.setColor(Color.decode("#9AA0B6"));
 				g.fillRect( (screenPos.x),  (screenPos.y - _height), _length, _padding);
-	
+				super.render(camera);
 				break;
 			case 2:
-				float t;
-				if(position.y-room.position.y==0)
-					t=_padding;
-				else
-					t=0;
+				//if(true)return;
 				g.setColor(Color.decode("#45495F"));
-				g.fillRect( (screenPos.x),  (screenPos.y - _height-t), _padding, _length + _padding + _height+t);
+				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding  + _height);
 				g.setColor(Color.decode("#9AA0B6"));
-				g.fillRect( (screenPos.x),  (screenPos.y - _height-t), _padding, _length + _padding+t);
+				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding );
+				super.render(camera);
 				break;
 		}
-		//super.render(camera);
+		
 	}
 
 }

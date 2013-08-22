@@ -31,21 +31,19 @@ public class ObjectAnimationList extends Entity{
 		
 		//PLAYER TMP//
 		
-		setSpriteSheet("assets/sprites/PLAYER_IDLE.png",30,63);
+		setSpriteSheet("assets/sprites/Player.png",128,256);
 		addAnimation("PLAYER","IDLE_LEFT",buildAnimation(0,4,100),false);
 		addAnimation("PLAYER","IDLE_RIGHT",buildAnimation(0,4,100),true);
-		setSpriteSheet("assets/sprites/PLAYER_WALKING.png",30,63);
-		addAnimation("PLAYER","WALKING_LEFT",buildAnimation(0,4,100),false);
-		addAnimation("PLAYER","WALKING_RIGHT",buildAnimation(0,4,100),true);
+		addAnimation("PLAYER","WALKING_LEFT",buildAnimation(4,4,100),false);
+		addAnimation("PLAYER","WALKING_RIGHT",buildAnimation(4,4,100),true);
 		
 		///ENEMY TMP//
 		
-		setSpriteSheet("assets/sprites/ENEMY_IDLE.png",30,63);
+		setSpriteSheet("assets/sprites/Enemy.png",128,256);
 		addAnimation("ENEMY","IDLE_LEFT",buildAnimation(0,4,100),false);
 		addAnimation("ENEMY","IDLE_RIGHT",buildAnimation(0,4,100),true);
-		setSpriteSheet("assets/sprites/ENEMY_WALKING.png",30,63);
-		addAnimation("ENEMY","WALKING_LEFT",buildAnimation(0,4,100),false);
-		addAnimation("ENEMY","WALKING_RIGHT",buildAnimation(0,4,100),true);
+		addAnimation("ENEMY","WALKING_LEFT",buildAnimation(4,4,100),false);
+		addAnimation("ENEMY","WALKING_RIGHT",buildAnimation(4,4,100),true);
 		
 		//BULLETS//
 		
@@ -54,8 +52,8 @@ public class ObjectAnimationList extends Entity{
 		
 		//PANELS//
 		
-		setSpriteSheet("assets/sprites/PANELS.png",48, 70);
-		addAnimation("PANEL","TEMP",buildAnimation(0,1,100),false);
+		//setSpriteSheet("assets/sprites/PANELS.png",48, 70);
+		//addAnimation("PANEL","TEMP",buildAnimation(0,1,100),false);
 		
 	}
 	
@@ -71,12 +69,13 @@ public class ObjectAnimationList extends Entity{
 	private static Animation buildAnimation(int index,int length,int speed){
 		int a,b,x,y;
 		
-		a=index/ss.getWidth();
-		b=index%ss.getWidth();
+		a=index/ss.getHorizontalCount();
+		b=index%ss.getHorizontalCount();
 		
-		x=(index+length-1)/ss.getWidth();
-		y=(index+length-1)%ss.getWidth();
+		x=(index+length-1)%ss.getHorizontalCount();
+		y=(index+length-1)/ss.getHorizontalCount();
 		
+
 		System.out.println(a+" "+b+" : "+x+" "+y);
 	
 		return new Animation(ss,a,b,x,y,true,speed,true);
@@ -112,7 +111,7 @@ public class ObjectAnimationList extends Entity{
 			Vector2f screenPos = getScreenPos(cam);
 			currentAnimation.draw(screenPos.x, screenPos.y, getScaledWidth(cam), getScaledHeight(cam));
 		}
-		//super.render(cam);
+		super.render(cam);
 	}
 	
 	
