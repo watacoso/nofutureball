@@ -1,0 +1,6 @@
+{
+	Maxhealth:15,
+	damage:20,
+	regen:false,
+	weapon:'rifle'
+}

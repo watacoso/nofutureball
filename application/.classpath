@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="G:/Work/Eclipse/utilities/google-gson-2.2.4-release/google-gson-2.2.4/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="G:/Work/Eclipse/utilities/lwjgl-2.9.0/lwjgl-2.9.0/jar/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="G:/Work/Eclipse/projects/nofutureball/application/natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="G:/Work/Eclipse/utilities/slick/lib/slick.jar"/>
+	<classpathentry kind="lib" path="G:/Work/Eclipse/utilities/slick/lib/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="G:/Work/Eclipse/utilities/slick/lib/jogg-0.0.7.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
