@@ -48,11 +48,13 @@ public class Game extends BasicGame {
 
 		Player p1 = new Sharpshooter(level.getStartRoom(),100, 40, KeySet.ONE);
 		players.add(p1);
-		Player p2 = new Sharpshooter(level.getStartRoom(),100, 40, KeySet.TWO);
+		Player p2 = new Sharpshooter(level.roomsPool.get(30),128, 120, KeySet.TWO);
 		players.add(p2);
-		Room r=level.getStartRoom();
-		for(int i=0;i<4;i++){
-			Enemy e = new Enemy(r, 200, 200,p1);
+		Player p3 = new Sharpshooter(level.roomsPool.get(50),128, 128, KeySet.THREE);
+		players.add(p3);
+		
+		for(int i=0;i<50;i++){
+			Enemy e = new Enemy(level.roomsPool.get(50), 256, 256,p1);
 			entities.add(e);
 		}
 		

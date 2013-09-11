@@ -14,10 +14,11 @@ public class Enemy extends GameObject implements Actor{
 	private Vector2f direction=new Vector2f(0,0);
 	private Vector2f steering=new Vector2f(0,0);
 	private Vector2f torque=new Vector2f(0,0);
-
+	
 	
 	
 	private ArrayList<Door> path;
+	private ArrayList<Room> roomPool;
 	private int pathIndex;
 	private Room startRoom=null;
 	private Room targetRoom=null;
@@ -30,6 +31,8 @@ public class Enemy extends GameObject implements Actor{
 	public String action="IDLE";
 	public String facing="LEFT";
 	public float health;
+	
+	private int tmpIndex=0;
 
 	public Enemy(Room room, float x, float y) {
 		super(room, x, y, 128,256,true);
@@ -62,14 +65,15 @@ public class Enemy extends GameObject implements Actor{
 				roomTravel=false;
 			else
 			if(!updatePath){ 
-				//System.out.println("Player Changed Room");
+				System.out.println("Player Changed Room");
 				updatePath=true;
 				targetRoom=target.room;
 				startRoom=room;
+				tmpIndex=0;
 				path=getPathFrom(room,null);
 				
 				if(path!=null){
-			/*		System.out.println("------PATH-------");
+					/*System.out.println("------PATH-------");
 					System.out.println("SIZE : "+path.size());
 					for(int i=0;i<path.size();i++)
 						System.out.println("STEP "+i+" : "+path.get(i).side);	*/
@@ -78,6 +82,8 @@ public class Enemy extends GameObject implements Actor{
 					roomTravel=nextRoom();
 
 				}
+				else
+					System.out.println("path null");
 			}
 		}
 		else{
@@ -154,32 +160,34 @@ public class Enemy extends GameObject implements Actor{
 		
 	private ArrayList<Door> getPathFrom(Room room,Door door){
 		if(target==null || room.doors.size()==0 || room==target.room) return null;
+		
 		ArrayList <Door> path=new ArrayList<Door>();
 		Door d;
 		Room r;
 		ArrayList<Door> l=new ArrayList<Door>();
 		for(int i=0;i<room.doors.size();i++){
+			
 			d=room.doors.get(i);
 			if(d==door) continue;
 			r=getDoorDestination(room,d);
 			if(r==target.room){
+				//System.out.println(tmpIndex);
 				path.add(d);
 				return path;
 			}
 		}
-		
+		tmpIndex++;
 		for(int i=0;i<room.doors.size();i++){
 			d=room.doors.get(i);
 			if(d!=door) {
 				r=getDoorDestination(room,d);
 				l=getPathFrom(r,d);
+				
 				if(l!=null){
-					r=getDoorDestination(room,l.get(l.size()-1));
-					if(r==target.room){
 						path.add(d);
 						path.addAll(l);
+						System.out.println(path.size());
 						return path;
-					}
 				}
 			}
 		}

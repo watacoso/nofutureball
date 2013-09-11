@@ -76,7 +76,7 @@ public class ObjectAnimationList extends Entity{
 		y=(index+length-1)/ss.getHorizontalCount();
 		
 
-		System.out.println(a+" "+b+" : "+x+" "+y);
+		//System.out.println(a+" "+b+" : "+x+" "+y);
 	
 		return new Animation(ss,a,b,x,y,true,speed,true);
 	}

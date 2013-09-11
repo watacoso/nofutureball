@@ -73,7 +73,7 @@ public class Wall extends Entity {
 				g.fillRect( screenPos.x,  (screenPos.y - _height), _length, _height+_padding);
 				g.setColor(Color.decode("#9AA0B6"));
 				g.fillRect( (screenPos.x),  (screenPos.y - _height), _length, _padding);
-				super.render(camera);
+				//super.render(camera);
 				break;
 			case 2:
 				//if(true)return;
@@ -81,7 +81,7 @@ public class Wall extends Entity {
 				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding  + _height);
 				g.setColor(Color.decode("#9AA0B6"));
 				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding );
-				super.render(camera);
+				//super.render(camera);
 				break;
 		}
 		

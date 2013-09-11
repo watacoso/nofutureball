@@ -19,7 +19,7 @@ public class Room extends Entity {
 	
 	public static int wallSpessor=64;
 	public static int tileWidth=256;
-	public static int tileHeight=128;
+	public static int tileHeight=256;
 	public int width,height;
 	public Vector2f flowVector=new Vector2f();
 	public boolean visited=false;
@@ -116,7 +116,6 @@ public class Room extends Entity {
 				case "top":
 					w=new Wall(this,position.x+TX, position.y, 1, r.getRelativePos(this)*Room.tileWidth-TX);
 					TX=r.getRelativePos(this)*Room.tileWidth+r.size.x;
-					System.out.println("test");
 					break;
 				case "bottom":
 					w=new Wall(this,position.x + BX, position.y + size.y + wallSpessor, 1, r.getRelativePos(this)*Room.tileWidth-BX);

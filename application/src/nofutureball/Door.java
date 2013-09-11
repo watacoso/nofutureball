@@ -40,7 +40,7 @@ public class Door extends Entity{
 			size.y = Room.wallSpessor;
 		}
 		else{
-			width+=1;
+			//width+=1;
 			size.y = width*Room.tileHeight;
 			size.x = Room.wallSpessor;
 		}
