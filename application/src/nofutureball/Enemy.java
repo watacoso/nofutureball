@@ -6,7 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Enemy extends GameObject implements Actor{
+public class Enemy extends GameObject{
 
 	
 	private float maxForce = 1;
@@ -26,7 +26,7 @@ public class Enemy extends GameObject implements Actor{
 	private Door stepDoor=null;
 	private boolean updatePath=false;
 	private boolean roomTravel=false;
-	private boolean onDoor=false;
+	private boolean onTarget=false;
 	
 	public String action="IDLE";
 	public String facing="LEFT";
@@ -36,14 +36,12 @@ public class Enemy extends GameObject implements Actor{
 
 	public Enemy(Room room, float x, float y) {
 		super(room, x, y, 128,256,true);
-		//animations = AnimationSet.createAnimationSet(Animatable.SUBCLASS.ENEMY);
 		defineStats();
 		
 	}
 	
 	public Enemy(Room room, float x, float y,Player target) {
 		super(room, x, y, 128,256,true);
-		//animations = AnimationSet.createAnimationSet(Animatable.SUBCLASS.ENEMY);
 		this.target=target;
 		steering=getDirectionVector(target);
 		
@@ -65,7 +63,6 @@ public class Enemy extends GameObject implements Actor{
 				roomTravel=false;
 			else
 			if(!updatePath){ 
-				System.out.println("Player Changed Room");
 				updatePath=true;
 				targetRoom=target.room;
 				startRoom=room;
@@ -93,7 +90,7 @@ public class Enemy extends GameObject implements Actor{
 
 				
 		if(roomTravel){
-			
+			onTarget=false;
 			//Movement BETWEEN ROOMS
 			if(door==stepDoor){
 				if(stepDoor.size.x<stepDoor.size.y){
@@ -109,20 +106,27 @@ public class Enemy extends GameObject implements Actor{
 						steering=getDirectionVector(position.x+pivot.x,stepDoor.position.y+stepDoor.pivot.y-100);
 				}
 				//steering=getDirectionVector(stepRoom);
-				onDoor=true;
+				//onDoor=true;
 			}
 			else{
 				steering=getDirectionVector(stepDoor);
-				onDoor=false;
+				//onDoor=false;
 			}
 			
 			if(stepRoom==room){
 				roomTravel=nextRoom();
+				System.out.println(roomTravel);
 			
 			}
 		}
 		else
 		if(target!=null){
+			
+			if(!onTarget){
+				//System.out.println(path);
+				onTarget=true;
+			}
+			
 			//SUBSTITUTE WITH Local movement AI 
 			steering=getDirectionVector(target).scale(maxForce);
 			//SUBSTITUTE WITH Local movement AI 
@@ -186,7 +190,6 @@ public class Enemy extends GameObject implements Actor{
 				if(l!=null){
 						path.add(d);
 						path.addAll(l);
-						System.out.println(path.size());
 						return path;
 				}
 			}
@@ -265,24 +268,4 @@ public class Enemy extends GameObject implements Actor{
 			object.die();
 		}
 	}
-	
-	
-	//DEBUG
-	
-
-
-	@Override
-	public void execActive(int index) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void execPassive(int index) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-
 }

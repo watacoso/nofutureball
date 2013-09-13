@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.geom.Vector2f;
 
-public class Level {
+public class LevelGen {
 
 	public Room startRoom;
 	private Container entities,map;
@@ -15,7 +15,7 @@ public class Level {
 	private ArrayList<Door> doorsBuffer= new ArrayList<Door>();
 	public ArrayList<Room> roomsPool=new ArrayList<Room>();
 	
-	public Level(Container entities,Container map){
+	public LevelGen(Container entities,Container map){
 		this.map=map;
 		this.entities=entities;
 		startRoom=squareRoom(6);
@@ -191,6 +191,10 @@ public class Level {
 	
 	public Room getStartRoom(){
 		return startRoom;
+	}
+	
+	public Room getRandomRoom(){
+		return roomsPool.get((int)Math.floor(Math.random()*roomsPool.size()));
 	}
 	
 	

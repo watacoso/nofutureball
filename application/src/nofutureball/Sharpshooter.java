@@ -9,7 +9,9 @@ public class Sharpshooter extends Player {
 
 	///////////////////////
 	public int bulletSize=64
-	,bulletSpeed=15;
+	,bulletSpeed=15,
+	firingSpeed=10,
+	normalSpeed=30;
 	///////////////////////
 	
 	
@@ -30,20 +32,25 @@ public class Sharpshooter extends Player {
 	public void update(Game game){
 		
 		Input input = NoFutureBall.getGameContainer().getInput();
-		if(input.isKeyDown(keySet.action1) && shotReady){
-			
-			if(passive==Augmentation.W_TRIPLESHOT)
-			tripleShot();
-			else
-				standardShot();
-			SoundManager.mixedSound("shot");
-			shotReady=false;
-			shotTimer=0;
-		}
-		else if(shotTimer>attackSpeed){
+		if(input.isKeyDown(keySet.action1)){
+			if(shotReady){
+				if(passive==Augmentation.W_TRIPLESHOT)
+					tripleShot();
+				else
+					standardShot();
+				SoundManager.mixedSound("shot");
+				shotReady=false;
+				shotTimer=0;
+			}
+			else if(shotTimer>attackSpeed){
 				shotReady=true;
 			}
-		else shotTimer++;
+			else shotTimer++;
+			
+			maxSpeed=firingSpeed;
+		}
+		else
+			maxSpeed=normalSpeed;
 		
 		
 		super.update(game);

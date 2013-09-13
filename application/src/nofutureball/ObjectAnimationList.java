@@ -111,7 +111,7 @@ public class ObjectAnimationList extends Entity{
 			Vector2f screenPos = getScreenPos(cam);
 			currentAnimation.draw(screenPos.x, screenPos.y, getScaledWidth(cam), getScaledHeight(cam));
 		}
-		super.render(cam);
+		//super.render(cam);
 	}
 	
 	

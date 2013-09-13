@@ -8,7 +8,7 @@ public abstract class Player extends GameObject implements Actor{
 	public Weapon weapon;
 	
 	
-	private float maxSpeed = 40;
+	protected float maxSpeed = 40;
 	public Vector2f direction,lastDirection;
 	
 	
