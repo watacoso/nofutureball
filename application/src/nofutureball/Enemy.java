@@ -2,8 +2,6 @@ package nofutureball;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Enemy extends GameObject{
@@ -16,23 +14,24 @@ public class Enemy extends GameObject{
 	private Vector2f torque=new Vector2f(0,0);
 	
 	
-	
 	private ArrayList<Door> path;
-	private ArrayList<Room> roomPool;
 	private int pathIndex;
-	private Room startRoom=null;
+	
 	private Room targetRoom=null;
+	
 	private Room stepRoom=null;
+	private Room currentPathRoom=null;
 	private Door stepDoor=null;
+	
 	private boolean updatePath=false;
 	private boolean roomTravel=false;
-	private boolean onTarget=false;
+
+	
+	private boolean movingUnit=true;
 	
 	public String action="IDLE";
 	public String facing="LEFT";
 	public float health;
-	
-	private int tmpIndex=0;
 
 	public Enemy(Room room, float x, float y) {
 		super(room, x, y, 128,256,true);
@@ -43,6 +42,7 @@ public class Enemy extends GameObject{
 	public Enemy(Room room, float x, float y,Player target) {
 		super(room, x, y, 128,256,true);
 		this.target=target;
+		targetRoom=target.room;
 		steering=getDirectionVector(target);
 		
 		defineStats();
@@ -53,96 +53,53 @@ public class Enemy extends GameObject{
 		maxHealth=100;
 		armor=1;
 		health=maxHealth;
-		startRoom=room;
 	}
 
 	public void update(Game game) {
-		
-		if(target!=null && targetRoom!=target.room || startRoom!=room && startRoom!=null){
-			if(room==target.room)
-				roomTravel=false;
-			else
-			if(!updatePath){ 
-				updatePath=true;
-				targetRoom=target.room;
-				startRoom=room;
-				tmpIndex=0;
-				path=getPathFrom(room,null);
 				
-				if(path!=null){
-					/*System.out.println("------PATH-------");
-					System.out.println("SIZE : "+path.size());
-					for(int i=0;i<path.size();i++)
-						System.out.println("STEP "+i+" : "+path.get(i).side);	*/
-					
-					pathIndex=0;
-					roomTravel=nextRoom();
-
-				}
-				else
-					System.out.println("path null");
-			}
-		}
-		else{
-			updatePath=false;
-		}
-		
-
-				
-		if(roomTravel){
-			onTarget=false;
-			//Movement BETWEEN ROOMS
-			if(door==stepDoor){
-				if(stepDoor.size.x<stepDoor.size.y){
-					if(speed.x>0)
-						steering=getDirectionVector(stepDoor.position.x+stepDoor.pivot.x+100,position.y+pivot.y);
-					else
-						steering=getDirectionVector(stepDoor.position.x+stepDoor.pivot.x-100,position.y+pivot.y);
-				}
-				else{
-					if(speed.y>0)
-						steering=getDirectionVector(position.x+pivot.x,stepDoor.position.y+stepDoor.pivot.y+100);
-					else
-						steering=getDirectionVector(position.x+pivot.x,stepDoor.position.y+stepDoor.pivot.y-100);
-				}
-				//steering=getDirectionVector(stepRoom);
-				//onDoor=true;
-			}
-			else{
-				steering=getDirectionVector(stepDoor);
-				//onDoor=false;
-			}
-			
-			if(stepRoom==room){
-				roomTravel=nextRoom();
-				System.out.println(roomTravel);
-			
-			}
+		if(target==null || !movingUnit){
+			idleAI();
 		}
 		else
-		if(target!=null){
+		if(roomTravel){
 			
-			if(!onTarget){
-				//System.out.println(path);
-				onTarget=true;
+			if(isPathObsolete()){		
+				if(target.room==room){
+					roomTravel=false;			
+				}
+				else
+				if(!updatePath){
+					updatePath=true;
+					newPath();
+					roomTravel=nextRoom();
+				}
 			}
+			else{
+				if(room==stepRoom){
+					roomTravel=nextRoom();
+				}
+				updatePath=false;
+			}
+			pathAI();
 			
-			//SUBSTITUTE WITH Local movement AI 
-			steering=getDirectionVector(target).scale(maxForce);
-			//SUBSTITUTE WITH Local movement AI 
 		}
-		
-		
-		
+		else{
+			if(target.room!=room){
+				roomTravel=true;
+			}
+			else{
+				roomAI();
+			}
+		}
+
 		//speed vector adjustment
-		
 		
 		direction.set(steering);
 		direction.normalise();
 		
 		torque.set(0,0);
 
-		
+		//ANIMATION SECTOR (PLACEHOLDER, needs to be moved to each enemy subclass)
 		
 		if(speed.length()>=1){
 			action="WALKING";
@@ -180,7 +137,6 @@ public class Enemy extends GameObject{
 				return path;
 			}
 		}
-		tmpIndex++;
 		for(int i=0;i<room.doors.size();i++){
 			d=room.doors.get(i);
 			if(d!=door) {
@@ -202,14 +158,67 @@ public class Enemy extends GameObject{
 		this.target=target;
 		targetRoom=target.room;
 	}
+		
+	private boolean isPathObsolete(){
+		
+		if(path==null)
+			return true;
+		if(targetRoom!=null && targetRoom!=target.room )
+			return true;
+		if(currentPathRoom!=null && room!=currentPathRoom && room!=stepRoom)
+			return true;
+		return false;
+	}
+	
+	private void newPath(){
+		pathIndex=0;
+		targetRoom=target.room;
+		currentPathRoom=room;
+		path=getPathFrom(room,null);
+	}
 	
 	private boolean nextRoom(){
-		if(path==null || path.size()==pathIndex)
-			return false;
+		if(path==null) return false;
+		if( path.size()==pathIndex)	return false;
 		stepDoor=path.get(pathIndex);
 		stepRoom=getDoorDestination(room, stepDoor);
+		currentPathRoom=room;
 		pathIndex++;
 		return true;
+	}
+	
+	protected void roomAI(){
+		steering=getDirectionVector(target).scale(maxForce);
+	}
+	
+	private void pathAI(){
+			if(path==null) return;
+			if(door==stepDoor){
+				if(stepDoor.size.x<stepDoor.size.y){
+					if(speed.x>0)
+						steering=getDirectionVector(stepDoor.position.x+stepDoor.pivot.x+100,position.y+pivot.y);
+					else
+						steering=getDirectionVector(stepDoor.position.x+stepDoor.pivot.x-100,position.y+pivot.y);
+				}
+				else{
+					if(speed.y>0)
+						steering=getDirectionVector(position.x+pivot.x,stepDoor.position.y+stepDoor.pivot.y+100);
+					else
+						steering=getDirectionVector(position.x+pivot.x,stepDoor.position.y+stepDoor.pivot.y-100);
+				}
+			}
+			else{
+				steering=getDirectionVector(stepDoor);
+			}
+			
+			if(stepRoom==room){
+				roomTravel=nextRoom();
+			
+			}
+	}
+	
+	protected void idleAI(){
+		
 	}
 	
 	private Room getDoorDestination(Room room,Door d){
@@ -219,11 +228,7 @@ public class Enemy extends GameObject{
 			return d.rB;
 	}
 	
-	
-	//AVOIDANCE
-	
-	
-	
+	//AVOIDANCE	
 	
 	protected void handleObjectCollision(GameObject object,String direction){
 		if(object instanceof Player)
@@ -268,4 +273,6 @@ public class Enemy extends GameObject{
 			object.die();
 		}
 	}
+	
+	
 }

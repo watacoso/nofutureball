@@ -1,7 +1,5 @@
 package nofutureball;
 
-import java.util.ArrayList;
-
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -18,9 +16,6 @@ public class Game extends BasicGame {
 	public LevelGen levelGen;
 	
 	public LevelManager lManager;
-
-	private Camera cam = null;
-	
 	
 	public Game(String gamename) {
 		super(gamename);

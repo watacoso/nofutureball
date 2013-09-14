@@ -9,7 +9,7 @@ public class LevelGen {
 	public Room startRoom;
 	private Container entities,map;
 	
-	public int nRooms=20;
+	public int nRooms=4;
 	private boolean validCompound;
 	private ArrayList<Room> roomsBuffer=new ArrayList<Room>();
 	private ArrayList<Door> doorsBuffer= new ArrayList<Door>();
