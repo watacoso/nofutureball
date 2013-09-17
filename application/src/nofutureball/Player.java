@@ -65,6 +65,8 @@ public abstract class Player extends GameObject implements Actor{
 		speed.x += (goalSpeed.x - this.speed.x) / 20;
 		speed.y += (goalSpeed.y - this.speed.y) / 20;
 		
+		//if (speed.length()<1) speed.set(0, 0);
+		
 		if (direction.x != 0 || direction.y != 0) {
 			action="WALKING";
 		} else {

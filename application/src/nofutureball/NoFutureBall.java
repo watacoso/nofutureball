@@ -16,7 +16,7 @@ public class NoFutureBall {
 	public final static int FPS = 60;
 
 	public static void main(String[] args) {
-
+		
 
 
 		try {
@@ -25,7 +25,6 @@ public class NoFutureBall {
 
 			appgc.setDisplayMode(WIDTH, HEIGHT, false);
 			appgc.setTargetFrameRate(FPS);
-			appgc.setVSync(true);
 			// appgc.setMinimumLogicUpdateInterval(16);
 			appgc.start();
 		} catch (SlickException ex) {

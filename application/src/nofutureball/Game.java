@@ -35,7 +35,8 @@ public class Game extends BasicGame {
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
-		ObjectAnimationList.init();
+		gc.setVSync(true);
+		Sprite.init();
 		lManager=new LevelManager(this);
 		AnimationSource.init();
 		NoFutureBall.setGameContainer(gc);
@@ -58,6 +59,8 @@ public class Game extends BasicGame {
 		g.setBackground(Color.decode("#0C060E"));
 		entities.sort();
 		gameContainer.render(lManager.cam);
+		
+		
 	}
 	
 	

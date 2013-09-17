@@ -60,6 +60,18 @@ public abstract class Entity implements Comparable<Entity> {
 			return 1;
 		if (o.position.y+o.size.y  > this.position.y+this.size.y)
 			return -1;
+		if(this instanceof Wall && o instanceof Wall){
+			Wall w1=(Wall)this;
+			Wall w2=(Wall)o;
+			if(w1.room!=w2.room){
+				if(w1.room.position.y > w2.room.position.y)
+					return 1;
+				else
+				if(w1.room.position.y < w2.room.position.y)
+					return -1;
+				
+			}
+		}
 		return 0;
 	}
 	

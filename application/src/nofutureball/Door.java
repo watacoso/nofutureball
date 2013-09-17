@@ -18,6 +18,8 @@ public class Door extends Entity{
 		super(0, 0);
 		this.rA=rA;
 		this.rB=rB;
+		rA.childs.add(rB);
+		rB.parent=rA;
 		width=doorWidth;
 
 	}

@@ -45,14 +45,14 @@ public class Sharpshooter extends Player {
 			else if(shotTimer>attackSpeed){
 				shotReady=true;
 			}
-			else shotTimer++;
+			
 			
 			maxSpeed=firingSpeed;
 		}
 		else
 			maxSpeed=normalSpeed;
 		
-		
+		shotTimer++;
 		super.update(game);
 	}
 

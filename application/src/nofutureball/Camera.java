@@ -18,13 +18,14 @@ public class Camera {
 	public Vector2f position = new Vector2f();
 	private float zoom;
 	
-	private final float maxZoom = 0.8f;
+	private final float maxZoom = 1;
 	
 	public Camera(Container follower){
 
 		setZoom(1);
 		// 
 		this.follower = follower;
+	
 	}
 	public Camera()
 	{
