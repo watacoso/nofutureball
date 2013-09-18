@@ -1,5 +1,12 @@
 package nofutureball;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL14;
+import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -34,7 +41,7 @@ public class Game extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-
+		//GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_CLAMP, GL11.GL_NEAREST);
 		gc.setVSync(true);
 		Sprite.init();
 		lManager=new LevelManager(this);
@@ -55,12 +62,10 @@ public class Game extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		
+		//g.setAntiAlias(false);
 		g.setBackground(Color.decode("#0C060E"));
 		entities.sort();
-		gameContainer.render(lManager.cam);
-		
-		
+		gameContainer.render(lManager.cam);		
 	}
 	
 	

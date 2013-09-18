@@ -64,11 +64,25 @@ public class Sprite extends Entity{
 		
 		//FLOOR//
 		
-		setSpriteSheet("assets/sprites/FloorTiles.png",256, 256);
+		setSpriteSheet("assets/sprites/FloorTilesT.png",256, 256);
 		addSprite("FLOOR","R1",0,0,false);
 		addSprite("FLOOR","R2",1,0,false);
 		addSprite("FLOOR","R3",2,0,false);
-		addSprite("FLOOR","R4",3,0,false);
+		//addSprite("FLOOR","R4",3,0,false);
+		
+		//WALL//
+		
+		setSpriteSheet("assets/sprites/WallTiles.png",256, 256);
+		addSprite("WALL","R1",0,0,false);
+		addSprite("WALL","R2",1,0,false);
+		addSprite("WALL","R3",2,0,false);
+		addSprite("WALL","R4",3,0,false);
+		
+		//DOOR//
+		
+		addSprite("DOOR","H","assets/sprites/HDoor.png",false);
+		addSprite("DOOR","V","assets/sprites/VDoor.png",false);
+		
 		
 
 		
@@ -82,6 +96,8 @@ public class Sprite extends Entity{
 			e.printStackTrace();
 		}
 	}
+	
+
 	
 	private static Animation buildAnimation(int index,int length,int speed){
 		int a,b,x,y;
@@ -104,10 +120,11 @@ public class Sprite extends Entity{
 		for(int i=0;i<anim.getFrameCount();i++){
 			Image t=anim.getImage(i);
 			t.bind();
+			//t.setFilter(Image.FILTER_NEAREST);
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 			GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-			//t.setFilter(Image.FILTER_LINEAR);
+			
 			
 			if(flipped){
 				t=t.getFlippedCopy(true, false);
@@ -121,13 +138,41 @@ public class Sprite extends Entity{
 		animationList.get(owner).put(name, anim);
 	}
 	
+	private static void addSprite(String owner,String name,String ref,boolean flipped){
+		Image img=null;
+		try {
+			img = new Image(ref);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		img.bind();
+		//img.setFilter(Image.FILTER_NEAREST);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+		
+		GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+		//img.setFilter(GL11.GL_LINEAR_MIPMAP_LINEAR);
+		
+		if(flipped)
+			img=img.getFlippedCopy(true, false);
+		
+		if(!spriteList.containsKey(owner))
+			spriteList.put(owner, new HashMap<String,Image>());
+		
+		spriteList.get(owner).put(name, img);
+	}
+	
 	private static void addSprite(String owner,String name,int x,int y,boolean flipped){
 		Image img=ss.getSprite(x, y);
 		img.bind();
+		//img.setFilter(Image.FILTER_NEAREST);
 		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
-		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+		
 		GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-		//img.setFilter(Image.FILTER_LINEAR);
+		//img.setFilter(GL11.GL_LINEAR_MIPMAP_LINEAR);
+		
 		if(flipped)
 			img=img.getFlippedCopy(true, false);
 		

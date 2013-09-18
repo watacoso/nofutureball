@@ -13,10 +13,12 @@ public class Room extends Entity {
 	
 	public ArrayList<Door> doors;
 	public ArrayList<Wall> walls;
+	ArrayList<Image> wallTiles;
 	public Room parent;
 	public ArrayList<Room> childs;
 	private Graphics g = new Graphics();
 	Image floor;
+	
 	
 	public static int wallSpessor=64;
 	public static int tileWidth=256;
@@ -41,6 +43,7 @@ public class Room extends Entity {
 		doors=new ArrayList<Door>();
 		walls=new ArrayList<Wall>();
 		childs=new ArrayList<Room>();
+		wallTiles=new ArrayList<Image>();
 		numActors=0;
 		
 		roomType=(int)Math.ceil(Math.random()*4);
@@ -63,7 +66,7 @@ public class Room extends Entity {
 		childs=new ArrayList<Room>();
 		numActors=0;
 		
-		roomType=(int)Math.ceil(Math.random()*4);
+		roomType=(int)Math.ceil(Math.random()*3);
 		floor=Sprite.getSprite("FLOOR", "R"+roomType);
 		//floor.setFilter(Image.FILTER_NEAREST);
 	}
@@ -82,30 +85,26 @@ public class Room extends Entity {
 				
 		// Floor
 
-		//Image scaledFloorTile = floor.getScaledCopy(cam.getZoom() * 1.02f);
 
 		// just caching values to limit calculations
 		float floorWidth = tileWidth * cam.getZoom();
 		float floorHeight = tileHeight * cam.getZoom();
 		float _wallSpessor = wallSpessor*cam.getZoom();
 		
-		g.setColor(Color.decode("#B0B0B0"));
+		g.setColor(Color.decode("#565C76"));
 		g.setLineWidth(_wallSpessor);
-		g.drawRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
+		//g.drawRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
 
-		g.setColor(Color.decode("#585D78"));
+		g.setColor(Color.decode("#565C76"));
 		
-		//g.fillRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
+		g.fillRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
 		//floor.draw(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
 		
 		for (float y = 0, i = 0; i < height; y += floorHeight, i ++) {
 			for (float x = 0, j = 0; j < width; x += floorWidth, j ++) {
 				
 				// The commented out line would draw with a cached scaled floor (= more efficient) but it seems to leave
-				// gaps between the tiles frequently. This should be fixed. 
-
-				//scaledFloorTile.draw((int)(screenPos.x + x),(int)(  screenPos.y + y));
-
+				// gaps between the tiles frequently. This should be fixed.
 				floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
 			}
 		}
