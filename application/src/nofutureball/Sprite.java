@@ -64,7 +64,7 @@ public class Sprite extends Entity{
 		
 		//FLOOR//
 		
-		setSpriteSheet("assets/sprites/FloorTilesT.png",256, 256);
+		setSpriteSheet("assets/sprites/FloorTiles.png",256, 256);
 		addSprite("FLOOR","R1",0,0,false);
 		addSprite("FLOOR","R2",1,0,false);
 		addSprite("FLOOR","R3",2,0,false);
