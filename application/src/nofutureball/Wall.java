@@ -2,7 +2,6 @@ package nofutureball;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Wall extends Entity {
@@ -13,7 +12,7 @@ public class Wall extends Entity {
 	final int padding = Room.wallSpessor;
 	static final float height = 128;
 	static final float lowHeight=10;
-	private Image wall,top;
+	//private Image wall,top;
 	float length;
 	
 	public Room room;
@@ -26,8 +25,8 @@ public class Wall extends Entity {
 		this.type = type;
 		setLength(length);
 		g = new Graphics();
-		wall=Sprite.getSprite("WALL", "R1");
-		top=Sprite.getSprite("WALL", "R2");
+		//wall=Sprite.getSprite("WALL", "R1");
+		//top=Sprite.getSprite("WALL", "R2");
 		
 	}
 	

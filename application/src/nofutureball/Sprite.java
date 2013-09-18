@@ -68,15 +68,15 @@ public class Sprite extends Entity{
 		addSprite("FLOOR","R1",0,0,false);
 		addSprite("FLOOR","R2",1,0,false);
 		addSprite("FLOOR","R3",2,0,false);
-		//addSprite("FLOOR","R4",3,0,false);
+		addSprite("FLOOR","R4",3,0,false);
 		
 		//WALL//
 		
-		setSpriteSheet("assets/sprites/WallTiles.png",256, 256);
-		addSprite("WALL","R1",0,0,false);
-		addSprite("WALL","R2",1,0,false);
-		addSprite("WALL","R3",2,0,false);
-		addSprite("WALL","R4",3,0,false);
+		//setSpriteSheet("assets/sprites/WallTiles.png",256, 256);
+		//addSprite("WALL","R1",0,0,false);
+		//addSprite("WALL","R2",1,0,false);
+		//addSprite("WALL","R3",2,0,false);
+		//addSprite("WALL","R4",3,0,false);
 		
 		//DOOR//
 		

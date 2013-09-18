@@ -66,7 +66,7 @@ public class Room extends Entity {
 		childs=new ArrayList<Room>();
 		numActors=0;
 		
-		roomType=(int)Math.ceil(Math.random()*3);
+		roomType=(int)Math.ceil(Math.random()*4);
 		floor=Sprite.getSprite("FLOOR", "R"+roomType);
 		//floor.setFilter(Image.FILTER_NEAREST);
 	}
