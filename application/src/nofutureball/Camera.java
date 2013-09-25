@@ -18,13 +18,14 @@ public class Camera {
 	public Vector2f position = new Vector2f();
 	private float zoom;
 	
-	private final float maxZoom = 0.8f;
+	private final float maxZoom = 1;
 	
 	public Camera(Container follower){
 
 		setZoom(1);
 		// 
 		this.follower = follower;
+	
 	}
 	public Camera()
 	{
@@ -33,9 +34,9 @@ public class Camera {
 	
 	
 	// Controls how fast the follower can follow the target. The higher the slower.
-	private final int quotient = 10;
+	private final int quotient = 1;
 	
-	private final int cameraMargin = 500;
+	private final int cameraMargin = 100;
 	
 	public void update()
 	{

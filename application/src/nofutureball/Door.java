@@ -1,5 +1,8 @@
 package nofutureball;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Vector2f;
+
 
 public class Door extends Entity{
 
@@ -8,6 +11,7 @@ public class Door extends Entity{
 	private int posA,posB;
 	public int width;
 	public String side;
+	private Image sprite;
 	public Door(int doorWidth) {
 		super(0, 0);
 		width=doorWidth;
@@ -18,7 +22,10 @@ public class Door extends Entity{
 		super(0, 0);
 		this.rA=rA;
 		this.rB=rB;
+		rA.childs.add(rB);
+		rB.parent=rA;
 		width=doorWidth;
+		
 
 	}
 	
@@ -38,11 +45,13 @@ public class Door extends Entity{
 		if(side=="top" || side=="bottom"){
 			size.x = width*Room.tileWidth;
 			size.y = Room.wallSpessor;
+			sprite=Sprite.getSprite("DOOR","H");
 		}
 		else{
 			//width+=1;
 			size.y = width*Room.tileHeight;
 			size.x = Room.wallSpessor;
+			sprite=Sprite.getSprite("DOOR","V");
 		}
 		
 		pivot.x=size.x/2;
@@ -105,7 +114,14 @@ public class Door extends Entity{
 	
 
 	public void render(Camera cam){
-	//	super.render(cam);
+		
+			Vector2f screenPos = getScreenPos(cam);
+
+			float _width = size.x * cam.getZoom();
+			float _height = size.y * cam.getZoom();
+			
+			sprite.draw(screenPos.x, screenPos.y, _width, _height);
+		
 	}	
 
 }

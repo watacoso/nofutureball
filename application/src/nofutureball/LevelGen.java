@@ -24,7 +24,7 @@ public class LevelGen {
 		roomsPool.add(startRoom);
 	}
 	
-	public void generateMap(){
+	public void generateMap(int level){
 			
 		placeNewCompound();
 		renderAllWalls();

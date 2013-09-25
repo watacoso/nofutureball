@@ -7,7 +7,7 @@ public class LevelManager {
 	private  int level;
 	private Container entities;
 	private Container players;
-	private int nPlayers=1;
+	private int nPlayers=2;
 	
 	public Camera cam;
 	
@@ -22,11 +22,11 @@ public class LevelManager {
 	public void setNumPlayers(int nPlayers){
 		players.list.clear();
 		if(nPlayers>=1){
-			Player p = new Sharpshooter(levelGen.getRandomRoom(),100, 40, KeySet.ONE);
+			Player p = new Sharpshooter(levelGen.getStartRoom(),100, 40, KeySet.ONE);
 			players.add(p);
 		}
 		if(nPlayers>=2){
-			Player p = new Sharpshooter(levelGen.getRandomRoom(),200, 40, KeySet.TWO);
+			Player p = new Sharpshooter(levelGen.getStartRoom(),200, 40, KeySet.TWO);
 			players.add(p);
 		}
 		if(nPlayers>=3){
@@ -50,14 +50,14 @@ public class LevelManager {
 	}
 	
 	public void initLevel(){
-		levelGen.generateMap();
-		setNumPlayers(4);
+		levelGen.generateMap(level);
+		setNumPlayers(nPlayers);
 		for (int i=0;i<players.size();i++) {
 			entities.add(players.get(i));
 			cam.addTarget(players.get(i));
 		}
 		
-		for(int i=0;i<50;i++){
+		for(int i=0;i<0;i++){
 			Enemy e = new Enemy(levelGen.getRandomRoom(), 256, 256,(Player) players.get(0));
 			entities.add(e);
 		}

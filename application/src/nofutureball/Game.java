@@ -34,8 +34,9 @@ public class Game extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-
-		ObjectAnimationList.init();
+		//GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_CLAMP, GL11.GL_NEAREST);
+		gc.setVSync(true);
+		Sprite.init();
 		lManager=new LevelManager(this);
 		AnimationSource.init();
 		NoFutureBall.setGameContainer(gc);
@@ -54,10 +55,10 @@ public class Game extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		
+		//g.setAntiAlias(false);
 		g.setBackground(Color.decode("#0C060E"));
 		entities.sort();
-		gameContainer.render(lManager.cam);
+		gameContainer.render(lManager.cam);		
 	}
 	
 	

@@ -6,7 +6,6 @@ import java.util.Collections;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Room extends Entity {
@@ -14,8 +13,12 @@ public class Room extends Entity {
 	
 	public ArrayList<Door> doors;
 	public ArrayList<Wall> walls;
+	ArrayList<Image> wallTiles;
+	public Room parent;
+	public ArrayList<Room> childs;
 	private Graphics g = new Graphics();
 	Image floor;
+	
 	
 	public static int wallSpessor=64;
 	public static int tileWidth=256;
@@ -24,38 +27,51 @@ public class Room extends Entity {
 	public Vector2f flowVector=new Vector2f();
 	public boolean visited=false;
 	public int numActors;
+	private int roomType;
 	
 	public Room(float x, float y, int width, int height) {
 		super(x, y, width * tileWidth, height * tileHeight,width * tileWidth/2,height * tileHeight/2);
 		
 		this.width = width;
 		this.height = height;
-		try {
+		/*try {
 			floor = new Image("assets/sprites/floorTiles.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		doors=new ArrayList<Door>();
 		walls=new ArrayList<Wall>();
+		childs=new ArrayList<Room>();
+		wallTiles=new ArrayList<Image>();
 		numActors=0;
+		
+		roomType=(int)Math.ceil(Math.random()*4);
+		floor=Sprite.getSprite("FLOOR", "R"+roomType);
+		
 	}
 	
 	public Room(int width, int height) {
 		super(0, 0, width * tileWidth, height * tileHeight);
 		this.width = width;
 		this.height = height;
-		try {
+		/*try {
 			floor = new Image("assets/sprites/floorTiles.png");
 		} catch (SlickException e) {
 
 			e.printStackTrace();
-		}
+		}*/
 		doors=new ArrayList<Door>();
 		walls=new ArrayList<Wall>();
+		childs=new ArrayList<Room>();
+		numActors=0;
+		
+		roomType=(int)Math.ceil(Math.random()*4);
+		floor=Sprite.getSprite("FLOOR", "R"+roomType);
+		//floor.setFilter(Image.FILTER_NEAREST);
 	}
 	
-
+	
 
 	public void update(Game game) {
 		if(!visited)
@@ -63,43 +79,37 @@ public class Room extends Entity {
 				visited=true;
 	}
 
-	public void render(Camera cam) {
-		
-		
-		//if(!visited) return;
-		
+	public void render(Camera cam) {		
 		
 		Vector2f screenPos = getScreenPos(cam);
-		
-		
+				
 		// Floor
 
-		//Image scaledFloorTile = floor.getScaledCopy(cam.getZoom() * 1.02f);
 
 		// just caching values to limit calculations
 		float floorWidth = tileWidth * cam.getZoom();
 		float floorHeight = tileHeight * cam.getZoom();
 		float _wallSpessor = wallSpessor*cam.getZoom();
-		g.setColor(Color.decode("#585D78"));
+		
+		g.setColor(Color.decode("#565C76"));
 		g.setLineWidth(_wallSpessor);
-		g.drawRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
-		if(numActors>0)
-			g.setColor(Color.decode("#767C96"));
-		else
-			g.setColor(Color.decode("#565C76"));
-		g.fillRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
+		//g.drawRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
 
+		g.setColor(Color.decode("#565C76"));
+		
+		g.fillRect(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
+		//floor.draw(screenPos.x, screenPos.y, floorWidth*width, floorHeight*height);
+		
 		for (float y = 0, i = 0; i < height; y += floorHeight, i ++) {
 			for (float x = 0, j = 0; j < width; x += floorWidth, j ++) {
 				
 				// The commented out line would draw with a cached scaled floor (= more efficient) but it seems to leave
-				// gaps between the tiles frequently. This should be fixed. 
-
-				//scaledFloorTile.draw(screenPos.x + x - 1,  screenPos.y + y - 1);
-
+				// gaps between the tiles frequently. This should be fixed.
 				floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
 			}
 		}
+		
+		
 		
 
 	}
@@ -118,7 +128,7 @@ public class Room extends Entity {
 					TX=r.getRelativePos(this)*Room.tileWidth+r.size.x;
 					break;
 				case "bottom":
-					w=new Wall(this,position.x + BX, position.y + size.y + wallSpessor, 1, r.getRelativePos(this)*Room.tileWidth-BX);
+					w=new Wall(this,position.x + BX, position.y + size.y + wallSpessor, 3, r.getRelativePos(this)*Room.tileWidth-BX);
 					BX=r.getRelativePos(this)*Room.tileWidth+r.size.x;
 					break;
 				case "left":
@@ -138,11 +148,11 @@ public class Room extends Entity {
 		
 		w=new Wall(this,position.x+TX, position.y, 1, size.x-TX);
 		addWall(w,target);
-		w=new Wall(this,position.x - wallSpessor, position.y+LY, 2, size.y-LY);
+		w=new Wall(this,position.x - wallSpessor, position.y+LY, 4, size.y-LY);
 		addWall(w,target);
-		w=new Wall(this,position.x + size.x, position.y+RY, 2, size.y-RY);
+		w=new Wall(this,position.x + size.x, position.y+RY, 4, size.y-RY);
 		addWall(w,target);
-		w=new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 1, size.x-BX);
+		w=new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 3, size.x-BX);
 		addWall(w,target);
 
 	}
@@ -150,18 +160,18 @@ public class Room extends Entity {
 	private void addWall(Wall w,Container target){
 		if(Math.abs(w.length)>wallSpessor){
 			float t=0;
-			if(w.position.y-position.y==0 && w.getType()==2 || w.position.x-position.x==0 && w.getType()==1){
+			if(w.position.y-position.y==0 && w.getType()%2==0 || w.position.x-position.x==0 && w.getType()%2==1){
 				t=wallSpessor;
-				if(w.getType()==2){
+				if(w.getType()%2==0){
 					w.position.y-=t*2;
 					w.setLength(w.length+t);
 				}
-				else if(w.getType()==1){
+				else if(w.getType()%2==1){
 					w.position.x-=t;
 					w.setLength(w.length+t);
 				}
 			}
-			else if(w.getType()==2)
+			else if(w.getType()%2==0)
 				w.position.y-=t*2;
 			
 			

@@ -12,6 +12,7 @@ public class Wall extends Entity {
 	final int padding = Room.wallSpessor;
 	static final float height = 128;
 	static final float lowHeight=10;
+	//private Image wall,top;
 	float length;
 	
 	public Room room;
@@ -24,6 +25,9 @@ public class Wall extends Entity {
 		this.type = type;
 		setLength(length);
 		g = new Graphics();
+		//wall=Sprite.getSprite("WALL", "R1");
+		//top=Sprite.getSprite("WALL", "R2");
+		
 	}
 	
 	public void setLength(float l){
@@ -31,12 +35,19 @@ public class Wall extends Entity {
 
 		switch (type) {
 			case 1:
-				
-				//position.x-=padding;
 				size.x = length;
 				size.y = padding;
 				break;
 			case 2:
+				position.y+=padding;
+				size.y = length+padding;
+				size.x = padding;
+				break;
+			case 3:
+				size.x = length;
+				size.y = padding;
+				break;
+			case 4:
 				position.y+=padding;
 				size.y = length+padding;
 				size.x = padding;
@@ -57,12 +68,12 @@ public class Wall extends Entity {
 
 	public void render(Camera camera) {
 		//if(true) return;
-		//if(!room.visited) return;
 		Vector2f screenPos = getScreenPos(camera);
-		// _ means scaled, ok?
+
+
 		float _padding =padding * camera.getZoom();
-		float _height = height * camera.getZoom();
-		float _length = length * camera.getZoom();
+		float _height =  height * camera.getZoom();
+		float _length =  length * camera.getZoom();
 		
 
 		
@@ -70,20 +81,38 @@ public class Wall extends Entity {
 			case 1:
 				//if(true)return;
 				g.setColor(Color.decode("#45495F"));
-				g.fillRect( screenPos.x,  (screenPos.y - _height), _length, _height+_padding);
+				g.fillRect( screenPos.x,  screenPos.y - _height, _length, _height+_padding);
 				g.setColor(Color.decode("#9AA0B6"));
-				g.fillRect( (screenPos.x),  (screenPos.y - _height), _length, _padding);
+				g.fillRect( screenPos.x,  screenPos.y - _height, _length, _padding);
 				//super.render(camera);
 				break;
 			case 2:
 				//if(true)return;
 				g.setColor(Color.decode("#45495F"));
-				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding  + _height);
+				g.fillRect( screenPos.x,  screenPos.y - _height, _padding, _length + _padding  + _height);
 				g.setColor(Color.decode("#9AA0B6"));
-				g.fillRect( (screenPos.x),  (screenPos.y - _height), _padding, _length + _padding );
+				g.fillRect( screenPos.x, screenPos.y - _height, _padding, _length + _padding );
+				//super.render(camera);
+				break;
+			case 3:
+				//if(true)return;
+				g.setColor(Color.decode("#0C060E")); //#0C060E #45495F
+				g.fillRect( screenPos.x,  screenPos.y - _height, _length, _height+_padding);
+				g.setColor(Color.decode("#9AA0B6"));
+				g.fillRect( screenPos.x,  screenPos.y - _height, _length, _padding);
+				//super.render(camera);
+				break;
+			case 4:
+				//if(true)return;
+				g.setColor(Color.decode("#0C060E")); //#0C060E #45495F
+				g.fillRect( screenPos.x,  screenPos.y - _height, _padding, _length + _padding  + _height);
+				g.setColor(Color.decode("#9AA0B6"));
+				g.fillRect( screenPos.x,  screenPos.y - _height, _padding, _length + _padding );
 				//super.render(camera);
 				break;
 		}
+		
+		
 		
 	}
 

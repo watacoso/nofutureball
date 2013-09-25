@@ -31,14 +31,13 @@ public class Sharpshooter extends Player {
 			else if(shotTimer > attackSpeed()){
 				shotReady=true;
 			}
-			else shotTimer ++;
 			
 			movementSpeed = firingSpeed();
 		}
 		else
 			movementSpeed = normalSpeed();
 		
-		
+		shotTimer++;
 		super.update(game);
 	}
 

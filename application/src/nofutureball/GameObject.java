@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.geom.Vector2f;
 
-public abstract class GameObject extends ObjectAnimationList {
+public class GameObject extends Sprite {
 
 	public Vector2f speed;
 	public CollisionBox collisionBox;
