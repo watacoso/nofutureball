@@ -47,9 +47,8 @@ public class Enemy extends GameObject {
 		defineStats();
 	}
 	
-	public StatSet stats = StatSet.ENEMY;
 	private void defineStats(){
-		stats.normalSpeed += Math.random() * 3;
+		//stats.normalSpeed += Math.random() * 3;
 	}
 
 	public void update(Game game) {
@@ -111,7 +110,7 @@ public class Enemy extends GameObject {
 
 		setAnimation("ENEMY",action+"_"+facing);
 		
-		Entity.truncate(speed.add(steering), stats.normalSpeed);
+		Entity.truncate(speed.add(steering), normalSpeed());
 		super.update(game);
 
 	}
@@ -245,7 +244,7 @@ public class Enemy extends GameObject {
 		}
 		if(object instanceof Bullet){
 			SoundManager.mixedSound("enemyDamage");
-			float k = object.stats.knockback;
+			float k = object.knockback();
 			
 			switch (direction){
 			case "left":
@@ -262,9 +261,9 @@ public class Enemy extends GameObject {
 				break;
 			}
 			
-			stats.health -= /** INSERT BULLET DAMAGE HERE */3/stats.armor;
+			health -= /** INSERT COLLISION DAMAGE HERE */ 3 / armor();
 			
-			if(stats.health < 0)
+			if(health < 0)
 				die();
 			
 			object.die();

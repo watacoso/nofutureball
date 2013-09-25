@@ -1,5 +1,7 @@
 package nofutureball;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class GameObject extends ObjectAnimationList {
@@ -13,7 +15,14 @@ public abstract class GameObject extends ObjectAnimationList {
 	private boolean dead=false;
 	private boolean collide=true;
 	protected Vector2f direction,lastDirection;
-	public StatSet stats;
+	
+	public float health;
+	public int movementSpeed;
+	
+	public StatSet base;
+	public StatSet augmentation;
+	public ArrayList<StatSet> buffs = new ArrayList<StatSet>();
+	
 	
 	
 	
@@ -221,4 +230,105 @@ public abstract class GameObject extends ObjectAnimationList {
 	}
 
 
+	
+	// STATS GETTERS
+	public int longDmg()
+	{
+		int a = 0;
+		if (base != null) a += base.longDmg();
+		if (augmentation != null) a += augmentation.longDmg();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).longDmg(); }
+		return a;
+	}
+	public int shortDmg()
+	{
+		int a = 0;
+		if (base != null) a += base.shortDmg();
+		if (augmentation != null) a += augmentation.shortDmg();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).shortDmg(); }
+		return a;
+	}
+	public int armor()
+	{
+		int a = 0;
+		if (base != null) a += base.armor();
+		if (augmentation != null) a += augmentation.armor();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).armor(); }
+		return a;
+	}
+	public int normalSpeed()
+	{
+		int a = 0;
+		if (base != null) a += base.normalSpeed();
+		if (augmentation != null) a += augmentation.normalSpeed();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).normalSpeed(); }
+		return a;
+	}
+	public int firingSpeed()
+	{
+		int a = 0;
+		if (base != null) a += base.firingSpeed();
+		if (augmentation != null) a += augmentation.firingSpeed();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).firingSpeed(); }
+		return a;
+	}
+	public int range()
+	{
+		int a = 0;
+		if (base != null) a += base.range();
+		if (augmentation != null) a += augmentation.range();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).range(); }
+		return a;
+	}
+	public int attackSpeed()
+	{
+		int a = 0;
+		if (base != null) a += base.attackSpeed();
+		if (augmentation != null) a += augmentation.attackSpeed();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).attackSpeed(); }
+		return a;
+	}
+	public int knockback()
+	{
+		int a = 0;
+		if (base != null) a += base.knockback();
+		if (augmentation != null) a += augmentation.knockback();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).knockback(); }
+		return a;
+	}
+	public int bulletSpeed()
+	{
+		int a = 0;
+		if (base != null) a += base.bulletSpeed();
+		if (augmentation != null) a += augmentation.bulletSpeed();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).bulletSpeed(); }
+		return a;
+	}
+	public int bulletSize()
+	{
+		int a = 0;
+		if (base != null) a += base.bulletSize();
+		if (augmentation != null) a += augmentation.bulletSize();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).bulletSize(); }
+		return a;
+	}
+	public int regen()
+	{
+		int a = 0;
+		if (base != null) a += base.regen();
+		if (augmentation != null) a += augmentation.regen();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).regen(); }
+		return a;
+	}
+	public int maxHealth()
+	{
+		int a = 0;
+		if (base != null) a += base.maxHealth();
+		if (augmentation != null) a += augmentation.maxHealth();
+		for (int i = 0; i < buffs.size(); i ++) { a += buffs.get(i).maxHealth(); }
+		return a;
+	}
+	
+	// Create new combined StatSet:
+	
 }

@@ -54,9 +54,9 @@ public abstract class Player extends GameObject implements Actor{
 		
 		if(direction.length()!=0)	lastDirection.set(direction);
 		
-		goalSpeed.x = (float) (stats.normalSpeed * (direction.x != 0 ? direction.x * 0.9
+		goalSpeed.x = (float) (movementSpeed * (direction.x != 0 ? direction.x * 0.9
 				: direction.x));
-		goalSpeed.y = (float) (stats.normalSpeed * (direction.y != 0 ? direction.y * 0.8
+		goalSpeed.y = (float) (movementSpeed * (direction.y != 0 ? direction.y * 0.8
 				: direction.y * 0.9));
 
 		speed.x += (goalSpeed.x - this.speed.x) / 20;

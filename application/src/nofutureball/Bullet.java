@@ -10,7 +10,6 @@ public class Bullet extends GameObject {
 	public GameObject src;
 	
 
-	public StatSet stats = new StatSet();
 	
 	public Bullet(Player src, float size, Vector2f lastDirection,float speedModule) {
 		super(src.room, src.position.x-src.room.position.x+src.pivot.x, src.position.y-src.room.position.y+src.pivot.y, size, size,false);
@@ -19,11 +18,10 @@ public class Bullet extends GameObject {
 		
 		speed=new Vector2f(lastDirection).scale(speedModule);
 		
-		stats.knockback = src.stats.knockback;
-		stats.damage = src.stats.damage;
-		stats.health = (int) (src.stats.range/speedModule);
+		base = new StatSet(src);
+		
+		health = (int) (src.range()/speedModule);
 		this.src = src;
-		stats.range = src.stats.range;
 		//System.out.println(speed.x+" "+speed.y);
 		// TODO Auto-generated constructor stub
 	}

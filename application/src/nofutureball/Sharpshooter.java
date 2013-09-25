@@ -7,19 +7,12 @@ public class Sharpshooter extends Player {
 	private boolean shotReady=false;
 	private int shotTimer=0;
 
-	///////////////////////
-	public int bulletSize=64
-	,bulletSpeed=15,
-	firingSpeed=10,
-	normalSpeed=30;
-	///////////////////////
-	
 	
 	
 	public Sharpshooter(Room room, float x, float y, KeySet keySet) {
 		super(room, x, y, keySet);
 
-		stats = StatSet.SHARPSHOOTER;
+		base = StatSet.SHARPSHOOTER;
 	}
 	
 	public void update(Game game){
@@ -35,15 +28,15 @@ public class Sharpshooter extends Player {
 				shotReady=false;
 				shotTimer=0;
 			}
-			else if(shotTimer > stats.attackSpeed){
+			else if(shotTimer > attackSpeed()){
 				shotReady=true;
 			}
 			else shotTimer ++;
 			
-			stats.normalSpeed = firingSpeed;
+			movementSpeed = firingSpeed();
 		}
 		else
-			stats.normalSpeed = normalSpeed;
+			movementSpeed = normalSpeed();
 		
 		
 		super.update(game);
@@ -63,15 +56,15 @@ public class Sharpshooter extends Player {
 	
 	private void standardShot(){
 		
-		Bullet b=new Bullet(this, bulletSize, lastDirection,bulletSpeed+speed.length());
+		Bullet b=new Bullet(this, bulletSize(), lastDirection, bulletSpeed() + speed.length());
 		parent.add(b);
 	}
 	
 	private void tripleShot(){
 		
-		Bullet b1=new Bullet(this, bulletSize, lastDirection.add(5),bulletSpeed+speed.length());
-		Bullet b2=new Bullet(this, bulletSize, lastDirection.sub(10),bulletSpeed+speed.length());
-		Bullet b3=new Bullet(this, bulletSize, lastDirection.add(5),bulletSpeed+speed.length());
+		Bullet b1=new Bullet(this, bulletSize(), lastDirection.add(5),bulletSpeed() + speed.length());
+		Bullet b2=new Bullet(this, bulletSize(), lastDirection.sub(10),bulletSpeed() + speed.length());
+		Bullet b3=new Bullet(this, bulletSize(), lastDirection.add(5),bulletSpeed() + speed.length());
 		parent.add(b1);
 		parent.add(b2);
 		parent.add(b3);
