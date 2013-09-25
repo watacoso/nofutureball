@@ -4,24 +4,21 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class Player extends GameObject implements Actor{
-
-	public Weapon weapon;
 	
 	
-	protected float maxSpeed = 40;
-	public Vector2f direction,lastDirection;
+	
 	
 	
 	public Augmentation passive, active; 
 	
 
-	public String action="IDLE";
-	public String facing="LEFT";
-	public float health=maxHealth;
+	public Action action = Action.IDLE;
+	public Facing facing = Facing.LEFT;
 
-
+	
+	
 	public Player(Room room, float x, float y, KeySet keySet) {
-		super(room, x, y, 128,256,true);
+		super(room, x, y, 128, 256, true);
 		this.keySet = keySet;
 		//animations = AnimationSet
 		//		.createAnimationSet(Animatable.SUBCLASS.PLAYER);
@@ -33,7 +30,7 @@ public abstract class Player extends GameObject implements Actor{
 	protected KeySet keySet = KeySet.ONE;
 
 	public Player(Room room, float x, float y) {
-		super(room, x, y, 128,256,true);
+		super(room, x, y, 128, 256, true);
 		//animations = AnimationSet
 		//		.createAnimationSet(Animatable.SUBCLASS.PLAYER);
 		
@@ -57,26 +54,40 @@ public abstract class Player extends GameObject implements Actor{
 		
 		if(direction.length()!=0)	lastDirection.set(direction);
 		
-		goalSpeed.x = (float) (maxSpeed * (direction.x != 0 ? direction.x * 0.9
+		goalSpeed.x = (float) (stats.normalSpeed * (direction.x != 0 ? direction.x * 0.9
 				: direction.x));
-		goalSpeed.y = (float) (maxSpeed * (direction.y != 0 ? direction.y * 0.8
+		goalSpeed.y = (float) (stats.normalSpeed * (direction.y != 0 ? direction.y * 0.8
 				: direction.y * 0.9));
 
 		speed.x += (goalSpeed.x - this.speed.x) / 20;
 		speed.y += (goalSpeed.y - this.speed.y) / 20;
 		
 		if (direction.x != 0 || direction.y != 0) {
-			action="WALKING";
+			action = Action.WALKING;
 		} else {
-			action="IDLE";
+			action = Action.IDLE;
 		}
 		if (input.isKeyDown(keySet.left)) {
-			facing="LEFT";
+			facing = Facing.LEFT;
 		} else if (input.isKeyDown(keySet.right)) {
-			facing="RIGHT";
+			facing = Facing.RIGHT;
 		}
-		setAnimation("PLAYER",action+"_"+facing);
+		setAnimation("PLAYER", action + "_" + facing);
 		super.update(game);
+	}
+	
+	
+	
+	public int rollDamage()
+	{
+		return 0;
+	}
+	
+	private enum Action {
+		WALKING(), IDLE();
+	}
+	private enum Facing {
+		LEFT(), RIGHT();
 	}
 
 }

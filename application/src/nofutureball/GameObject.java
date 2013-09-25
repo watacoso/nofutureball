@@ -2,7 +2,7 @@ package nofutureball;
 
 import org.newdawn.slick.geom.Vector2f;
 
-public class GameObject extends ObjectAnimationList {
+public abstract class GameObject extends ObjectAnimationList {
 
 	public Vector2f speed;
 	public CollisionBox collisionBox;
@@ -12,17 +12,12 @@ public class GameObject extends ObjectAnimationList {
 	private boolean countMe;
 	private boolean dead=false;
 	private boolean collide=true;
-	public float maxHealth,
-	damage,
-	armor,
-	maxSpeed,
-	regen,
-	attackSpeed,
-	range,
-	knockback;
+	protected Vector2f direction,lastDirection;
+	public StatSet stats;
 	
 	
-	public GameObject(Room room, float x, float y, float width, float height,boolean countMe) {
+	
+	public GameObject(Room room, float x, float y, float width, float height, boolean countMe) {
 		super(x + room.position.x, y + room.position.y, width, height,
 				width / 2, height / 2);
 		
@@ -31,12 +26,10 @@ public class GameObject extends ObjectAnimationList {
 		if(countMe){
 			room.numActors++;
 		}
-		
-		collisionBox = new CollisionBox(this.position.x,this.position.y+this.size.y/2,this.size.x,this.size.y/2);
+		collisionBox = new CollisionBox(this.position.x, this.position.y + this.size.y / 2, this.size.x, this.size.y / 2);
 		//System.out.println(position.y-room.position.y+collisionBox.position.x);
 		speed = new Vector2f(0, 0);
 
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void setCollision(boolean value){

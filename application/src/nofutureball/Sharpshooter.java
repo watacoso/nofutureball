@@ -19,14 +19,7 @@ public class Sharpshooter extends Player {
 	public Sharpshooter(Room room, float x, float y, KeySet keySet) {
 		super(room, x, y, keySet);
 
-		//////////////////////
-		knockback=5;
-		attackSpeed=15;
-		range=800;
-		damage=20;
-		//////////////////////
-		
-		passive=Augmentation.W_TRIPLESHOT;
+		stats = StatSet.SHARPSHOOTER;
 	}
 	
 	public void update(Game game){
@@ -34,7 +27,7 @@ public class Sharpshooter extends Player {
 		Input input = NoFutureBall.getGameContainer().getInput();
 		if(input.isKeyDown(keySet.action1)){
 			if(shotReady){
-				if(passive==Augmentation.W_TRIPLESHOT)
+				if(passive == Augmentation.W_TRIPLESHOT)
 					tripleShot();
 				else
 					standardShot();
@@ -42,15 +35,15 @@ public class Sharpshooter extends Player {
 				shotReady=false;
 				shotTimer=0;
 			}
-			else if(shotTimer>attackSpeed){
+			else if(shotTimer > stats.attackSpeed){
 				shotReady=true;
 			}
-			else shotTimer++;
+			else shotTimer ++;
 			
-			maxSpeed=firingSpeed;
+			stats.normalSpeed = firingSpeed;
 		}
 		else
-			maxSpeed=normalSpeed;
+			stats.normalSpeed = normalSpeed;
 		
 		
 		super.update(game);

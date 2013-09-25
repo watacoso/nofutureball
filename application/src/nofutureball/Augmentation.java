@@ -1,30 +1,28 @@
 package nofutureball;
 
 public enum Augmentation {
-	W_TRIPLESHOT("passive"),
-	W_RANGE("passive"),
-	W_MEELE("passive"),
-	WI_EXPLOSIVES("active"),
-	WI_HEALING("bullet"),
-	WI_SHIELD("passive"),
-	A_SPIKED("passive"),
-	A_NANOHEALING("passive"),
-	A_HEAVY("passive");
+	/** Weapon: Trippleshot */
+	W_TRIPLESHOT	(0, 0, 0, 0),
+	/** Weapon: Increase Range */
+	W_RANGE			(4, 2, 0, 0),
+	/** Weapon: Meele */
+	W_MEELE			(2, 4, 0, 0),
+	/** Weapon Impact: Explosives */
+	WI_EXPLOSIVES	(-2, -2, 0, 0),
+	/** Weapon Impact: Bullet */
+	WI_HEALING		(0, 0, 0, 0),
+	/** Weapon Impact: Shield */
+	WI_SHIELD		(0, 0, 0, 0),
+	/** Armour: Spiked */
+	A_SPIKED		(0, 0, 2, -1),
+	/** Armour: Nano Healing */
+	A_NANOHEALING	(0, 0, -2, 2),
+	/** Armour: Heavy */
+	A_HEAVY			(0, 0, 5, -2);
 	
-	
-	/*
-	public static void exec_aug(Augmentation aug,GameObject source){
-		switch (aug){
-		case W_TRIPLESHOT:
-			tripleShot(source);
-			break;
-		}
+	// Arguments: long range damage, short range damage, armor, speed
+	Augmentation(int longDmg, int shortDmg, int armor, int speed) {
+		stats = new StatSet(longDmg, shortDmg, armor, speed);
 	}
-	*/
-	
-	public String type;				//shoot, bullet, 
-	
-	Augmentation(String type) {
-		this.type=type;
-	}
+	public StatSet stats;
 }

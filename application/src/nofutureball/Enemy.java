@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.geom.Vector2f;
 
-public class Enemy extends GameObject{
+public class Enemy extends GameObject {
 
 	
 	private float maxForce = 1;
@@ -31,10 +31,9 @@ public class Enemy extends GameObject{
 	
 	public String action="IDLE";
 	public String facing="LEFT";
-	public float health;
 
 	public Enemy(Room room, float x, float y) {
-		super(room, x, y, 128,256,true);
+		super(room, x, y, 128, 256, true);
 		defineStats();
 		
 	}
@@ -48,11 +47,9 @@ public class Enemy extends GameObject{
 		defineStats();
 	}
 	
+	public StatSet stats = StatSet.ENEMY;
 	private void defineStats(){
-		maxSpeed=(float) (10f+Math.random()*3);
-		maxHealth=100;
-		armor=1;
-		health=maxHealth;
+		stats.normalSpeed += Math.random() * 3;
 	}
 
 	public void update(Game game) {
@@ -114,7 +111,7 @@ public class Enemy extends GameObject{
 
 		setAnimation("ENEMY",action+"_"+facing);
 		
-		Entity.truncate(speed.add(steering),maxSpeed);
+		Entity.truncate(speed.add(steering), stats.normalSpeed);
 		super.update(game);
 
 	}
@@ -248,7 +245,7 @@ public class Enemy extends GameObject{
 		}
 		if(object instanceof Bullet){
 			SoundManager.mixedSound("enemyDamage");
-			float k=object.knockback;
+			float k = object.stats.knockback;
 			
 			switch (direction){
 			case "left":
@@ -265,13 +262,17 @@ public class Enemy extends GameObject{
 				break;
 			}
 			
-			health-=object.damage/armor;
+			stats.health -= /** INSERT BULLET DAMAGE HERE */3/stats.armor;
 			
-			if(health<0)
+			if(stats.health < 0)
 				die();
 			
 			object.die();
 		}
+	}
+
+	public int rollDamage() {
+		return 4;
 	}
 	
 	

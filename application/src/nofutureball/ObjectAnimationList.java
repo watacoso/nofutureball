@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Vector2f;
 
-public class ObjectAnimationList extends Entity{
+public class ObjectAnimationList extends Entity {
 
 	public ObjectAnimationList(float x, float y, float width, float height) {
 		super(x, y, width, height);
