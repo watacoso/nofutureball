@@ -12,7 +12,7 @@ public class LevelGen {
 	public int nRooms=4;
 	private boolean validCompound;
 	private ArrayList<Room> roomsBuffer=new ArrayList<Room>();
-	private ArrayList<Door> doorsBuffer= new ArrayList<Door>();
+	private ArrayList<Conn> doorsBuffer= new ArrayList<Conn>();
 	public ArrayList<Room> roomsPool=new ArrayList<Room>();
 	
 	public LevelGen(Container entities,Container map){
@@ -70,6 +70,7 @@ public class LevelGen {
 		for(int i=0;i<doorsBuffer.size();i++){
 			doorsBuffer.get(i).confirmRooms();
 			map.add(doorsBuffer.get(i));
+			entities.add(new Door(doorsBuffer.get(i),0));
 		}
 		
 		for(int i=0;i<roomsBuffer.size();i++){
@@ -80,7 +81,7 @@ public class LevelGen {
 	
 	public boolean appendRoom(Room root,Room room,int dir,int doorWidth,int doorPosA,int doorPosB){
 
-		Door door=null;
+		Conn door=null;
 		Vector2f flowVector=new Vector2f(root.flowVector);
 		
 		flowVector.add(90*dir);
@@ -92,7 +93,7 @@ public class LevelGen {
 				doorWidth=Math.min(root.height, room.height);
 			if(doorWidth<1)
 				doorWidth=1;
-			door=new Door(doorWidth,root,room);
+			door=new Conn(doorWidth,root,room);
 			if(flowVector.x>0){
 				door.setPosition(root.position.x+root.size.x,root.position.y);
 				room.position.x=root.position.x+root.size.x+Room.wallSpessor;
@@ -125,7 +126,7 @@ public class LevelGen {
 				doorWidth=Math.min(root.width, room.width);
 			if(doorWidth<1)
 				doorWidth=1;
-			door=new Door(doorWidth,root,room);
+			door=new Conn(doorWidth,root,room);
 			
 			if(flowVector.y>0){
 				door.setPosition(root.position.x,root.position.y+root.size.y);

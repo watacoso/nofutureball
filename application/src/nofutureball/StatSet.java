@@ -4,7 +4,7 @@ public class StatSet {
 	
 	// Notice: Works *only* with 4 or 12 arguments.
 	// longDmg, shortDmg, armor, speed, firingSpeed, range, attackSpeed, knockback, bulletSpeed, bulletSize, regen ,maxHealth
-	public static final StatSet SHARPSHOOTER = new StatSet(8, 1, 5, 6, 4, 800, 15, 20, 0, 0, 0, 100);
+	public static final StatSet SHARPSHOOTER = new StatSet(8, 1, 5, 60, 4, 800, 15, 20, 0, 0, 0, 100);
 	public static final StatSet AOEGUY = new StatSet(5, 5, 5, 5);
 	public static final StatSet MEELE = new StatSet(0, 7, 10, 4);
 	
@@ -57,7 +57,7 @@ public class StatSet {
 	public int armor() { return armor; }
 	public int normalSpeed() { return normalSpeed; }
 	public int firingSpeed() { return firingSpeed; }
-	public int range() { return range(); }
+	public int range() { return range; }
 	public int attackSpeed() { return attackSpeed; }
 	public int knockback() { return knockback; }
 	public int bulletSpeed() { return bulletSpeed; }

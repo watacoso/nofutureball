@@ -36,13 +36,15 @@ public class Camera {
 	// Controls how fast the follower can follow the target. The higher the slower.
 	private final int quotient = 1;
 	
-	private final int cameraMargin = 100;
+	private final int cameraMargin = 500;
 	
 	public void update()
 	{
 		if (follower == null) return;
 		
 // FINDING THE BOUNDING RECTANGLE {
+		//RectangleF bound = new RectangleF(0,0,0,0);
+		
 		Rectangle bound = new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 0);
 
 		// Finding the minimum position
@@ -53,9 +55,9 @@ public class Camera {
 			if (toFollow.position.y < bound.y) {
 				bound.y = (int) toFollow.position.y;
 			}
-			
+
 		}
-		
+
 		// Finding the maximum size
 		for (Entity toFollow : followList) {
 			int relativeX = (int) ((toFollow.position.x + toFollow.size.x) - bound.x); // relative to bound's x
@@ -71,17 +73,17 @@ public class Camera {
 //	}
 		// Target position:
 		Vector2f targetPosition = new Vector2f((float) bound.getCenterX(), (float) bound.getCenterY());
-		
+
 		position.x += (targetPosition.x - position.x) / quotient;
 		position.y += (targetPosition.y - position.y) / quotient;
 
 		//Target zoom!!! To find this: what zoom do we need to make the bound rectangle fit screen? ( + a little margin yay!!! :D)
 		float targetZoom;
-		
+
 		// Apply margins
 		bound.width += cameraMargin * 2;
 		bound.height += cameraMargin * 2;
-		
+
 		if ((float) bound.width / (float) NoFutureBall.WIDTH > (float) bound.height / (float) NoFutureBall.HEIGHT) {
 			targetZoom = 1/ ((float) bound.width / (float) NoFutureBall.WIDTH);
 		} else {
@@ -122,5 +124,26 @@ public class Camera {
 	{
 		if (followList.size() == 0) return null;
 		return followList.get(index);
+	}
+}
+
+
+class RectangleF{
+	
+	public float x,y,width,height;
+	
+	public RectangleF(float x,float y,float width,float height){
+		this.x=x;
+		this.y=y;
+		this.height=height;
+		this.width=width;
+	}
+	
+	public float getCenterX(){
+		return x+width/2;
+	}
+	
+	public float getCenterY(){
+		return y+height/2;
 	}
 }

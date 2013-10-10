@@ -56,6 +56,12 @@ public abstract class Entity implements Comparable<Entity> {
 	
 
 	public int compareTo(Entity o) {
+		/*if(!(this instanceof Wall) && o instanceof Door){
+			if (o.position.y  < this.position.y+this.size.y)
+				return 1;
+			if (o.position.y  > this.position.y+this.size.y)
+				return -1;
+		}*/
 		if (o.position.y+o.size.y  < this.position.y+this.size.y)
 			return 1;
 		if (o.position.y+o.size.y  > this.position.y+this.size.y)

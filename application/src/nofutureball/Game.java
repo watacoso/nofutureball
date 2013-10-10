@@ -1,5 +1,6 @@
 package nofutureball;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -38,7 +39,7 @@ public class Game extends BasicGame {
 		gc.setVSync(true);
 		Sprite.init();
 		lManager=new LevelManager(this);
-		AnimationSource.init();
+		//AnimationSource.init();
 		NoFutureBall.setGameContainer(gc);
 		
 		lManager.initLevel();
@@ -55,7 +56,6 @@ public class Game extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		//g.setAntiAlias(false);
 		g.setBackground(Color.decode("#0C060E"));
 		entities.sort();
 		gameContainer.render(lManager.cam);		

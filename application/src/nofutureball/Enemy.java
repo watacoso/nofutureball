@@ -14,14 +14,14 @@ public class Enemy extends GameObject {
 	private Vector2f torque=new Vector2f(0,0);
 	
 	
-	private ArrayList<Door> path;
+	private ArrayList<Conn> path;
 	private int pathIndex;
 	
 	private Room targetRoom=null;
 	
 	private Room stepRoom=null;
 	private Room currentPathRoom=null;
-	private Door stepDoor=null;
+	private Conn stepConn=null;
 	
 	private boolean updatePath=false;
 	private boolean roomTravel=false;
@@ -115,13 +115,13 @@ public class Enemy extends GameObject {
 
 	}
 		
-	private ArrayList<Door> getPathFrom(Room room,Door door){
+	private ArrayList<Conn> getPathFrom(Room room,Conn door){
 		if(target==null || room.doors.size()==0 || room==target.room) return null;
 		
-		ArrayList <Door> path=new ArrayList<Door>();
-		Door d;
+		ArrayList <Conn> path=new ArrayList<Conn>();
+		Conn d;
 		Room r;
-		ArrayList<Door> l=new ArrayList<Door>();
+		ArrayList<Conn> l=new ArrayList<Conn>();
 		for(int i=0;i<room.doors.size();i++){
 			
 			d=room.doors.get(i);
@@ -176,8 +176,8 @@ public class Enemy extends GameObject {
 	private boolean nextRoom(){
 		if(path==null) return false;
 		if( path.size()==pathIndex)	return false;
-		stepDoor=path.get(pathIndex);
-		stepRoom=getDoorDestination(room, stepDoor);
+		stepConn=path.get(pathIndex);
+		stepRoom=getDoorDestination(room, stepConn);
 		currentPathRoom=room;
 		pathIndex++;
 		return true;
@@ -189,22 +189,22 @@ public class Enemy extends GameObject {
 	
 	private void pathAI(){
 			if(path==null) return;
-			if(door==stepDoor){
-				if(stepDoor.size.x<stepDoor.size.y){
+			if(door==stepConn){
+				if(stepConn.size.x<stepConn.size.y){
 					if(speed.x>0)
-						steering=getDirectionVector(stepDoor.position.x+stepDoor.pivot.x+100,position.y+pivot.y);
+						steering=getDirectionVector(stepConn.position.x+stepConn.size.x/2+100,position.y+pivot.y);
 					else
-						steering=getDirectionVector(stepDoor.position.x+stepDoor.pivot.x-100,position.y+pivot.y);
+						steering=getDirectionVector(stepConn.position.x+stepConn.size.x/2-100,position.y+pivot.y);
 				}
 				else{
 					if(speed.y>0)
-						steering=getDirectionVector(position.x+pivot.x,stepDoor.position.y+stepDoor.pivot.y+100);
+						steering=getDirectionVector(position.x+pivot.x,stepConn.position.y+stepConn.size.y/2+100);
 					else
-						steering=getDirectionVector(position.x+pivot.x,stepDoor.position.y+stepDoor.pivot.y-100);
+						steering=getDirectionVector(position.x+pivot.x,stepConn.position.y+stepConn.size.y/2-100);
 				}
 			}
 			else{
-				steering=getDirectionVector(stepDoor);
+				steering=getDirectionVector(stepConn);
 			}
 			
 			if(stepRoom==room){
@@ -217,7 +217,7 @@ public class Enemy extends GameObject {
 		
 	}
 	
-	private Room getDoorDestination(Room room,Door d){
+	private Room getDoorDestination(Room room,Conn d){
 		if(room!=d.rA)
 			return d.rA;
 		else

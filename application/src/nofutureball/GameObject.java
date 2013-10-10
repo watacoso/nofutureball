@@ -9,11 +9,11 @@ public class GameObject extends Sprite {
 	public Vector2f speed;
 	public CollisionBox collisionBox;
 	public Room room,nextRoom;
-	public Door door;
+	public Conn door;
 	private boolean transition=false;
 	private boolean countMe;
 	private boolean dead=false;
-	private boolean collide=true;
+	public boolean collide=true;
 	protected Vector2f direction,lastDirection;
 	
 	public float health;
@@ -41,6 +41,17 @@ public class GameObject extends Sprite {
 
 	}
 	
+	public GameObject(float x, float y, float width, float height) {
+		super(x, y, width, height,
+				width / 2, height / 2);
+		this.countMe=false;
+		collide=false;
+		collisionBox = new CollisionBox(this.position.x, this.position.y + this.size.y / 2, this.size.x, this.size.y / 2);
+		//System.out.println(position.y-room.position.y+collisionBox.position.x);
+		speed = new Vector2f(0, 0);
+
+	}
+	
 	public void setCollision(boolean value){
 		collide=value;
 	}
@@ -48,7 +59,7 @@ public class GameObject extends Sprite {
 	@Override
 	public void update(Game game) {
 		if(collide)collisionTest();
-		testLocation();
+		if(room!=null)testLocation();
 		position.x += speed.x;
 		position.y += speed.y;
 		collisionBox.position.x+=speed.x;
@@ -60,7 +71,7 @@ public class GameObject extends Sprite {
 		if(!transition){
 			if(!boxInside(room)){
 				for(int i=0;i<room.doors.size();i++){
-					Door d=room.doors.get(i);
+					Conn d=room.doors.get(i);
 					if(pivotInside(d)){
 						door=d;
 						transition=true;

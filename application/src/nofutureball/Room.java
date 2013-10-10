@@ -11,7 +11,7 @@ import org.newdawn.slick.geom.Vector2f;
 public class Room extends Entity {
 
 	
-	public ArrayList<Door> doors;
+	public ArrayList<Conn> doors;
 	public ArrayList<Wall> walls;
 	ArrayList<Image> wallTiles;
 	public Room parent;
@@ -27,7 +27,8 @@ public class Room extends Entity {
 	public Vector2f flowVector=new Vector2f();
 	public boolean visited=false;
 	public int numActors;
-	private int roomType;
+	public int roomType;
+	public String baseColor;
 	
 	public Room(float x, float y, int width, int height) {
 		super(x, y, width * tileWidth, height * tileHeight,width * tileWidth/2,height * tileHeight/2);
@@ -40,7 +41,7 @@ public class Room extends Entity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		doors=new ArrayList<Door>();
+		doors=new ArrayList<Conn>();
 		walls=new ArrayList<Wall>();
 		childs=new ArrayList<Room>();
 		wallTiles=new ArrayList<Image>();
@@ -48,6 +49,21 @@ public class Room extends Entity {
 		
 		roomType=(int)Math.ceil(Math.random()*4);
 		floor=Sprite.getSprite("FLOOR", "R"+roomType);
+		switch(roomType){
+		case 1:
+			baseColor="#7A4848";
+			break;
+		case 2:
+			baseColor="#546548";
+			break;
+		case 3:
+			baseColor="#576B70";
+			break;
+		case 4:
+			baseColor="#6F4B71";
+			break;
+		}
+		//floor=Sprite.getSprite("FLOOR", "TEST");
 		
 	}
 	
@@ -61,14 +77,28 @@ public class Room extends Entity {
 
 			e.printStackTrace();
 		}*/
-		doors=new ArrayList<Door>();
+		doors=new ArrayList<Conn>();
 		walls=new ArrayList<Wall>();
 		childs=new ArrayList<Room>();
 		numActors=0;
 		
 		roomType=(int)Math.ceil(Math.random()*4);
 		floor=Sprite.getSprite("FLOOR", "R"+roomType);
-		//floor.setFilter(Image.FILTER_NEAREST);
+		switch(roomType){
+		case 1:
+			baseColor="#7A4848";
+			break;
+		case 2:
+			baseColor="#546548";
+			break;
+		case 3:
+			baseColor="#576B70";
+			break;
+		case 4:
+			baseColor="#6F4B71";
+			break;
+		}
+		//floor=Sprite.getSprite("FLOOR", "TEST");
 	}
 	
 	
@@ -80,7 +110,7 @@ public class Room extends Entity {
 	}
 
 	public void render(Camera cam) {		
-		
+		//if(!visited)return;
 		Vector2f screenPos = getScreenPos(cam);
 				
 		// Floor
@@ -119,7 +149,7 @@ public class Room extends Entity {
 		float LY=0,RY=0,TX=0,BX=0;
 		Wall w=null;
 		for(int i=0;i<doors.size();i++){
-			Door r=doors.get(i);
+			Conn r=doors.get(i);
 			
 			w=null;
 			switch (r.getSide(this)){
