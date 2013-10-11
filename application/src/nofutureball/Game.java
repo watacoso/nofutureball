@@ -1,6 +1,5 @@
 package nofutureball;
 
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
