@@ -34,7 +34,7 @@ public class SoundManager {
 
 	public static void playMusic(String key) {
 		AudioInfo a = ac.music.get(key);
-		System.out.println("assets/sounds/" + a.href);
+		//System.out.println("assets/sounds/" + a.href);
 		try {
 			Sound s = new Sound("assets/sounds/" + a.href);
 			if (a.loop)

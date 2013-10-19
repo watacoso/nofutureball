@@ -33,13 +33,15 @@ public class Enemy extends GameObject {
 	public String facing="LEFT";
 
 	public Enemy(Room room, float x, float y) {
-		super(room, x, y, 128, 256, true);
+		super(room, x, y, 256, 256, true);
+		spritePivot.set(128,236);
 		defineStats();
 		
 	}
 	
 	public Enemy(Room room, float x, float y,Player target) {
-		super(room, x, y, 128,256,true);
+		super(room, x, y, 200,100,true);
+		spritePivot.set(128,256);
 		this.target=target;
 		targetRoom=target.room;
 		steering=getDirectionVector(target);
@@ -49,6 +51,7 @@ public class Enemy extends GameObject {
 	
 	private void defineStats(){
 		//stats.normalSpeed += Math.random() * 3;
+		base=StatSet.ENEMY;
 	}
 
 	public void update(Game game) {
@@ -111,6 +114,7 @@ public class Enemy extends GameObject {
 		setAnimation("ENEMY",action+"_"+facing);
 		
 		Entity.truncate(speed.add(steering), normalSpeed());
+		//System.out.println(normalSpeed());
 		super.update(game);
 
 	}
@@ -184,7 +188,13 @@ public class Enemy extends GameObject {
 	}
 	
 	protected void roomAI(){
-		steering=getDirectionVector(target).scale(maxForce);
+		if(target!=null && this.getDistance(target)<200){
+			steering.set(0,0);
+			speed.set(0,0);
+		}
+		else
+			steering=getDirectionVector(target).scale(maxForce);
+		
 	}
 	
 	private void pathAI(){

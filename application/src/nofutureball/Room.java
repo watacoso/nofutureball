@@ -30,7 +30,7 @@ public class Room extends Entity {
 	public int roomType;
 	public String baseColor;
 	
-	public Room(float x, float y, int width, int height) {
+	public Room(float x, float y, int width, int height,int type) {
 		super(x, y, width * tileWidth, height * tileHeight,width * tileWidth/2,height * tileHeight/2);
 		
 		this.width = width;
@@ -47,7 +47,7 @@ public class Room extends Entity {
 		wallTiles=new ArrayList<Image>();
 		numActors=0;
 		
-		roomType=(int)Math.ceil(Math.random()*4);
+		roomType=type;
 		floor=Sprite.getSprite("FLOOR", "R"+roomType);
 		switch(roomType){
 		case 1:
@@ -67,7 +67,7 @@ public class Room extends Entity {
 		
 	}
 	
-	public Room(int width, int height) {
+	public Room(int width, int height,int type) {
 		super(0, 0, width * tileWidth, height * tileHeight);
 		this.width = width;
 		this.height = height;
@@ -82,7 +82,7 @@ public class Room extends Entity {
 		childs=new ArrayList<Room>();
 		numActors=0;
 		
-		roomType=(int)Math.ceil(Math.random()*4);
+		roomType=type;
 		floor=Sprite.getSprite("FLOOR", "R"+roomType);
 		switch(roomType){
 		case 1:

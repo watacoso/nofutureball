@@ -35,8 +35,10 @@ public class Sprite extends Entity{
 	private Animation currentAnimation;
 	private Image currentImage;
 	private boolean usingAnimation=false;
-	public Vector2f spriteRelativePosition=new Vector2f(0,0);
-	
+	public boolean dynamicStats=false;
+	public Vector2f spriteSize=new Vector2f(0,0);
+	public Vector2f spritePivot=new Vector2f(0,0);
+	public Vector2f scale=new Vector2f(1,1);
 	public static void init(){
 		
 		//GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
@@ -48,19 +50,21 @@ public class Sprite extends Entity{
 		
 		//PLAYER TMP//
 		
-		setSpriteSheet("assets/sprites/Player.png",128,256);
-		addAnimation("PLAYER","IDLE_LEFT",buildAnimation(0,4,100),false);
-		addAnimation("PLAYER","IDLE_RIGHT",buildAnimation(0,4,100),true);
-		addAnimation("PLAYER","WALKING_LEFT",buildAnimation(4,4,100),false);
-		addAnimation("PLAYER","WALKING_RIGHT",buildAnimation(4,4,100),true);
+		setSpriteSheet("assets/sprites/player01_sheet_idle01.png",256,256);
+		addAnimation("PLAYER","IDLE_LEFT",buildAnimation(0,6,100),true);
+		addAnimation("PLAYER","IDLE_RIGHT",buildAnimation(0,6,100),false);
+		setSpriteSheet("assets/sprites/player01_sheet_run01.png",256,256);
+		addAnimation("PLAYER","WALKING_LEFT",buildAnimation(0,7,100),true);
+		addAnimation("PLAYER","WALKING_RIGHT",buildAnimation(0,7,100),false);
 		
 		///ENEMY TMP//
 		
-		setSpriteSheet("assets/sprites/Enemy.png",128,256);
-		addAnimation("ENEMY","IDLE_LEFT",buildAnimation(0,4,100),false);
-		addAnimation("ENEMY","IDLE_RIGHT",buildAnimation(0,4,100),true);
-		addAnimation("ENEMY","WALKING_LEFT",buildAnimation(4,4,100),false);
-		addAnimation("ENEMY","WALKING_RIGHT",buildAnimation(4,4,100),true);
+		setSpriteSheet("assets/sprites/cybot_sheet_idle01.png",256,256);
+		addAnimation("ENEMY","IDLE_LEFT",buildAnimation(0,6,100),true);
+		addAnimation("ENEMY","IDLE_RIGHT",buildAnimation(0,6,100),false);
+		setSpriteSheet("assets/sprites/cybot_sheet_run01.png",256,256);
+		addAnimation("ENEMY","WALKING_LEFT",buildAnimation(0,7,100),true);
+		addAnimation("ENEMY","WALKING_RIGHT",buildAnimation(0,7,100),false);
 		
 		//BULLETS//
 		
@@ -76,7 +80,8 @@ public class Sprite extends Entity{
 		addSprite("FLOOR","R4",3,0,false);
 		
 		//WALL//
-		
+		setSpriteSheet("assets/sprites/panel.png",150,100);
+		addAnimation("PANEL","A",buildAnimation(0,5,100),false);
 
 		
 		//DOOR//
@@ -109,8 +114,6 @@ public class Sprite extends Entity{
 			e.printStackTrace();
 		}
 	}
-	
-
 	
 	private static Animation buildAnimation(int index,int length,int speed){
 		int a,b,x,y;
@@ -195,6 +198,8 @@ public class Sprite extends Entity{
 	public void setAnimation(String owner,String name){
 		if(currentAnimation!=animationList.get(owner).get(name)){
 			currentAnimation=animationList.get(owner).get(name);
+			spriteSize.x=animationList.get(owner).get(name).getWidth();
+			spriteSize.y=animationList.get(owner).get(name).getHeight();
 			usingAnimation=true;
 		}
 	}
@@ -202,6 +207,8 @@ public class Sprite extends Entity{
 	public void setImage(String owner, String name){
 		if(currentImage!=spriteList.get(owner).get(name)){
 			currentImage=spriteList.get(owner).get(name);
+			spriteSize.x=spriteList.get(owner).get(name).getWidth();
+			spriteSize.y=spriteList.get(owner).get(name).getHeight();
 			usingAnimation=false;
 		}
 	}
@@ -230,14 +237,14 @@ public class Sprite extends Entity{
 	public  void render(Camera cam){
 		if(currentImage!=null && !usingAnimation){
 			Vector2f screenPos = getScreenPos(cam);
-			currentImage.draw(screenPos.x+spriteRelativePosition.x*cam.getZoom(), screenPos.y+spriteRelativePosition.y*cam.getZoom(), getSpriteScaledWidth(cam), getSpriteScaledHeight(cam));
+			currentImage.draw(screenPos.x-spritePivot.x*cam.getZoom(), screenPos.y-spritePivot.y*cam.getZoom(), spriteSize.x*cam.getZoom(), spriteSize.y*cam.getZoom());
 		}
 		else
 		if (currentAnimation != null) {
 			Vector2f screenPos = getScreenPos(cam);
-			currentAnimation.draw(screenPos.x+spriteRelativePosition.x*cam.getZoom(), screenPos.y+spriteRelativePosition.y*cam.getZoom(), getSpriteScaledWidth(cam), getSpriteScaledHeight(cam));
+			currentAnimation.draw(screenPos.x-spritePivot.x*cam.getZoom(), screenPos.y-spritePivot.y*cam.getZoom(), spriteSize.x*cam.getZoom(), spriteSize.y*cam.getZoom());	
 		}
-		//super.render(cam);
+		super.render(cam);
 	}
 	
 	

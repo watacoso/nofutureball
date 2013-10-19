@@ -34,9 +34,9 @@ public class Camera {
 	
 	
 	// Controls how fast the follower can follow the target. The higher the slower.
-	private final int quotient = 1;
+	private final int quotient = 3;
 	
-	private final int cameraMargin = 500;
+	private final int cameraMargin = 700;
 	
 	public void update()
 	{
@@ -60,8 +60,8 @@ public class Camera {
 
 		// Finding the maximum size
 		for (Entity toFollow : followList) {
-			int relativeX = (int) ((toFollow.position.x + toFollow.size.x) - bound.x); // relative to bound's x
-			int relativeY = (int) ((toFollow.position.y + toFollow.size.y) - bound.y); // ...
+			int relativeX = (int) ((toFollow.position.x) - bound.x); // relative to bound's x
+			int relativeY = (int) ((toFollow.position.y) - bound.y); // ...
 
 			if (relativeX > bound.width) {
 				bound.width = relativeX;
@@ -124,26 +124,5 @@ public class Camera {
 	{
 		if (followList.size() == 0) return null;
 		return followList.get(index);
-	}
-}
-
-
-class RectangleF{
-	
-	public float x,y,width,height;
-	
-	public RectangleF(float x,float y,float width,float height){
-		this.x=x;
-		this.y=y;
-		this.height=height;
-		this.width=width;
-	}
-	
-	public float getCenterX(){
-		return x+width/2;
-	}
-	
-	public float getCenterY(){
-		return y+height/2;
 	}
 }

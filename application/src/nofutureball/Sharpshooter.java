@@ -37,6 +37,7 @@ public class Sharpshooter extends Player {
 		else
 			movementSpeed = normalSpeed();
 		
+		//System.out.println(firingSpeed());
 		shotTimer++;
 		super.update(game);
 	}
@@ -57,6 +58,7 @@ public class Sharpshooter extends Player {
 		
 		Bullet b=new Bullet(this, bulletSize(), lastDirection, bulletSpeed() + speed.length());
 		parent.add(b);
+		
 	}
 	
 	private void tripleShot(){

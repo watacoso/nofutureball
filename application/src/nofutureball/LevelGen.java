@@ -18,7 +18,7 @@ public class LevelGen {
 	public LevelGen(Container entities,Container map){
 		this.map=map;
 		this.entities=entities;
-		startRoom=squareRoom(6);
+		startRoom=squareRoom(6,4);
 		startRoom.flowVector.set(0, -1);
 		map.add(startRoom);
 		roomsPool.add(startRoom);
@@ -28,6 +28,18 @@ public class LevelGen {
 			
 		placeNewCompound();
 		renderAllWalls();
+		for(int i=0;i<map.size();i++){
+			//System.out.println(map.size());
+			if(map.get(i) instanceof Room){
+				Room r=(Room)map.get(i);
+				//System.out.println(r.walls.size());
+				for(int j=0;j<r.walls.size();j++){
+					
+					Wall w=r.walls.get(j);
+					w.addNewDecoration("PANEL", "A", 40, 50);
+				}
+			}
+		}
 	}
 	
 	
@@ -203,24 +215,24 @@ public class LevelGen {
 
 	//BASIC BLOCKS//
 	
-	private Room orientedRoom(int width,int height,boolean rotate){
+	private Room orientedRoom(int width,int height,boolean rotate,int type){
 		if(rotate)
-			return new Room(height>2?height:2,width>2?width:2);
+			return new Room(height>2?height:2,width>2?width:2,type);
 		else
-			return new Room(width>2?width:2,height>2?height:2);
+			return new Room(width>2?width:2,height>2?height:2,type);
 	}
 	
-	private Room squareRoom(int r){
+	private Room squareRoom(int r,int type){
 		r=(r>2?r:2);
-		return new Room(r,r);
+		return new Room(r,r,type);
 	}
 		
 	private Room antiChamber(){
-		return new Room(2,2);
+		return new Room(2,2,2);
 	}
 	
 	private Room corridor(int r,boolean rotate){
-		return orientedRoom(r,2,rotate);
+		return orientedRoom(r,2,rotate,2);
 	}
 	
 	//X COMPOUNDS//
@@ -236,7 +248,7 @@ public class LevelGen {
 		int index1=getDiscreteIndex(size,2,1,2);
 		int w=(int) (2*Math.ceil(Math.random()*4+1));
 		int h=(int) (2*Math.ceil(Math.random()*4+1));
-		Room r=orientedRoom(w,h,false);
+		Room r=orientedRoom(w,h,false,3);
 		
 		size=getSizeByFlow(r,direction);
 		int index2=getDiscreteIndex(size,2,1,2);
@@ -252,7 +264,7 @@ public class LevelGen {
 		int index1=getDiscreteIndex(size,2,1,2);
 		int w=(int) (2*Math.ceil(Math.random()*4+1));
 		int h=(int) (2*Math.ceil(Math.random()*4+1));
-		Room r=orientedRoom(w,h,false);
+		Room r=orientedRoom(w,h,false,3);
 		
 		size=getSizeByFlow(r,direction);
 		int index2=getDiscreteIndex(size,2,1,2);
@@ -269,7 +281,7 @@ public class LevelGen {
 		int index1=getDiscreteIndex(size,2,1,2);
 		int w=(int) (2*Math.ceil(Math.random()*4+1));
 		int h=(int) (2*Math.ceil(Math.random()*4+1));
-		Room r=orientedRoom(w,h,false);
+		Room r=orientedRoom(w,h,false,3);
 		
 		size=getSizeByFlow(r,direction);
 		int index2=getDiscreteIndex(size,2,1,2);

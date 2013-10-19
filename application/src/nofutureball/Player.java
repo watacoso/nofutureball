@@ -5,10 +5,6 @@ import org.newdawn.slick.geom.Vector2f;
 
 public abstract class Player extends GameObject implements Actor{
 	
-	
-	
-	
-	
 	public Augmentation passive, active; 
 	
 
@@ -18,11 +14,9 @@ public abstract class Player extends GameObject implements Actor{
 	
 	
 	public Player(Room room, float x, float y, KeySet keySet) {
-		super(room, x, y, 128, 256, true);
+		super(room, x, y, 200, 100, true);
+		spritePivot.set(128,236);
 		this.keySet = keySet;
-		//animations = AnimationSet
-		//		.createAnimationSet(Animatable.SUBCLASS.PLAYER);
-		
 		direction = new Vector2f(0, 0);
 		lastDirection = new Vector2f(-1, 0);
 	}
@@ -30,10 +24,8 @@ public abstract class Player extends GameObject implements Actor{
 	protected KeySet keySet = KeySet.ONE;
 
 	public Player(Room room, float x, float y) {
-		super(room, x, y, 128, 256, true);
-		//animations = AnimationSet
-		//		.createAnimationSet(Animatable.SUBCLASS.PLAYER);
-		
+		super(room, x, y, 200, 100, true);
+		spritePivot.set(128,256);
 		direction = new Vector2f(0, 0);
 		lastDirection = new Vector2f(-1, 0);
 	}
@@ -54,13 +46,13 @@ public abstract class Player extends GameObject implements Actor{
 		
 		if(direction.length()!=0)	lastDirection.set(direction);
 		
-		goalSpeed.x = (float) (movementSpeed * (direction.x != 0 ? direction.x * 0.9
-				: direction.x));
-		goalSpeed.y = (float) (movementSpeed * (direction.y != 0 ? direction.y * 0.8
-				: direction.y * 0.9));
+		goalSpeed.x = (float) (movementSpeed * (direction.x != 0 ? direction.x * 0.3
+				: direction.x*0.1));
+		goalSpeed.y = (float) (movementSpeed * (direction.y != 0 ? direction.y * 0.3
+				: direction.y * 0.1));
 
-		speed.x += (goalSpeed.x - this.speed.x) / 20;
-		speed.y += (goalSpeed.y - this.speed.y) / 20;
+		speed.x += (goalSpeed.x - this.speed.x) / 5;
+		speed.y += (goalSpeed.y - this.speed.y) / 5;
 		
 		//if (speed.length()<1) speed.set(0, 0);
 		

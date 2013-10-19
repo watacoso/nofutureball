@@ -12,10 +12,11 @@ public class Bullet extends GameObject {
 
 	
 	public Bullet(Player src, float size, Vector2f lastDirection,float speedModule) {
-		super(src.room, src.position.x-src.room.position.x+src.pivot.x, src.position.y-src.room.position.y+src.pivot.y, size, size,false);
-		
-		this.size=size;
-		
+		super(src.room, src.position.x-src.room.position.x+src.pivot.x, src.position.y-src.room.position.y-100, size, size,false);
+		spritePivot.set(size/2,size/2);
+		setAnimation("BULLETS","STANDARD");		
+		spriteSize.set(size,size);
+		collisionBox.position.y+=100;
 		speed=new Vector2f(lastDirection).scale(speedModule);
 		
 		base = new StatSet(src);
@@ -28,14 +29,14 @@ public class Bullet extends GameObject {
 	
 	public void update (Game game){
 		
-		if(life<0) die();
+		if(health<0) die();
 		else
-			life--;
-		//System.out.println(speed.x+" "+speed.y);
+			health--;
+		//System.out.println(life);
 		
 		super.update(game);
 		
-		setAnimation("BULLETS","STANDARD");
+		
 	}
 	
 

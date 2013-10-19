@@ -15,7 +15,7 @@ public class GameObject extends Sprite {
 	private boolean dead=false;
 	public boolean collide=true;
 	protected Vector2f direction,lastDirection;
-	
+	//public RectangleF collisionBox;
 	public float health;
 	public int movementSpeed;
 	
@@ -26,27 +26,25 @@ public class GameObject extends Sprite {
 	
 	
 	
-	public GameObject(Room room, float x, float y, float width, float height, boolean countMe) {
-		super(x + room.position.x, y + room.position.y, width, height,
-				width / 2, height / 2);
-		
+	public GameObject(Room room, float x, float y, float collisionBoxWidth, float collisionBoxHeight, boolean countMe) {
+		super(x + room.position.x, y + room.position.y);
 		this.countMe=countMe;
 		this.room = room;
 		if(countMe){
 			room.numActors++;
 		}
-		collisionBox = new CollisionBox(this.position.x, this.position.y + this.size.y / 2, this.size.x, this.size.y / 2);
+		collisionBox = new CollisionBox(position.x+spritePivot.x, position.y  +spritePivot.y,collisionBoxWidth, collisionBoxHeight);
+		//collisionBox =new RectangleF();
 		//System.out.println(position.y-room.position.y+collisionBox.position.x);
 		speed = new Vector2f(0, 0);
 
 	}
 	
-	public GameObject(float x, float y, float width, float height) {
-		super(x, y, width, height,
-				width / 2, height / 2);
+	public GameObject(float x, float y, float collisionBoxWidth, float collisionBoxHeight) {
+		super(x, y);
 		this.countMe=false;
 		collide=false;
-		collisionBox = new CollisionBox(this.position.x, this.position.y + this.size.y / 2, this.size.x, this.size.y / 2);
+		collisionBox = new CollisionBox(position.x+spritePivot.x, position.y  +spritePivot.y,collisionBoxWidth, collisionBoxHeight);
 		//System.out.println(position.y-room.position.y+collisionBox.position.x);
 		speed = new Vector2f(0, 0);
 
@@ -227,7 +225,7 @@ public class GameObject extends Sprite {
 		dead=true;
 		if(countMe){
 			room.numActors--;
-			System.out.println(room.numActors);
+			//System.out.println(room.numActors);
 		}
 		parent.remove(this);
 	}
@@ -235,9 +233,18 @@ public class GameObject extends Sprite {
 	class CollisionBox extends Entity{
 
 		public CollisionBox(float x, float y, float width, float height) {
-			super(x, y, width, height);
+			super(x-width/2, y-height/2, width, height,width/2,height/2);
 			// TODO Auto-generated constructor stub
 		}
+		
+		public void render(Camera cam){
+			super.render(cam);
+		}
+	}
+	
+	public void render(Camera cam){
+		collisionBox.render(cam);
+		super.render(cam);
 	}
 
 

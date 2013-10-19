@@ -10,7 +10,7 @@ public abstract class Entity implements Comparable<Entity> {
 	public Vector2f pivot;
 	public Vector2f size;
 	public boolean dead=false;
-
+	public RectangleF box;
 	public Container parent = null;
 	private Graphics g = new Graphics();
 
@@ -18,11 +18,13 @@ public abstract class Entity implements Comparable<Entity> {
 		position = new Vector2f(x, y);
 		size = new Vector2f(0, 0);
 		pivot = new Vector2f(0, 0);
+		box=new RectangleF(x,y,0,0);
 	}
 
 	public Entity(float x, float y, float width, float height) {
 		position = new Vector2f(x, y);
 		size = new Vector2f(width, height);
+		box=new RectangleF(x,y,width,height,width/2,height/2);
 		pivot = new Vector2f(width/2, height/2);
 	}
 
@@ -30,12 +32,14 @@ public abstract class Entity implements Comparable<Entity> {
 		position = new Vector2f(x, y);
 		size = new Vector2f(width, height);
 		pivot = new Vector2f(pivotX, pivotY);
+		box=new RectangleF(x,y,width,height,pivotX,pivotY);
 	}
 
 	// update()
 	
 	public void update(Game game) {
-
+		box.x=position.x;
+		box.y=position.y;;
 	}
 
 	public void update(Vector2f offset) {
