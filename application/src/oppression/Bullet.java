@@ -8,23 +8,30 @@ public class Bullet extends GameObject {
 	public float life;
 	public float size;
 	public GameObject src;
-	
+	public boolean damageNPC=false;
+	public boolean damagePlayer=false;
 
 	
-	public Bullet(Player src, float size, Vector2f lastDirection,float speedModule) {
-		super(src.room,src.box.pivotedX() -src.room.position.x, src.box.pivotedY()-src.room.position.y-100, size, size,false);
+	public Bullet(GameObject src, float size, Vector2f lastDirection,float speedModule) {
+		super(src.room,src.spriteBox.getPosition().x -src.room.position.x, src.spriteBox.getPosition().y-src.room.position.y-100, size, size,false);
 		//spritePivot.set(size/2,size/2);
 		setAnimation("BULLETS","STANDARD");
 		spriteBox.setSize(size, size);
 		spriteBox.setPivot(size/2, size/2);
 		//spritePivot.set(size/2,size/2);
 		//spriteSize.set(size,size);
-		collisionBox.pivotY-=100;
+		collisionBox.setPivot(size/2, -100);
 		speed=new Vector2f(lastDirection).scale(speedModule);	
 		base = new StatSet(src);
 		health = (int) (src.range()/speedModule);
 		this.src = src;
-
+		if(src instanceof Player)
+			damageNPC=true;
+		else if(src instanceof NPC)
+			damagePlayer=true;
+		else{
+			damagePlayer=damageNPC=true;
+		}
 	}
 	
 	public void update (Game game){
@@ -44,7 +51,6 @@ public class Bullet extends GameObject {
 
 	
 	protected void handleWallCollision(Wall wall,String direction){
-		System.out.println(direction);
 		die();
 	}
 	

@@ -13,13 +13,15 @@ public abstract class Player extends GameObject{
 	public Action torsoAction=Action.AIM;
 	public Facing torsoFacing=Facing.UP;
 	private String playerClass="SHARPSHOOTER";
-	
+	public Vector2f aimDirection=new Vector2f();
+	public int cooldown=0, deathCount=0;
+	public int deathTime=0;
 	
 	
 	public Player(Room room, float x, float y, KeySet keySet) {
 		super(room, x, y, 200, 100, true);
 		spritePivot.set(128,256);
-		spriteBox.setPivot(128, 256);
+		spriteBox.setPivot(128, 206);
 		this.keySet = keySet;
 		direction = new Vector2f(0, 0);
 		lastDirection = new Vector2f(0, 1);
@@ -29,15 +31,14 @@ public abstract class Player extends GameObject{
 
 	public Player(Room room, float x, float y) {
 		super(room, x, y, 200, 100, true);
-		spritePivot.set(128,256);
-		spriteBox.setPivot(128, 256);
+		spritePivot.set(128,236);
+		spriteBox.setPivot(128, 206);
 		direction = new Vector2f(0, 0);
 		lastDirection = new Vector2f(-1, 0);
 	}
 	
 	@Override
 	public void update(Game game) {
-		
 		Input input = Window.getGameContainer().getInput();
 		
 		Vector2f goalSpeed = new Vector2f(0, 0);
@@ -103,9 +104,9 @@ public abstract class Player extends GameObject{
 		
 		//System 2
 		
-		/*
 		
-		Vector2f aimDirection=new Vector2f();
+		
+		
 		aimDirection.x = (input.isKeyDown(keySet.aimRight) ? 2 : 0)
 				- (input.isKeyDown(keySet.aimLeft) ? 1 : 0);
 		aimDirection.y = (input.isKeyDown(keySet.aimDown) ? 2 : 0)
@@ -137,12 +138,20 @@ public abstract class Player extends GameObject{
 				else if(aimDirection.x>0){
 					torsoFacing=Facing.RIGHT;
 				}
+				if(facing==Facing.UP)
+					facing=Facing.DOWN;
 			}
 			else{
-				if(aimDirection.y<0)
+				if(aimDirection.y<0){
 					torsoFacing=Facing.UP;
-				else
+					if(facing==Facing.DOWN)
+						facing=Facing.UP;
+				}
+				else{
 					torsoFacing=Facing.DOWN;
+					if(facing==Facing.UP)
+						facing=Facing.DOWN;
+				}
 			}
 		
 			setAnimation(playerClass+"_LEGS", action + "_" + facing);
@@ -151,15 +160,15 @@ public abstract class Player extends GameObject{
 			hideLayer(1, false);
 		}
 		else{
-		setAnimation(playerClass, action + "_" + facing);
-		hideLayer(1, true);
-		movementSpeed = normalSpeed();
+			setAnimation(playerClass, action + "_" + facing);
+			hideLayer(1, true);
+			movementSpeed = normalSpeed();
 		}
-		*/
+		
 		
 		//System 3
 		
-		
+		/*
 		if(lastDirection.y==0 && lastDirection.x!=0){
 			if(lastDirection.x<0)
 				facing=torsoFacing=Facing.LEFT;
@@ -197,8 +206,7 @@ public abstract class Player extends GameObject{
 		hideLayer(1, true);
 		movementSpeed = normalSpeed();
 		}
-		
-		
+		*/
 		
 		super.update(game);
 		
@@ -207,12 +215,40 @@ public abstract class Player extends GameObject{
 	protected void action1(){
 		
 	}
-	
-	
-	
+
 	public int rollDamage()
 	{
 		return 0;
+	}
+	
+	protected void handleObjectCollision(GameObject object,String direction){
+		if(object instanceof Bullet && ((Bullet) object).damagePlayer){
+			SoundManager.mixedSound("enemyDamage");
+			health -= /** INSERT COLLISION DAMAGE HERE */ 3 / armor();
+			
+			if(health < 0){
+				health=0;
+				die();
+				deathCount++;
+				boolean k=true;
+				for(int i=0;i<LevelManager.players.size();i++){
+					k &= LevelManager.players.get(i).dead;
+				}
+				if(k)
+					LevelManager.gameOver();
+				else{
+					LevelManager.cam.removeTarget(this);
+					startCooldown();
+				}
+			}
+			
+			object.die();
+		}
+	}
+	
+	public void startCooldown(){
+		cooldown=10*deathCount;
+		deathTime=LevelManager.getTime();
 	}
 	
 	private enum Action {

@@ -9,12 +9,16 @@ class RectangleF{
 	
 	public float x=0,y=0,width=0,height=0,pivotX=0,pivotY=0;
 	public Entity owner;
+	private Vector2f topLeft,pivot,size;
 	
 
 	
 	public RectangleF(float x,float y){
 		this.x=x;
 		this.y=y;
+		topLeft=new Vector2f(x,y);
+		size=new Vector2f(0,0);
+		pivot=new Vector2f(0,0);
 	}
 	
 	public RectangleF(float x,float y,float width,float height){
@@ -22,6 +26,9 @@ class RectangleF{
 		this.y=y;
 		this.height=height;
 		this.width=width;
+		topLeft=new Vector2f(x,y);
+		size=new Vector2f(width,height);
+		pivot=new Vector2f(0,0);
 	}
 	
 	public RectangleF(float x,float y,float width,float height,float pivotX,float pivotY){
@@ -31,39 +38,46 @@ class RectangleF{
 		this.width=width;
 		this.pivotX=pivotX;
 		this.pivotY=pivotY;
-	}
-	
-	public RectangleF(Entity owner,float x,float y,float width,float height){
-		this.x=x;
-		this.y=y;
-		this.height=height;
-		this.width=width;
-		this.owner=owner;
-	}
-	
-	public RectangleF(Entity owner,float x,float y,float width,float height,float pivotX,float pivotY){
-		this.x=x;
-		this.y=y;
-		this.height=height;
-		this.width=width;
-		this.pivotX=pivotX;
-		this.pivotY=pivotY;
-		this.owner=owner;
+		topLeft=new Vector2f(x,y);
+		size=new Vector2f(width,height);
+		pivot=new Vector2f(pivotX,pivotY);
 	}
 	
 	public void setPosition(float x,float y){
 		this.x=x-pivotX;this.y=y-pivotY;
+		topLeft.set(x-pivot.x,y-pivot.y);
+	}
+	
+	public void move(float x,float y){
+		//pivot.x+=x;
+		topLeft.x+=x;
+		//pivot.y+=y;
+		topLeft.y+=y;
 	}
 	
 	public void setSize(float w,float h){
 		width=w;height=h;
+		size.set(w,h);
 	}
 	
 	public void setPivot(float x,float y){
 		pivotX=x;pivotY=y;
+		pivot.set(x,y);
 	}
 	
-	public float getCenterX(){
+	public Vector2f getPosition(){
+		return topLeft.copy().add(pivot);
+	}
+	
+	public Vector2f getSize(){
+		return size;
+	}
+	
+	public Vector2f getCenter(){
+		return topLeft.copy().add(new Vector2f(size.x/2,size.y/2));
+	}
+	
+	/*public float getCenterX(){
 		return x+width/2;
 	}
 	
@@ -71,32 +85,36 @@ class RectangleF{
 		return y+height/2;
 	}
 	
-	public float pivotedX(){
+	public Vector2f getPivot(){
+		return pivot;
+	}*/
+	
+	/*public float pivotedX(){
 		return x+pivotX;
 	}
 	
 	public float pivotedY(){
 		return y+pivotY;
-	}
+	}*/
 	
 	public float bottom(){
-		return y+height;
+		return topLeft.y+size.y;
 	}
 	
 	public float top(){
-		return y;
+		return topLeft.y;
 	}
 	
 	public float right(){
-		return x+width;
+		return topLeft.x+size.x;
 	}
 	
 	public float left(){
-		return x;
+		return topLeft.x;
 	}
 	
 	public float corner(boolean top,boolean left){
-		return x+y+(top?0:height)+(left?0:width);
+		return topLeft.x+topLeft.y+(top?0:size.y)+(left?0:size.x);
 	}
 	
 	protected boolean checkCollision(RectangleF e){
@@ -112,8 +130,8 @@ class RectangleF{
 	}
 	
 	protected String checkBoxSide(RectangleF e){
-		Vector2f pos1=new Vector2f(getCenterX(),getCenterY());
-		Vector2f pos2=new Vector2f(e.getCenterX(),e.getCenterY());
+		Vector2f pos1=new Vector2f(getCenter());
+		Vector2f pos2=new Vector2f(e.getCenter());
 		
 		float overlapX=Math.min(right(), e.right())-
 				       Math.max(left(), e.left());
@@ -134,21 +152,21 @@ class RectangleF{
 	public void render(Camera cam){
 		Graphics g=new Graphics();
 		Vector2f screenPos = getScreenPos(cam);
-		g.setColor(Color.white);
+		g.setColor(Color.red);
 		g.drawRect(screenPos.x, screenPos.y, getScaledWidth(cam), getScaledHeight(cam));
 	}
 	
 	protected Vector2f getScreenPos(Camera camera)
 	{
-		return new Vector2f(Window.WIDTH / 2 + (x - camera.position.x) * camera.getZoom(),
-				Window.HEIGHT / 2 + (y - camera.position.y) * camera.getZoom());
+		return new Vector2f(Window.WIDTH / 2 + (topLeft.x - camera.position.x) * camera.getZoom(),
+				Window.HEIGHT / 2 + (topLeft.y - camera.position.y) * camera.getZoom());
 	}
 	protected float getScaledWidth(Camera camera)
 	{
-		return width * camera.getZoom();
+		return size.x * camera.getZoom();
 	}
 	protected float getScaledHeight(Camera camera)
 	{
-		return height * camera.getZoom();
+		return size.y * camera.getZoom();
 	}
 }

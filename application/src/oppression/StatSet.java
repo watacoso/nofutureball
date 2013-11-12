@@ -4,11 +4,24 @@ public class StatSet {
 	
 	// Notice: Works *only* with 4 or 12 arguments.
 	// longDmg, shortDmg, armor, speed, firingSpeed, range, attackSpeed, knockback, bulletSpeed, bulletSize, regen ,maxHealth
-	public static final StatSet SHARPSHOOTER = new StatSet(8, 1, 3, 60, 20, 800, 15, 20, 40, 40, 0, 100);
+	public static final StatSet SHARPSHOOTER = new StatSet(8, 1, 3, 60, 20, 1200, 5, 1, 40, 40, 0, 100);
 	public static final StatSet AOEGUY = new StatSet(5, 5, 5, 5);
 	public static final StatSet MEELE = new StatSet(0, 7, 10, 4);
 	
-	public static final StatSet ENEMY = new StatSet(0, 0, 1, 10);
+	public static final StatSet ENEMY = new StatSet(
+			0,								//longDmg
+			0,								//shortDmg
+			1, 								//armor
+			10,								//speed
+			20,								//firingSpeed
+			1000,							//range
+			100,							//attackSpeed
+			20,								//knockBack
+			30,								//bulletSpeed
+			40,								//bulletSize
+			0,								//regen
+			10								//maxHealth
+			);
 	
 	public StatSet(int longDmg, int shortDmg, int armor, int normalSpeed) {
 		this.longDmg = longDmg;

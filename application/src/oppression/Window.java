@@ -13,6 +13,8 @@ public class Window {
 
 	public final static int WIDTH = 800;
 	public final static int HEIGHT = 600;
+	//public final static int WIDTH = 1366;
+	//public final static int HEIGHT = 768;
 	public final static int FPS = 60;
 
 	public static void main(String[] args) {
@@ -22,7 +24,7 @@ public class Window {
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new Game("Simple Slick Game"));
-
+			
 			appgc.setDisplayMode(WIDTH, HEIGHT, false);
 			appgc.setTargetFrameRate(FPS);
 			// appgc.setMinimumLogicUpdateInterval(16);

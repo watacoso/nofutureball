@@ -5,30 +5,21 @@ import org.newdawn.slick.geom.Vector2f;
 public abstract class Entity implements Comparable<Entity> {
 
 	public Vector2f position;
-	public Vector2f pivot;
-	public Vector2f size;
-	public boolean dead=false;
 	public RectangleF box;
 	public Container parent = null;
 
 	public Entity(float x, float y) {
 		position = new Vector2f(x, y);
-		size = new Vector2f(0, 0);
-		pivot = new Vector2f(0, 0);
 		box=new RectangleF(x,y,0,0);
 	}
 
 	public Entity(float x, float y, float width, float height) {
 		position = new Vector2f(x, y);
-		size = new Vector2f(width, height);
-		pivot = new Vector2f(width/2, height/2);
 		box=new RectangleF(x,y,width,height,width/2,height/2);
 	}
 
 	public Entity(float x, float y, float width, float height, float pivotX, float pivotY) {
 		position = new Vector2f(x, y);
-		size = new Vector2f(width, height);
-		pivot = new Vector2f(pivotX, pivotY);
 		box=new RectangleF(x,y,width,height,pivotX,pivotY);
 	}
 
@@ -39,7 +30,7 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 	
 	public void render(Camera cam) {	
-		//box.render(cam);
+		box.render(cam);
 	}
 
 
@@ -76,11 +67,11 @@ public abstract class Entity implements Comparable<Entity> {
 	}
 	protected float getScaledWidth(Camera camera)
 	{
-		return size.x * camera.getZoom();
+		return box.getSize().x * camera.getZoom();
 	}
 	protected float getScaledHeight(Camera camera)
 	{
-		return size.y * camera.getZoom();
+		return box.getSize().y * camera.getZoom();
 	}
 		
 		

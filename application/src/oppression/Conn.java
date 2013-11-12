@@ -45,21 +45,17 @@ public class Conn extends Entity{
 	public void setSide(String side){
 		float x,y;
 		if(side=="top" || side=="bottom"){
-			size.x =x= width*Room.tileWidth;
-			size.y =y= Room.wallSpessor;
+			x= width*Room.tileWidth;
+			y= Room.wallSpessor;
+			
 			sprite=Sprite.getImage("DOOR","H");
 		}
 		else{
-			//width+=1;
-			size.y =y= width*Room.tileHeight;
-			size.x =x= Room.wallSpessor;
+			x= Room.wallSpessor;
+			y= width*Room.tileHeight;			
 			sprite=Sprite.getImage("DOOR","V");
 		}
-		
-		pivot.x=size.x/2;
-		pivot.y=size.y/2;
 		box.setSize(x, y);
-		//box.setPivot(x/2, y/2);
 		this.side=side;
 		sideA=side;
 		switch (side){
@@ -99,8 +95,6 @@ public class Conn extends Entity{
 		return -1;
 	}
 	
-	
-	
 	public int compareTo(Conn o) {
 		if(side=="top" || side=="bottom"){
 			if (o.box.left()  < box.left())
@@ -127,13 +121,13 @@ public class Conn extends Entity{
 			// return;
 			//}
 				
-		
 			Vector2f screenPos = getScreenPos(cam);
 
-			float _width = box.width * cam.getZoom();
-			float _height = box.height * cam.getZoom();
+			float _width = box.getSize().x * cam.getZoom();
+			float _height = box.getSize().y * cam.getZoom();
 			
 			sprite.draw(screenPos.x, screenPos.y, _width, _height);
+			//super.render(cam);
 		
 	}	
 

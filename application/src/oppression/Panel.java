@@ -12,8 +12,8 @@ public class Panel extends GameObject {
 	public void update(Game game){
 		super.update(game);
 		
-		for(int i=0;i<game.players.size();i++){
-			Player p=(Player) game.players.get(i);
+		for(int i=0;i<LevelManager.players.size();i++){
+			Player p=(Player) LevelManager.players.get(i);
 			if(getDistance(p)<30 && p.room==room){
 				System.out.println("TEST");
 			}

@@ -1,17 +1,20 @@
 package oppression;
 
+import org.newdawn.slick.geom.Vector2f;
+
 
 public class Sharpshooter extends Player {
 
 	private boolean shotReady=false;
 	private int shotTimer=0;
-
+	
 	
 	
 	public Sharpshooter(Room room, float x, float y, KeySet keySet) {
 		super(room, x, y, keySet);
-
 		base = StatSet.SHARPSHOOTER;
+		health=maxHealth();
+		passive=Augmentation.W_TRIPLESHOT;
 	}
 	
 	public void update(Game game){
@@ -23,9 +26,9 @@ public class Sharpshooter extends Player {
 	protected void action1(){
 		if(shotReady){
 			if(passive == Augmentation.W_TRIPLESHOT)
-				tripleShot();
+				tripleShot(aimDirection);
 			else
-				standardShot();
+				standardShot(aimDirection);
 			SoundManager.mixedSound("shot");
 			shotReady=false;
 			shotTimer=0;
@@ -38,18 +41,18 @@ public class Sharpshooter extends Player {
 	
 
 	
-	private void standardShot(){
+	private void standardShot(Vector2f aimDirection){
 		
-		Bullet b=new Bullet(this, bulletSize(), lastDirection, bulletSpeed() + speed.length());
+		Bullet b=new Bullet(this, bulletSize(), aimDirection, bulletSpeed() + speed.length());
 		parent.add(b);
 		
 	}
 	
-	private void tripleShot(){
+	private void tripleShot(Vector2f aimDirection){
 		
-		Bullet b1=new Bullet(this, bulletSize(), lastDirection.add(5),bulletSpeed() + speed.length());
-		Bullet b2=new Bullet(this, bulletSize(), lastDirection.sub(10),bulletSpeed() + speed.length());
-		Bullet b3=new Bullet(this, bulletSize(), lastDirection.add(5),bulletSpeed() + speed.length());
+		Bullet b1=new Bullet(this, bulletSize(), aimDirection.add(5),bulletSpeed() + speed.length());
+		Bullet b2=new Bullet(this, bulletSize(), aimDirection.sub(10),bulletSpeed() + speed.length());
+		Bullet b3=new Bullet(this, bulletSize(), aimDirection.add(5),bulletSpeed() + speed.length());
 		parent.add(b1);
 		parent.add(b2);
 		parent.add(b3);

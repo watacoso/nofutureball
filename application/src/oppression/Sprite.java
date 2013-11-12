@@ -100,6 +100,7 @@ public class Sprite extends Entity{
 		*/
 		
 		/*System 2*/
+		
 		setSpriteSheet("assets/sprites/char_modular02.png",256,256);
 		addAnimation("SHARPSHOOTER","IDLE_LEFT",buildAnimationFromStrip(false,0,4,100),true);
 		addAnimation("SHARPSHOOTER","IDLE_RIGHT",buildAnimationFromStrip(false,0,4,100),false);
@@ -132,6 +133,7 @@ public class Sprite extends Entity{
 		addAnimation("SHARPSHOOTER_TORSO","SHOOT_RIGHT",buildAnimationFromStrip(false,3,3,100),false);
 		addAnimation("SHARPSHOOTER_TORSO","SHOOT_DOWN",buildAnimationFromStrip(false,7,3,100),false);
 		addAnimation("SHARPSHOOTER_TORSO","SHOOT_UP",buildAnimationFromStrip(false,11,3,100),false);
+		
 		
 		///ENEMY TMP//
 		
@@ -389,7 +391,7 @@ public class Sprite extends Entity{
 				Vector2f screenPos = getScreenPos(cam);
 				currentAnimation.draw(screenPos.x-spriteBox.pivotX*cam.getZoom(), screenPos.y-spriteBox.pivotY*cam.getZoom(), spriteBox.width*cam.getZoom(), spriteBox.height*cam.getZoom());	
 			}
-			super.render(cam);
+			//super.render(cam);
 			//spriteBox.render(cam);
 		}
 	}

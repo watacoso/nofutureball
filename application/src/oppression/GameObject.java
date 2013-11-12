@@ -12,7 +12,7 @@ public class GameObject extends Sprite {
 	public Conn door;
 	private boolean transition=false;
 	private boolean countMe;
-	private boolean dead=false;
+	public boolean dead=false;
 	public boolean collide=true;
 	protected Vector2f direction,lastDirection;
 	public RectangleF collisionBox;
@@ -21,6 +21,7 @@ public class GameObject extends Sprite {
 	
 	public StatSet base;
 	public StatSet augmentation;
+	public Augmentation active;
 	public ArrayList<StatSet> buffs = new ArrayList<StatSet>();
 	
 	
@@ -35,7 +36,6 @@ public class GameObject extends Sprite {
 		
 		collisionBox =box;
 		speed = new Vector2f(0, 0);
-
 	}
 	
 	public GameObject(float x, float y,  float boxWidth, float boxHeight) {
@@ -55,6 +55,9 @@ public class GameObject extends Sprite {
 		if(room!=null)testLocation();
 		position.add(speed);
 		box.setPosition(position.x, position.y);
+		if(collisionBox!=box){
+			collisionBox.setPosition(position.x, position.y);
+		}
 	}
 	
 	private void testLocation(){
@@ -93,25 +96,25 @@ public class GameObject extends Sprite {
 	}
 
 	private boolean pivotInside(Entity e){
-		if (collisionBox.pivotedX() < e.position.x)
+		if (collisionBox.getPosition().x < e.box.left())
 			return false;
-		if (collisionBox.pivotedY() < e.position.y)
+		if (collisionBox.getPosition().y < e.box.top())
 			return false;
-		if (collisionBox.pivotedX() > e.position.x + e.size.x)
+		if (collisionBox.getPosition().x > e.box.right())
 			return false;
-		if (collisionBox.pivotedY() > e.position.y + e.size.y)
+		if (collisionBox.getPosition().y > e.box.bottom())
 			return false;
 		return true;
 	}
 	
 	private boolean boxInside(Entity e){
-		if (collisionBox.left() < e.position.x)
+		if (collisionBox.left() < e.box.left())
 			return false;
-		if (collisionBox.top() < e.position.y)
+		if (collisionBox.top() < e.box.top())
 			return false;
-		if (collisionBox.right() > e.position.x + e.size.x)
+		if (collisionBox.right() > e.box.right())
 			return false;
-		if (collisionBox.bottom() > e.position.y + e.size.y)
+		if (collisionBox.bottom() >e.box.bottom())
 			return false;
 		return true;
 	}
@@ -214,9 +217,7 @@ public class GameObject extends Sprite {
 		parent.remove(this);
 	}
 		
-	
 	public void render(Camera cam){
-		//collisionBox.render(cam);
 		super.render(cam);
 	}
 

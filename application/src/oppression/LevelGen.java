@@ -29,10 +29,8 @@ public class LevelGen {
 		placeNewCompound();
 		renderAllWalls();
 		for(int i=0;i<map.size();i++){
-			//System.out.println(map.size());
 			if(map.get(i) instanceof Room){
 				Room r=(Room)map.get(i);
-				//System.out.println(r.walls.size());
 				for(int j=0;j<r.walls.size();j++){
 					
 					Wall w=r.walls.get(j);
@@ -107,13 +105,13 @@ public class LevelGen {
 				doorWidth=1;
 			door=new Conn(doorWidth,root,room);
 			if(flowVector.x>0){
-				door.setPosition(root.position.x+root.size.x,root.position.y);
-				room.position.x=root.position.x+root.size.x+Room.wallSpessor;
+				door.setPosition(root.position.x+root.box.getSize().x,root.position.y);
+				room.position.x=root.position.x+root.box.getSize().x+Room.wallSpessor;
 				door.setSide("right");
 			}
 			else{
 				door.setPosition(root.position.x-Room.wallSpessor,root.position.y);
-				room.position.x=root.position.x-room.size.x-Room.wallSpessor;
+				room.position.x=root.position.x-room.box.getSize().x-Room.wallSpessor;
 				door.setSide("left");
 			}
 			
@@ -141,13 +139,13 @@ public class LevelGen {
 			door=new Conn(doorWidth,root,room);
 			
 			if(flowVector.y>0){
-				door.setPosition(root.position.x,root.position.y+root.size.y);
-				room.position.y=root.position.y+root.size.y+Room.wallSpessor;
+				door.setPosition(root.position.x,root.position.y+root.box.getSize().y);
+				room.position.y=root.position.y+root.box.getSize().y+Room.wallSpessor;
 				door.setSide("bottom");
 			}
 			else{
 				door.setPosition(root.position.x,root.position.y-Room.wallSpessor);
-				room.position.y=root.position.y-room.size.y-Room.wallSpessor;
+				room.position.y=root.position.y-room.box.getSize().y-Room.wallSpessor;
 				door.setSide("top");
 			}		
 			

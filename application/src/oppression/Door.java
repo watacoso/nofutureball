@@ -18,7 +18,7 @@ public class Door extends GameObject {
 			box.width=conn.box.width;
 			box.height=Wall.height+1;
 			box.setPosition(conn.position.x, conn.position.y-Wall.height);
-			box.setSize(conn.size.x, Wall.height+1);
+			box.setSize(conn.box.getSize().x, Wall.height+1);
 			setImage("DOORV", "OPEN");
 
 		}

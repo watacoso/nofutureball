@@ -31,57 +31,31 @@ public class Room extends Entity {
 	public String baseColor;
 	
 	public Room(float x, float y, int width, int height,int type) {
-		super(x, y, width * tileWidth, height * tileHeight,width * tileWidth/2,height * tileHeight/2);
+		super(x, y, width * tileWidth, height * tileHeight,0,0);
 		
 		this.width = width;
 		this.height = height;
-		/*try {
-			floor = new Image("assets/sprites/floorTiles.png");
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		doors=new ArrayList<Conn>();
 		walls=new ArrayList<Wall>();
 		childs=new ArrayList<Room>();
 		wallTiles=new ArrayList<Image>();
 		numActors=0;
-		
-		roomType=type;
-		floor=Sprite.getImage("FLOOR", "R"+roomType);
-		switch(roomType){
-		case 1:
-			baseColor="#7A4848";
-			break;
-		case 2:
-			baseColor="#546548";
-			break;
-		case 3:
-			baseColor="#576B70";
-			break;
-		case 4:
-			baseColor="#6F4B71";
-			break;
-		}
-		//floor=Sprite.getSprite("FLOOR", "TEST");
-		
+		setType(type);
 	}
 	
 	public Room(int width, int height,int type) {
-		super(0, 0, width * tileWidth, height * tileHeight);
+		super(0, 0, width * tileWidth, height * tileHeight,0,0);
 		this.width = width;
 		this.height = height;
-		/*try {
-			floor = new Image("assets/sprites/floorTiles.png");
-		} catch (SlickException e) {
-
-			e.printStackTrace();
-		}*/
 		doors=new ArrayList<Conn>();
 		walls=new ArrayList<Wall>();
 		childs=new ArrayList<Room>();
 		numActors=0;
 		
+		setType(type);
+	}
+	
+	private void setType(int type){
 		roomType=type;
 		floor=Sprite.getImage("FLOOR", "R"+roomType);
 		switch(roomType){
@@ -98,10 +72,7 @@ public class Room extends Entity {
 			baseColor="#6F4B71";
 			break;
 		}
-		//floor=Sprite.getSprite("FLOOR", "TEST");
 	}
-	
-	
 
 	public void update(Game game) {
 		if(!visited)
@@ -138,16 +109,18 @@ public class Room extends Entity {
 				floor.draw(screenPos.x + x, screenPos.y + y, floorWidth, floorHeight);
 			}
 		}
-		
-		
-		
-
+		//super.render(cam);
 	}
 	
 	public void setPosition(float x, float y){
-		position.x=x;
-		position.y=y;
+		position.set(x,y);
 		box.setPosition(x, y);
+	}
+	
+	public void move(float x, float y){
+		position.x+=x;
+		position.y+=y;
+		box.move(x, y);
 	}
 
 	public void addWalls(Container target) {
@@ -161,19 +134,19 @@ public class Room extends Entity {
 			switch (r.getSide(this)){
 				case "top":
 					w=new Wall(this,position.x+TX, position.y, 1, r.getRelativePos(this)*Room.tileWidth-TX);
-					TX=r.getRelativePos(this)*Room.tileWidth+r.size.x;
+					TX=r.getRelativePos(this)*Room.tileWidth+r.box.getSize().x;
 					break;
 				case "bottom":
-					w=new Wall(this,position.x + BX, position.y + size.y + wallSpessor, 3, r.getRelativePos(this)*Room.tileWidth-BX);
-					BX=r.getRelativePos(this)*Room.tileWidth+r.size.x;
+					w=new Wall(this,position.x + BX, position.y + box.getSize().y + wallSpessor, 3, r.getRelativePos(this)*Room.tileWidth-BX);
+					BX=r.getRelativePos(this)*Room.tileWidth+r.box.getSize().x;
 					break;
 				case "left":
 					w=new Wall(this,position.x - wallSpessor, position.y+LY, 2, r.getRelativePos(this)*Room.tileHeight-LY-wallSpessor);
-					LY=r.getRelativePos(this)*Room.tileHeight+r.size.y;
+					LY=r.getRelativePos(this)*Room.tileHeight+r.box.getSize().y;
 					break;
 				case "right":
-					w=new Wall(this,position.x + size.x, position.y+RY, 2, r.getRelativePos(this)*Room.tileHeight-RY-wallSpessor);
-					RY=r.getRelativePos(this)*Room.tileHeight+r.size.y;
+					w=new Wall(this,position.x + box.getSize().x, position.y+RY, 2, r.getRelativePos(this)*Room.tileHeight-RY-wallSpessor);
+					RY=r.getRelativePos(this)*Room.tileHeight+r.box.getSize().y;
 					break;
 			}
 
@@ -182,13 +155,13 @@ public class Room extends Entity {
 			
 		}
 		
-		w=new Wall(this,position.x+TX, position.y, 1, size.x-TX);
+		w=new Wall(this,position.x+TX, position.y, 1, box.getSize().x-TX);
 		addWall(w,target);
-		w=new Wall(this,position.x - wallSpessor, position.y+LY, 4, size.y-LY);
+		w=new Wall(this,position.x - wallSpessor, position.y+LY, 4, box.getSize().y-LY);
 		addWall(w,target);
-		w=new Wall(this,position.x + size.x, position.y+RY, 4, size.y-RY);
+		w=new Wall(this,position.x + box.getSize().x, position.y+RY, 4, box.getSize().y-RY);
 		addWall(w,target);
-		w=new Wall(this,position.x+BX, position.y + size.y + wallSpessor, 3, size.x-BX);
+		w=new Wall(this,position.x+BX, position.y + box.getSize().y + wallSpessor, 3, box.getSize().x-BX);
 		addWall(w,target);
 
 	}
@@ -223,11 +196,11 @@ public class Room extends Entity {
 	}
 	
 	protected boolean checkCollision(Room e,float span){
-		if(position.x-span>e.position.x+e.size.x ||
-		   position.x+size.x+span<e.position.x)
+		if(position.x-span>e.position.x+e.box.getSize().x ||
+		   position.x+box.getSize().x+span<e.position.x)
 			return false;
-		if(position.y-span>e.position.y+e.size.y ||
-		   position.y+size.y+span<e.position.y)
+		if(position.y-span>e.position.y+e.box.getSize().y ||
+		   position.y+box.getSize().y+span<e.position.y)
 			return false;
 		return true;
 		
