@@ -10,4 +10,3 @@ lwjgl.jar
 
 take note that you need to link the native openGL files to lwjgl.jar
 
-they change depending on the OS, so download the appropriate natives for your pc;
