@@ -5,6 +5,13 @@ import entityPackage.GameObject;
 import mainPackage.Game;
 import mapElements.Room;
 
+/**
+ * Simple enemy type shooting single bullets
+ * effective in swarms
+ * @author watacoso
+ *
+ */
+
 public class RoboRifler extends Enemy{
 
 	private int shootTimer=0;
@@ -15,11 +22,12 @@ public class RoboRifler extends Enemy{
 	}
 
 	
-		protected void roomAI(Game game){
+	/**
+	 * Follows target and fires when weapon is in range
+	 */	protected void roomAI(Game game){
 	followTarget(game);
 		if(target!= null && getDistance(target)<range()){
 			fireRoutine(target);
-			
 		}
 		//else{
 		//	for(int i=0;i<LevelManager.players.size();i++){
@@ -32,6 +40,10 @@ public class RoboRifler extends Enemy{
 	
 	//ROBORIFLER GENERAL ACTIONS//
 	
+	/**
+	 * Fires a single bullet
+	 * @param target
+	 */
 	private void fireRoutine(GameObject target){
 		if(shootTimer<attackSpeed()) return;
 		Bullet b=new Bullet(this, bulletSize(), getDirectionVector(target), bulletSpeed() + speed.length());
