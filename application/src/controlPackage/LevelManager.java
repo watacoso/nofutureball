@@ -15,6 +15,15 @@ import entityPackage.Container;
 import playerPackage.Player;
 import playerPackage.Sharpshooter;
 
+/**
+ * Manages the Levels
+ * Number of Players, and so forth.
+ * 
+ * Takes care of enemy spawning
+ * 
+ * @author watacoso
+ */
+
 public class LevelManager {
 
 	public LevelGen levelGen;
@@ -30,6 +39,9 @@ public class LevelManager {
 	private int spawnTimestamp;
 	public static Camera cam;
 	
+	/**
+	 * Constructor
+	 */
 	public LevelManager(){
 		this.entities=Game.entities;
 		players=new ArrayList<Player>();
@@ -41,10 +53,18 @@ public class LevelManager {
 		
 	}
 	
+	/**
+	 * Returns current time of the timer
+	 * @return int timer
+	 */
 	public static int getTime(){
 		return timer;
 	}
 	
+	/**
+	 * Sets Number of Players
+	 * @param nPlayers number of players wanted
+	 */
 	public void setNumPlayers(int nPlayers){
 		players.clear();
 		if(nPlayers>=1){
@@ -79,6 +99,9 @@ public class LevelManager {
 		
 	}
 	
+	/**
+	 * Initialises a level
+	 */
 	public void initLevel(){
 		levelGen.generateMap(level);
 		setNumPlayers(nPlayers);
@@ -93,10 +116,20 @@ public class LevelManager {
 		
 	}
 	
+	/**
+	 * Switches into the Game Over State
+	 */
 	public static void gameOver(){
 		Game.status=Game.Status.GAMEOVER;
 	}
 
+	/**
+	 * Spawns a player
+	 * @param p Player
+	 * @param r Room
+	 * @param x x-Position
+	 * @param y y-Position
+	 */
 	private void spawnPlayer(Player p,Room r, int x, int y){
 		entities.remove(p);
 		p.room=r;
@@ -107,6 +140,12 @@ public class LevelManager {
 		cam.addTarget(p);
 	}
 	
+	/**
+	 * Slick Update function
+	 * Spawns Enemies
+	 * Respawns Players
+	 * @param delta
+	 */
 	public void update(int delta){
 		timer+=delta;
 		if(getTime()-spawnTimestamp>3000){

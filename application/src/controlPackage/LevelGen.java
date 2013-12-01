@@ -8,6 +8,13 @@ import org.newdawn.slick.geom.Vector2f;
 
 import entityPackage.Container;
 
+/**
+ * Generates a Level
+ * 
+ * @author watacoso
+ *
+ */
+
 public class LevelGen {
 
 	public Room startRoom;

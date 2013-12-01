@@ -3,6 +3,15 @@ package controlPackage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Audio Collection class
+ * Audio Info Class
+ * 
+ * Used in SoundManager
+ * @author watacoso
+ *
+ */
+
 public class AudioCollection {
 
 	public HashMap<String, ArrayList<String>> mixedEffects;
