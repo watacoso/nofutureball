@@ -2,6 +2,12 @@ package mainPackage;
 
 import org.newdawn.slick.Input;
 
+/**
+ * Room for Debugging Options
+ * @author watacoso
+ *
+ */
+
 public class Debugging {
 
 	private static Boolean busy = false;
@@ -10,6 +16,7 @@ public class Debugging {
 
 		Input input = Window.getGameContainer().getInput();
 
+		// 0 = Show Stats
 		if (input.isKeyDown(Input.KEY_0) && busy == false) {
 			showPlayerStats();
 			busy = true;

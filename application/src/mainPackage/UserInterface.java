@@ -10,6 +10,12 @@ import controlPackage.LevelManager;
 import entityPackage.*;
 import playerPackage.Player;
 
+/**
+ * Class UserInterface
+ * Adds the players to the user-interface container
+ * @author watacoso
+ */
+
 public class UserInterface {
 
 	//public static void init(Game game){
@@ -18,6 +24,10 @@ public class UserInterface {
 	//	game.ui.add(new PlayerProfile((Player) LevelManager.players.get(1),Window.WIDTH-260,10));
 	//}
 	
+    /**
+     * Adds PlayerProfiles to the UserInterface Container
+     * @param index Number of players
+     */
 	public static void addProfile(int index){
 		switch (index){
 		case 0:
@@ -41,12 +51,23 @@ public class UserInterface {
 	
 }
 
-
+/**
+ * class PlayerProfile
+ * Handles HeadUp Display of each Player
+ * 
+ * @author watacoso
+ */
 class PlayerProfile extends Entity{
 	private Graphics g;
 	private Player p;
 	private TrueTypeFont font = new TrueTypeFont(new java.awt.Font("Verdana", Font.BOLD, 14), false);
 	
+	/**
+	 * Constructor Player Profile
+	 * @param p Player this profile is assigned to
+	 * @param x X-Position
+	 * @param y Y-Position
+	 */
 	public PlayerProfile(Player p,int x,int y){
 		super(x,y,100,25,0,0);
 		this.p=p;
@@ -54,7 +75,10 @@ class PlayerProfile extends Entity{
 		
 	}
 	
-	
+	/**
+	 * Slick render-function
+	 * Renders health bar and cooldown bar for designated player
+	 */
 	public void render(Camera cam){
 		
 		

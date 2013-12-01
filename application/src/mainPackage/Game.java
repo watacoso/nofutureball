@@ -21,18 +21,16 @@ import entityPackage.Sprite;
  */
 public class Game extends BasicGame {
 
+    public static Container gameContainer;
+    public static Container mapContainer;
+    public static Container entities;
+    public static Container ui;
+    public static Status status=Status.LOADING;
+    public Menu menu;
+    
 	public Game(String title) {
 		super(title);
-		// TODO Auto-generated constructor stub
 	}
-
-
-	public static Container gameContainer;
-	public static Container mapContainer;
-	public static Container entities;
-	public static Container ui;
-	public static Status status=Status.LOADING;
-	public Menu menu;
 	
 	public static LevelManager lManager;
 
@@ -125,9 +123,7 @@ public class Game extends BasicGame {
 	}
 
 	/**
-	 * 
 	 * Slick2D render function. 
-	 * 
 	 */
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		g.setBackground(Color.decode("#0C060E"));

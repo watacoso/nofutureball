@@ -2,6 +2,12 @@ package mainPackage;
 
 import entityPackage.GameObject;
 
+/**
+ * Handles the Gamestats
+ * Defines Statsets for certain characters of the game
+ * @author watacoso
+ * 
+ */
 public class StatSet {
 	
 	// Notice: Works *only* with 4 or 12 arguments.
@@ -25,12 +31,35 @@ public class StatSet {
 			10								//maxHealth
 			);
 	
+	/**
+	 * Constructor with 4 Elements
+	 * @param longDmg LongRange Damage
+	 * @param shortDmg ShortRange Damage
+	 * @param armor Armor
+	 * @param normalSpeed Normal Speed
+	 */
 	public StatSet(int longDmg, int shortDmg, int armor, int normalSpeed) {
 		this.longDmg = longDmg;
 		this.shortDmg = shortDmg;
 		this.armor = armor;
 		this.normalSpeed = normalSpeed;
 	}
+	
+	/**
+	 * Constructor with 12 Elements
+	 * @param longDmg Long Range Damage
+	 * @param shortDmg Short Range Damage
+	 * @param armor Armor
+	 * @param normalSpeed Normal Speed
+	 * @param firingSpeed Firing Speed
+	 * @param range Range of the weapon
+	 * @param attackSpeed Attackspeed
+	 * @param knockback Knockback of weapon
+	 * @param bulletSpeed Bulletspeed
+	 * @param bulletSize Bulletsize
+	 * @param regen Regeneration
+	 * @param maxHealth maximum Health
+	 */
 	public StatSet(int longDmg, int shortDmg, int armor, int normalSpeed, int firingSpeed, int range, int attackSpeed, int knockback, int bulletSpeed, int bulletSize, int regen, int maxHealth) {
 		this(longDmg, shortDmg, armor, normalSpeed);
 		this.range = range;

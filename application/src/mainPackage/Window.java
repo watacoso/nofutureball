@@ -23,11 +23,12 @@ public class Window {
 	public final static int HEIGHT = 600;
 
 	public final static int FPS = 60;
-
+	
+	/**
+	 * Main program
+	 * @param args Arguments are not used
+	 */
 	public static void main(String[] args) {
-		
-
-
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new Game("Simple Slick Game"));
@@ -40,13 +41,20 @@ public class Window {
 			Logger.getLogger(Window.class.getName()).log(Level.SEVERE,
 					null, ex);
 		}
-
 	}
-
+	
+	/**
+	 * Returns the GameContainer
+	 * @return the active Game Container
+	 */
 	public static GameContainer getGameContainer() {
 		return gameContainer;
 	}
-
+	
+	/**
+	 * Sets the GameContainer
+	 * @param gc The new GameContainer
+	 */
 	public static void setGameContainer(GameContainer gc) {
 		gameContainer = gc;
 	}
