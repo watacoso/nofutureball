@@ -13,8 +13,36 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Sprite extends Entity{
+/**
+ * Sprite
+ * directly extends the Entity class
+ * adds Sprites or animation to the Entity
+ * loads all the Animation
+ * @author watacoso
+ *
+ */
+
+public class Sprite extends Entity {
+
+    private static HashMap<String, HashMap<String,Animation>> animationList;
+    private static HashMap<String, HashMap<String,Image>> spriteList;
+    //private static HashMap<String, SpriteSheet> spriteSheetList;
+    private static SpriteSheet ss;
+    private Animation currentAnimation;
+    private Image currentImage;
+    private boolean usingAnimation=false;
+    public boolean dynamicStats=false;
+    public RectangleF spriteBox;
+    public Vector2f spriteSize=new Vector2f(0,0);
+    public Vector2f spritePivot=new Vector2f(0,0);
+    public Vector2f scale=new Vector2f(1,1);
+    private ArrayList<Layer> layers;
 	
+    /**
+     * Constructor
+     * @param x X-Position
+     * @param y Y-Position
+     */
 	public Sprite(float x, float y) {
 		super(x, y);
 		spriteBox=new RectangleF(x,y);
@@ -23,6 +51,13 @@ public class Sprite extends Entity{
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Constructor with Box Settings
+	 * @param x X-Position
+	 * @param y Y-Position
+	 * @param width Width of the Box
+	 * @param height Height of the box
+	 */
 	public Sprite(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		spriteBox=new RectangleF(x,y);
@@ -31,30 +66,27 @@ public class Sprite extends Entity{
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * General Constructor
+	 * @param x X-Position
+	 * @param y Y-Position
+	 * @param width Width of the Box
+	 * @param height Height of the Box
+	 * @param pivotX Pivot shift on X
+	 * @param pivotY Pivot shift on Y
+	 */
 	public Sprite(float x, float y, float width, float height,
 			float pivotX, float pivotY) {
 		super(x, y, width, height, pivotX, pivotY);
 		spriteBox=new RectangleF(x,y);
 		layers=new ArrayList<Layer>();
 		layers.add(new Layer());
-		// TODO Auto-generated constructor stub
 	}
 
-	private static HashMap<String, HashMap<String,Animation>> animationList;
-	private static HashMap<String, HashMap<String,Image>> spriteList;
-	//private static HashMap<String, SpriteSheet> spriteSheetList;
-	private static SpriteSheet ss;
-	private Animation currentAnimation;
-	private Image currentImage;
-	private boolean usingAnimation=false;
-	public boolean dynamicStats=false;
-	public RectangleF spriteBox;
-	public Vector2f spriteSize=new Vector2f(0,0);
-	public Vector2f spritePivot=new Vector2f(0,0);
-	public Vector2f scale=new Vector2f(1,1);
-	private ArrayList<Layer> layers;
-	
-	
+	/**
+	 * Initialising and Loading all them images
+	 * Called once in the beginning
+	 */
 	public static void init(){
 		
 		//GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
@@ -188,6 +220,12 @@ public class Sprite extends Entity{
 		
 	}
 	
+	/**
+	 * Sets a spritesheet for the sprite
+	 * @param ref Reference of the spritesheet
+	 * @param tw tile-width
+	 * @param th tile-height
+	 */
 	private static void setSpriteSheet(String ref,int tw,int th){
 		try {
 			ss=new SpriteSheet(ref,tw,th);
@@ -197,6 +235,14 @@ public class Sprite extends Entity{
 		}
 	}
 	
+	/**
+	 * Builds up the Animation
+	 * @todo document the params
+	 * @param index
+	 * @param length
+	 * @param speed
+	 * @return The Animation
+	 */
 	private static Animation buildAnimation(int index,int length,int speed){
 		int a,b,x,y;
 		
@@ -216,6 +262,13 @@ public class Sprite extends Entity{
 		return new Animation(ss,index,0,index,length-1,true,speed,horizzontal);
 	}
 	
+	/**
+	 * Adds an animation to the animationList
+	 * @param owner The name of the Object this animation is assigned to
+	 * @param name Name of the animation
+	 * @param anim The Animation to add
+	 * @param flipped if true the animation is flipped
+	 */
 	private static void addAnimation(String owner,String name,Animation anim,boolean flipped){
 		
 		Animation rev=new Animation();
@@ -240,6 +293,13 @@ public class Sprite extends Entity{
 		animationList.get(owner).put(name, anim);
 	}
 	
+	/**
+	 * Adds a sprite to the spritelist of the owner
+	 * @param owner Owner of this sprite
+	 * @param name Name of the sprite
+	 * @param ref Reference to the Sprite file
+	 * @param flipped if tru ethe sprite is flipped
+	 */
 	private static void addSprite(String owner,String name,String ref,boolean flipped){
 		Image img=null;
 		try {
@@ -263,6 +323,14 @@ public class Sprite extends Entity{
 		spriteList.get(owner).put(name, img);
 	}
 	
+	/**
+	 * Adds Sprite to the owners spriteList
+	 * @param owner Owner of the Sprite
+	 * @param name Name of the Sprite
+	 * @param x X-Position you get the Sprite at off the SpriteSheet
+	 * @param y Y-Position you get the Sprite at off the SpriteSheet
+	 * @param flipped if true the sprite is added flipped
+	 */
 	private static void addSprite(String owner,String name,int x,int y,boolean flipped){
 		Image img=ss.getSprite(x, y);
 		img.bind();
@@ -279,8 +347,11 @@ public class Sprite extends Entity{
 		spriteList.get(owner).put(name, img);
 	}
 	
-	
-	
+	/**
+	 * Sets a new animation on the base layer
+	 * @param owner Owner of the animation
+	 * @param name Name of the animation
+	 */
 	public void setAnimation(String owner,String name){
 		if(layers.get(0).animation==null || layers.get(0).animation!=animationList.get(owner).get(name)){
 			layers.get(0).animation=animationList.get(owner).get(name);
@@ -293,6 +364,12 @@ public class Sprite extends Entity{
 		}
 	}
 	
+	/**
+	 * Sets a new animation on a certain layer
+	 * @param owner Owner of the animation
+	 * @param name Name of the animation
+	 * @param index Index number of the layer
+	 */
 	public void setAnimation(String owner,String name,int index){
 		checkLayerExistance(index);
 		if(layers.get(index).animation==null || layers.get(0).animation!=animationList.get(owner).get(name)){
@@ -306,6 +383,11 @@ public class Sprite extends Entity{
 		}
 	}
 	
+	/**
+	 * Sets a new Image on the base layer
+	 * @param owner Owner of the animation
+	 * @param name Name of the Animation
+	 */
 	public void setImage(String owner, String name){
 		if(layers.get(0).image==null || layers.get(0).image!=spriteList.get(owner).get(name)){
 			layers.get(0).image=spriteList.get(owner).get(name);
@@ -318,6 +400,12 @@ public class Sprite extends Entity{
 		}
 	}
 	
+	/**
+	 * Sets a new image on a certain layer
+	 * @param owner Owner of the Animation
+	 * @param name  name of the animation
+	 * @param index Index of the Layer
+	 */
 	public void setImage(String owner, String name,int index){
 		checkLayerExistance(index);
 		if(layers.get(index).image==null || layers.get(0).image!=spriteList.get(owner).get(name)){
@@ -399,7 +487,13 @@ public class Sprite extends Entity{
 	}
 }
 
-
+/**
+ * Layer Class
+ * Each Layer can have one image/animation
+ * An Object can have several layers
+ * @author watacoso
+ *
+ */
 class Layer{
 	public Image image;
 	public Animation animation;

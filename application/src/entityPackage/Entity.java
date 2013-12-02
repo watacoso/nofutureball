@@ -7,29 +7,55 @@ import mapElements.Wall;
 
 import org.newdawn.slick.geom.Vector2f;
 
+/**
+ * Base Class all other Objects are based off
+ * Handles collision, Screenpositioning
+ * @author watacoso
+ *
+ */
+
 public abstract class Entity implements Comparable<Entity> {
 
 	public Vector2f position;
 	public RectangleF box;
 	public Container parent = null;
 
+	/**
+	 * Constructor
+	 * @param x X-Position
+	 * @param y Y-Position
+	 */
 	public Entity(float x, float y) {
 		position = new Vector2f(x, y);
 		box=new RectangleF(x,y,0,0);
 	}
 
+	/**
+	 * Constructor
+	 * @param x X-Position
+	 * @param y Y-Position
+	 * @param width Width of the Box (for collision)
+	 * @param height Height of the Box (for collision)
+	 */
 	public Entity(float x, float y, float width, float height) {
 		position = new Vector2f(x, y);
 		box=new RectangleF(x,y,width,height,width/2,height/2);
 	}
 
+	/**
+	 * General Constructor
+	 * @param x X-Position
+	 * @param y Y-Position
+	 * @param width Width of the box for collision
+	 * @param height Height of the box for collision
+	 * @param pivotX Of the Box
+	 * @param pivotY Of the Box
+	 */
 	public Entity(float x, float y, float width, float height, float pivotX, float pivotY) {
 		position = new Vector2f(x, y);
 		box=new RectangleF(x,y,width,height,pivotX,pivotY);
 	}
 
-	// update()
-	
 	public void update(Game game) {
 		
 	}
@@ -79,7 +105,11 @@ public abstract class Entity implements Comparable<Entity> {
 		return box.getSize().y * camera.getZoom();
 	}
 		
-		
+	/**
+	 * @todo Please document
+	 * @param A
+	 * @param B
+	 */
 	public static void truncate(Vector2f A,float B){
 		if(A.length()>B)
 		 A.normalise().scale(B);

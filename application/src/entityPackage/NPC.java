@@ -13,9 +13,17 @@ import controlPackage.LevelManager;
 import controlPackage.SoundManager;
 import playerPackage.Player;
 
+/**
+ * Base NPC Class
+ * All the Enemies are based off this class
+ * Deals with Pathfinding
+ * @todo MAYBE add more documentation to AI, not neccessary tho
+ * @author watacoso
+ *
+ */
+
 public class NPC extends GameObject {
 
-	
 	private float maxForce = 1;
 	protected GameObject target;
 	private Vector2f direction=new Vector2f(0,0);
@@ -28,20 +36,23 @@ public class NPC extends GameObject {
 	private int pathIndex;
 	
 	private Room targetRoom=null;
-	
 	private Room stepRoom=null;
 	private Room currentPathRoom=null;
 	private Conn stepConn=null;
 	
 	private boolean updatePath=false;
 	private boolean roomTravel=false;
-
-	
 	private boolean movingUnit=true;
 	
 	public String action="IDLE";
 	public String facing="LEFT";
 
+	/**
+	 * Constructor
+	 * @param room Room this NPC is spawning in
+	 * @param x X-Position
+	 * @param y Y-Position
+	 */
 	public NPC(Room room, float x, float y) {
 		super(room, x, y, 200, 100, true);
 		spritePivot.set(128,236);
@@ -52,6 +63,13 @@ public class NPC extends GameObject {
 		
 	}
 	
+	/**
+	 * Constructor
+	 * @param room Room to be spawned in
+	 * @param x X-Position
+	 * @param y Y-Position
+	 * @param target Target to follow
+	 */
 	public NPC(Room room, float x, float y,Player target) {
 		super(room, x, y, 200,100,true);
 		spritePivot.set(128,236);
@@ -63,6 +81,9 @@ public class NPC extends GameObject {
 		defineStats();
 	}
 	
+	/**
+	 * Sets the Stats
+	 */
 	private void defineStats(){
 		//stats.normalSpeed += Math.random() * 3;
 		base=StatSet.ENEMY;
@@ -129,14 +150,15 @@ public class NPC extends GameObject {
 			speed.x*=0.5;
 			speed.y*=0.5;
 		}
-		
 		super.update(game);
-
 	}
 	
+	/**
+	 * @todo Document pls
+	 * @param game
+	 */
 	protected void roomAI(Game game){
 		followTarget(game);
-		
 	}
 	
 	protected void avoidAI(){
@@ -147,7 +169,6 @@ public class NPC extends GameObject {
 	protected void moveTo(int x, int y){
 		
 	}
-	
 	
 	protected void followTarget(Game game){
 		steering=getDirectionVector(target).scale(maxForce);
@@ -166,7 +187,6 @@ public class NPC extends GameObject {
 			facing="RIGHT";
 	}
 	
-	
 	//PATHFINDING AND TARGET LOCK
 
 	public void setTarget(GameObject target){
@@ -177,8 +197,6 @@ public class NPC extends GameObject {
 	public void resetTarget(){
 		this.target=null;
 	}
-	
-	
 	
 	private void pathFinding(Game game){
 		if(target==null)

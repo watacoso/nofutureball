@@ -15,6 +15,13 @@ import org.newdawn.slick.geom.Vector2f;
 import controlPackage.LevelManager;
 import playerPackage.Player;
 
+/**
+ * Base Class of all GameObjects
+ * GameObjects can spawn in Rooms
+ * @author hollowspecter
+ *
+ */
+
 public class GameObject extends Sprite {
 
 	public Vector2f speed;
@@ -35,9 +42,15 @@ public class GameObject extends Sprite {
 	public Augmentation active;
 	public ArrayList<StatSet> buffs = new ArrayList<StatSet>();
 	
-	
-	
-	
+	/**
+	 * General Constructor
+	 * @param room Room to be spawned in
+	 * @param x X-Position in the room
+	 * @param y Y-Position in the room
+	 * @param boxWidth Width of the box
+	 * @param boxHeight Height of the box
+	 * @param countMe Whether or not this Object is counted in room.numActors
+	 */
 	public GameObject(Room room, float x, float y, float boxWidth, float boxHeight, boolean countMe) {
 		super(x + room.position.x, y + room.position.y,boxWidth,boxHeight);
 		this.countMe=countMe;
@@ -49,6 +62,13 @@ public class GameObject extends Sprite {
 		speed = new Vector2f(0, 0);
 	}
 	
+	/**
+	 * Simple Constructor
+	 * @param x X-Position
+	 * @param y Y-Position
+	 * @param boxWidth Width of the box
+	 * @param boxHeight Height of the box
+	 */
 	public GameObject(float x, float y,  float boxWidth, float boxHeight) {
 		super(x, y,boxWidth,boxHeight);
 		this.countMe=false;
@@ -57,10 +77,17 @@ public class GameObject extends Sprite {
 		speed = new Vector2f(0, 0);
 	}
 	
+	/**
+	 * Set Collision
+	 * @param value Whether or not this Object can be collided with
+	 */
 	public void setCollision(boolean value){
 		collide=value;
 	}
 
+	/**
+	 * Slick update-function
+	 */
 	public void update(Game game) {
 		if(collide)collisionTest();
 		if(room!=null)testLocation();
@@ -71,6 +98,9 @@ public class GameObject extends Sprite {
 		}
 	}
 	
+	/**
+	 * @todo document
+	 */
 	private void testLocation(){
 		
 		if(!transition){
@@ -253,6 +283,7 @@ public class GameObject extends Sprite {
 
 	
 	// STATS GETTERS
+	//
 	public int longDmg()
 	{
 		int a = 0;
