@@ -11,14 +11,23 @@ import org.newdawn.slick.geom.Vector2f;
 import controlPackage.SoundManager;
 import entityPackage.Bullet;
 
-
+/**
+ * The Sharpshooter Class
+ * @author watacoso
+ *
+ */
 public class Sharpshooter extends Player {
 
 	private boolean shotReady=false;
 	private int shotTimer=0;
 	
-	
-	
+    /**
+     * Constructor
+     * @param room The Room this sharpshooter shall spawn
+     * @param x X-Position
+     * @param y Y-Position
+     * @param keySet keySet this Player is using
+     */
 	public Sharpshooter(Room room, float x, float y, KeySet keySet) {
 		super(room, x, y, keySet);
 		base = StatSet.SHARPSHOOTER;
@@ -48,8 +57,14 @@ public class Sharpshooter extends Player {
 		movementSpeed = firingSpeed();
 	}
 	
-
+    /*
+     * Augmentation functions
+     */
 	
+    /**
+     * Normal shot without augm
+     * @param aimDirection Vector2f with direction of the shot
+     */	
 	private void standardShot(Vector2f aimDirection){
 		
 		Bullet b=new Bullet(this, bulletSize(), aimDirection, bulletSpeed() + speed.length());
@@ -57,6 +72,10 @@ public class Sharpshooter extends Player {
 		
 	}
 	
+    /**
+     * triple shot augm
+     * @param aimDirection Vector2f direction of the bullets
+     */	
 	private void tripleShot(Vector2f aimDirection){
 		
 		Bullet b1=new Bullet(this, bulletSize(), aimDirection.add(5),bulletSpeed() + speed.length());
@@ -71,3 +90,4 @@ public class Sharpshooter extends Player {
 	
 
 }
+

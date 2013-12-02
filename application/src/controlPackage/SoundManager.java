@@ -13,10 +13,19 @@ import com.google.gson.stream.JsonReader;
 
 import controlPackage.AudioCollection.AudioInfo;
 
+/**
+ * Manages the sounds (duh)
+ * @author watacoso
+ */
+
 public class SoundManager {
 
 	private static AudioCollection ac = new AudioCollection();
 
+	/**
+	 * Plays a soundeffect
+	 * @param key Key to the Soundeffect
+	 */
 	public static void playSoundEffect(String key) {
 
 		AudioInfo a = ac.sounds.get(key);
@@ -32,6 +41,10 @@ public class SoundManager {
 		}
 	}
 
+	/**
+	 * Plays music
+	 * @param key
+	 */
 	public static void playMusic(String key) {
 		AudioInfo a = ac.music.get(key);
 		//System.out.println("assets/sounds/" + a.href);
@@ -46,6 +59,10 @@ public class SoundManager {
 		}
 	}
 
+	/**
+	 * Mixes up a sound
+	 * @param effect The effect
+	 */
 	public static void mixedSound(String effect) {
 		Random r = new Random();
 		String key = ac.mixedEffects.get(effect).get(
@@ -53,15 +70,28 @@ public class SoundManager {
 		playSoundEffect(key);
 	}
 
+	/**
+	 * @todo is this used or needed?
+	 * @param effect
+	 */
 	public static void extendedSound(String effect) {
 
 	}
 
 	@SuppressWarnings("unused")
+	/**
+	 * @todo is this needed?
+	 * @param name
+	 * @return
+	 */
 	private int getIndex(String name) {
 		return 0;
 	}
 
+	/**
+	 * Loads up the Gson
+	 * Is called in Game class
+	 */
 	public static void load() {
 		JsonReader reader = null;
 		try {

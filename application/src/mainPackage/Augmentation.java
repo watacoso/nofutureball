@@ -1,6 +1,5 @@
 package mainPackage;
 
-
 public enum Augmentation {
 	/** Weapon: Trippleshot */
 	W_TRIPLESHOT	(0, 0, 0, 0),

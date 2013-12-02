@@ -6,13 +6,18 @@ import playerPackage.Player;
 import controlPackage.LevelManager;
 import entityPackage.GameObject;
 
+/**
+ * Panel class
+ * The screens on the wall in each room
+ * @author hollowspecter
+ *
+ */
 public class Panel extends GameObject {
 
 	public Panel(Room room, float x,String type) {
 		super(room, x, -40, 48, 70, false);
 		setCollision(false);
 		setAnimation("PANEL","TEMP");
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void update(GameContainer game){

@@ -18,9 +18,14 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import controlPackage.SoundManager;
 import entityPackage.Sprite;
 
+/**
+ * Menu class
+ * @todo instead of an int-ID we should use an ENUM so you can tell what ID is what
+ * @author watacoso
+ *
+ */
 public class Menu extends BasicGameState{
 
-	
 	private int ID=1;
 	private int nOps=3;
 	private int opID=0;
@@ -28,22 +33,31 @@ public class Menu extends BasicGameState{
 	private TrueTypeFont font;
 	GameLevel gameLevel;
 	
+	/**
+	 * Constructor of Menu
+	 * @param g GameLevel
+	 */
 	public Menu(GameLevel g){
 		super();
 		gameLevel=g;
 	}
 	
 	@Override
+	/**
+	 * Initialises the menu
+	 */
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 		Sprite.init();
 		SoundManager.load();
 		font = new TrueTypeFont(new java.awt.Font("Verdana", Font.BOLD, 30), false);
 		this.game=game;
-		
 	}
 
 	@Override
+	/**
+	 * Slick render-function
+	 */
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		g.setColor(Color.black);
@@ -53,16 +67,20 @@ public class Menu extends BasicGameState{
 		font.drawString( 80,Window.HEIGHT/2,(opID==0?"-":"")+ "Play", Color.white);
 		font.drawString( 80,Window.HEIGHT/2+30,(opID==1?"-":"")+ "Settings", Color.white);
 		font.drawString( 80,Window.HEIGHT/2+60,(opID==2?"-":"")+ "Quit", Color.white);
-		
 	}
 
 	@Override
+	/**
+	 * Slick update-function
+	 */
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		
 	}
 	
+	/**
+	 * Handles Keyboard Input
+	 * Moves selector
+	 */
 	public void keyReleased(int key, char c){
 		switch(key){
 		case(Input.KEY_DOWN):
@@ -79,6 +97,10 @@ public class Menu extends BasicGameState{
 		}
 	}
 	
+	/**
+	 * Executes the selected Option
+	 * @param opID
+	 */
 	private void executeOption(int opID){
 		switch(opID){
 		case 0:
@@ -96,7 +118,6 @@ public class Menu extends BasicGameState{
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return ID;
 	}
 

@@ -8,17 +8,30 @@ import playerPackage.Player;
 import controlPackage.LevelManager;
 import entityPackage.NPC;
 
+/**
+ * Enemy class
+ * @author watacoso
+ *
+ */
+
 public class Enemy extends NPC {
 
-
-	
+    /**
+     * Constructor
+     * @param room Room
+     * @param x x-position
+     * @param y y-position
+     */
 	public Enemy(Room room, float x, float y) {
 		super(room, x, y);
 		target=getNewTarget();
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	/**
+	 * Makes the Enemy choose a new target
+	 * @return The Player target the enemy has chosen
+	 */
 	private Player getNewTarget(){
 		float k=-1;
 		Player p=null;
@@ -39,7 +52,6 @@ public class Enemy extends NPC {
 		if(target == null || target.dead)
 			target=getNewTarget();
 		super.update(game);
-		
 	}
 	
 	public void die(){

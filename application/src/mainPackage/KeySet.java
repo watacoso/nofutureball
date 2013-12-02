@@ -2,6 +2,11 @@ package mainPackage;
 
 import org.newdawn.slick.Input;
 
+/**
+ * Defines the Key Controller sets for the Players
+ * @author watacoso
+ *
+ */
 
 public enum KeySet {
 	

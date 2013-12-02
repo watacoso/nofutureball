@@ -8,6 +8,12 @@ import org.newdawn.slick.geom.Vector2f;
 
 import playerPackage.Player;
 
+/**
+ * Bullet Object
+ * @author hollowspecter
+ *
+ */
+
 public class Bullet extends GameObject {
 	
 	//public Vector2f speed;
@@ -16,8 +22,14 @@ public class Bullet extends GameObject {
 	public GameObject src;
 	public boolean damageNPC=false;
 	public boolean damagePlayer=false;
-
 	
+	/**
+	 * Creates a new Bullet. Is used for any kind of ranged weapons
+	 * @param src Source of the bullet
+	 * @param size Size of the Bullet
+	 * @param lastDirection Direction of the bullet
+	 * @param speedModule Speed of the Bullet
+	 */
 	public Bullet(GameObject src, float size, Vector2f lastDirection,float speedModule) {
 		super(src.room,src.spriteBox.getPosition().x -src.room.position.x, src.spriteBox.getPosition().y-src.room.position.y-100, size, size,false);
 		//spritePivot.set(size/2,size/2);
@@ -47,14 +59,8 @@ public class Bullet extends GameObject {
 			health--;
 		//System.out.println(life);
 		
-		super.update(game);
-		
-		
+		super.update(game);		
 	}
-	
-
-
-
 	
 	protected void handleWallCollision(Wall wall,String direction){
 		die();
@@ -79,9 +85,4 @@ public class Bullet extends GameObject {
 		/*if(object!=src)
 			die();*/
 	}
-	
-	
-	
-	
-
 }

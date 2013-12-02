@@ -2,14 +2,25 @@ package mapElements;
 
 import entityPackage.GameObject;
 
+/**
+ * Door class
+ * With two factors:
+ * open/closed and locked/unlocked
+ * @author watacoso
+ *
+ */
 public class Door extends GameObject {
 	
 	public Conn conn;
 	public boolean open;
 	public boolean locked;
 	
-	
-	
+	/**
+	 * Constructor
+	 * @todo Is the type of door used at all?
+	 * @param conn Connection
+	 * @param type Type of door
+	 */
 	public Door(Conn conn,int type){
 		super(0,0,0,0);
 		this.conn=conn;
@@ -22,9 +33,9 @@ public class Door extends GameObject {
 			box.setPosition(conn.position.x, conn.position.y-Wall.height);
 			box.setSize(conn.box.getSize().x, Wall.height+1);
 			setImage("DOORV", "OPEN");
-
 		}
-		else{
+		else
+		{
 			position.x=conn.position.x;
 			position.y=conn.position.y-Wall.height;
 			box.width=conn.box.width;
@@ -47,6 +58,4 @@ public class Door extends GameObject {
 	public void unlockDoor(){
 		
 	}
-	
-
 }

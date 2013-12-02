@@ -7,6 +7,12 @@ import org.newdawn.slick.GameContainer;
 import entityPackage.Bullet;
 import entityPackage.GameObject;
 
+/**
+ * Simple enemy type shooting single bullets
+ * effective in swarms
+ * @author watacoso
+ *
+ */
 public class RoboRifler extends Enemy{
 
 	private int shootTimer=0;
@@ -15,9 +21,7 @@ public class RoboRifler extends Enemy{
 		super(room, x, y);
 		// TODO Auto-generated constructor stub
 	}
-
-	
-		protected void roomAI(GameContainer game){
+	protected void roomAI(GameContainer game){
 	followTarget(game);
 		if(target!= null && getDistance(target)<range()){
 			fireRoutine(target);
@@ -33,7 +37,11 @@ public class RoboRifler extends Enemy{
 	}
 	
 	//ROBORIFLER GENERAL ACTIONS//
+	//
 	
+	/**
+     * Follows target and fires when weapon is in range
+     */
 	private void fireRoutine(GameObject target){
 		if(shootTimer<attackSpeed()) return;
 		Bullet b=new Bullet(this, bulletSize(), getDirectionVector(target), bulletSpeed() + speed.length());
@@ -42,3 +50,4 @@ public class RoboRifler extends Enemy{
 	}
 	
 }
+

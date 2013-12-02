@@ -8,21 +8,28 @@ import org.newdawn.slick.geom.Vector2f;
 import entityPackage.Container;
 import entityPackage.Entity;
 
-
+/**
+ * Camera class
+ * @author watacoso
+ *
+ */
 public class Camera {
 
-	private Container follower = null;
-	/** List of targets to follow */
-	private ArrayList<Entity> followList = new ArrayList<Entity>();
+    private Container follower = null;
+    /** List of targets to follow */
+    private ArrayList<Entity> followList = new ArrayList<Entity>();
+    /** This position is not affected by zoom; it's the position in the model world where the middle of the camera is. */
+    public Vector2f position = new Vector2f();
+    private float zoom;
+    private final float maxZoom = 1;
+    /** Controls how fast the follower can follow the target. The higher the slower. */
+    private final int quotient = 25;
+    private final int cameraMargin = 100;
 	
-	/**
-	 * This position is not affected by zoom; it's the position in the model world where the middle of the camera is.
-	 */
-	public Vector2f position = new Vector2f();
-	private float zoom;
-	
-	private final float maxZoom = 1;
-	
+    /**
+     * Constructor
+     * @param follower Container of the followers
+     */
 	public Camera(Container follower){
 
 		setZoom(1);
@@ -30,17 +37,20 @@ public class Camera {
 		this.follower = follower;
 	
 	}
+	   
+	/**
+     * Empty Constructor, nuthin done here
+     * @todo Check if neccessary
+     */
 	public Camera()
 	{
 		
 	}
-	
-	
-	// Controls how fast the follower can follow the target. The higher the slower.
-	private final int quotient = 15;
-	
-	private final int cameraMargin = 400;
-	
+		
+	/**
+     * Slick update function
+     * Updates camera
+     */
 	public void update()
 	{
 		if (follower == null) return;
@@ -94,6 +104,11 @@ public class Camera {
 		}
 		setZoom(getZoom() + (targetZoom - zoom) / (quotient * 2));
 	}
+	
+	/**
+     * Sets zoom
+     * @param zoom Zoom to set. If <0 its 1, if >maxZoom ist maxzoom
+     */
 	public void setZoom(float zoom){
 		//System.out.println(zoom);
 		if(zoom <= 0) {
@@ -106,26 +121,36 @@ public class Camera {
 		}
 		this.zoom = zoom;
 	}
-	public float getZoom()
-	{
-		return zoom;
-	}
 	
-	public void setFollower(Container follower)
-	{
-		this.follower = follower;
-	}
-	public void addTarget(Entity toFollow)
-	{
-		if (!followList.contains(toFollow)) followList.add(toFollow);
-	}
-	public void removeTarget(Entity toUnfollow)
-	{
-		if (followList.contains(toUnfollow)) followList.remove(toUnfollow);
-	}
-	public Entity getTargetAtIndex(int index)
-	{
-		if (followList.size() == 0) return null;
-		return followList.get(index);
-	}
+    /** @return float current Zoom */
+    public float getZoom()
+    {
+        return zoom;
+    }
+    
+    /** @param Container follower to set */
+    public void setFollower(Container follower)
+    {
+        this.follower = follower;
+    }
+    /** @param Adds Entity target to follow in the followList */
+    public void addTarget(Entity toFollow)
+    {
+        if (!followList.contains(toFollow)) followList.add(toFollow);
+    }
+    /** @param removes the target to follow off the followList */
+    public void removeTarget(Entity toUnfollow)
+    {
+        if (followList.contains(toUnfollow)) followList.remove(toUnfollow);
+    }
+    /**
+     * @param index for the followList
+     * @return Entity out of the followList
+     */
+    public Entity getTargetAtIndex(int index)
+    {
+        if (followList.size() == 0) return null;
+        return followList.get(index);
+    }
 }
+

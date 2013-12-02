@@ -19,12 +19,11 @@ public class RectangleF{
 	public Entity owner;
 	private Vector2f topLeft,pivot,size;
 	
-/**
- * instances a rectangle with size=0 (so basically a point) at the x,y coordinates
- * @param x
- * @param y
- */
-	
+	/**
+	 * instances a rectangle with size=0 (so basically a point) at the x,y coordinates
+	 * @param x
+	 * @param y
+	 */
 	public RectangleF(float x,float y){
 		this.x=x;
 		this.y=y;
@@ -40,7 +39,6 @@ public class RectangleF{
 	 * @param width
 	 * @param height
 	 */
-	
 	public RectangleF(float x,float y,float width,float height){
 		this.x=x;
 		this.y=y;
@@ -61,7 +59,6 @@ public class RectangleF{
 	 * @param pivotX
 	 * @param pivotY
 	 */
-	
 	public RectangleF(float x,float y,float width,float height,float pivotX,float pivotY){
 		this.x=x;
 		this.y=y;
@@ -79,11 +76,11 @@ public class RectangleF{
 	 * @param x
 	 * @param y
 	 */
-	
 	public void setPosition(float x,float y){
 		this.x=x-pivotX;this.y=y-pivotY;
 		topLeft.set(x-pivot.x,y-pivot.y);
 	}
+	
 	/**
 	 * translates the rectangle position by a x,y value
 	 * @param x
@@ -112,7 +109,6 @@ public class RectangleF{
 	 * @param x
 	 * @param y
 	 */
-	
 	public void setPivot(float x,float y){
 		pivotX=x;pivotY=y;
 		pivot.set(x,y);
@@ -122,7 +118,6 @@ public class RectangleF{
 	 * get the global coordinates of the pivot (that is, relative either to the container of the rectangle or to the main reference system of the game)
 	 * @return
 	 */
-	
 	public Vector2f getPosition(){
 		return topLeft.copy().add(pivot);
 	}
@@ -131,7 +126,6 @@ public class RectangleF{
 	 * get the size vector of the rectangle
 	 * @return
 	 */
-	
 	public Vector2f getSize(){
 		return size;
 	}
@@ -140,44 +134,27 @@ public class RectangleF{
 	 * get the global coordinates of the center of the rectangle (to not confound with the coordinates of the pivot)
 	 * @return
 	 */
-	
 	public Vector2f getCenter(){
 		return topLeft.copy().add(new Vector2f(size.x/2,size.y/2));
 	}
 	
 	
-	/**
-	 * get the y value of the bottom of the rectangle
-	 * @return
-	 */
-	
+	/** get the y value of the bottom of the rectangle	 */
 	public float bottom(){
 		return topLeft.y+size.y;
 	}
 	
-	/**
-	 * get the y value of the top of the rectangle
-	 * @return
-	 */
-	
+	/** get the y value of the top of the rectangle */
 	public float top(){
 		return topLeft.y;
 	}
 	
-	/**
-	 * get the x value of the right of the rectangle
-	 * @return
-	 */
-	
+	/** get the x value of the right of the rectangle */
 	public float right(){
 		return topLeft.x+size.x;
 	}
 	
-	/**
-	 * get the x value of the left of the rectangle
-	 * @return
-	 */
-	
+	/** get the x value of the left of the rectangle	 */
 	public float left(){
 		return topLeft.x;
 	}
@@ -189,7 +166,6 @@ public class RectangleF{
 	 * @param left  choose left or right corner
 	 * @return
 	 */
-	
 	public float corner(boolean top,boolean left){
 		return topLeft.x+topLeft.y+(top?0:size.y)+(left?0:size.x);
 	}
@@ -199,7 +175,6 @@ public class RectangleF{
 	 * @param e rectangle to test collision
 	 * @return
 	 */
-	
 	protected boolean checkCollision(RectangleF e){
 		//System.out.println(e);
 		if(left()>e.right() ||
@@ -217,7 +192,6 @@ public class RectangleF{
 	 * @param e
 	 * @return
 	 */
-	
 	protected String checkBoxSide(RectangleF e){
 		Vector2f pos1=new Vector2f(getCenter());
 		Vector2f pos2=new Vector2f(e.getCenter());
@@ -242,7 +216,6 @@ public class RectangleF{
 	 * draws a white empty red rectangle using the attributes of the instance
 	 * @param cam
 	 */
-	
 	public void render(Camera cam){
 		Graphics g=new Graphics();
 		Vector2f screenPos = getScreenPos(cam);

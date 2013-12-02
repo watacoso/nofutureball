@@ -1,5 +1,10 @@
 package mainPackage;
 
+/**
+ * Room for Debugging Options
+ * @author watacoso
+ *
+ */
 
 public class Debugging {
 
@@ -8,3 +13,4 @@ public class Debugging {
 	}
 
 }
+
