@@ -15,8 +15,13 @@ import entityPackage.Container;
 import entityPackage.Entity;
 import entityPackage.Sprite;
 
+/**
+ * Room Class!
+ * Handles the doors, walls, wallTiles
+ * @author watacoso
+ *
+ */
 public class Room extends Entity {
-
 	
 	public ArrayList<Conn> doors;
 	public ArrayList<Wall> walls;
@@ -25,7 +30,6 @@ public class Room extends Entity {
 	public ArrayList<Room> childs;
 	private Graphics g = new Graphics();
 	Image floor;
-	
 	
 	public static int wallSpessor=64;
 	public static int tileWidth=256;
@@ -37,6 +41,14 @@ public class Room extends Entity {
 	public int roomType;
 	public String baseColor;
 	
+	/**
+	 * General Constructor of a room
+	 * @param x X-Position
+	 * @param y Y-Position
+	 * @param width width of the Room
+	 * @param height Height of the Room
+	 * @param type type of the room
+	 */
 	public Room(float x, float y, int width, int height,int type) {
 		super(x, y, width * tileWidth, height * tileHeight,0,0);
 		
@@ -50,6 +62,12 @@ public class Room extends Entity {
 		setType(type);
 	}
 	
+	/**
+	 * Constructor
+	 * @param width Width of the Room
+	 * @param height Height of the Room
+	 * @param type Type of the room
+	 */
 	public Room(int width, int height,int type) {
 		super(0, 0, width * tileWidth, height * tileHeight,0,0);
 		this.width = width;
@@ -62,7 +80,11 @@ public class Room extends Entity {
 		setType(type);
 	}
 	
-	private void setType(int type){
+	/**
+	 * The type is responsible for the color of the room
+	 * @param type Between 1-4
+	 */
+	private void setType(int type) {
 		roomType=type;
 		floor=Sprite.getImage("FLOOR", "R"+roomType);
 		switch(roomType){
@@ -81,18 +103,23 @@ public class Room extends Entity {
 		}
 	}
 
+	/**
+	 * Slick Update-function
+	 */
 	public void update(Game game) {
 		if(!visited)
 			if(numActors>0)
 				visited=true;
 	}
 
+	/**
+	 * Slick render-function
+	 */
 	public void render(Camera cam) {		
 		//if(!visited)return;
 		Vector2f screenPos = getScreenPos(cam);
 				
 		// Floor
-
 
 		// just caching values to limit calculations
 		float floorWidth = tileWidth * cam.getZoom();
@@ -130,6 +157,10 @@ public class Room extends Entity {
 		box.move(x, y);
 	}
 
+	/**
+	 * Adds walls, uses the addWall function
+	 * @param target The Container
+	 */
 	public void addWalls(Container target) {
 		Collections.sort(doors);
 		float LY=0,RY=0,TX=0,BX=0;
@@ -173,6 +204,11 @@ public class Room extends Entity {
 
 	}
 	
+	/**
+	 * Adds one side of the walls
+	 * @param w The Wall
+	 * @param target the target container
+	 */
 	private void addWall(Wall w,Container target){
 		if(Math.abs(w.length)>wallSpessor){
 			float t=0;
@@ -190,18 +226,27 @@ public class Room extends Entity {
 			else if(w.getType()%2==0)
 				w.position.y-=t*2;
 			
-			
-			
 			target.add(w);
 			w.addWallToRoom(this);
-			
 		}
 	}
 	
+	/**
+	 * adds A Panel
+	 * @todo is this used?
+	 * @param target container
+	 * @param type String
+	 */
 	public void addPanel(Container target,String type){
 		target.add(new Panel(this,30,type));
 	}
 	
+	/**
+	 * Checking collision
+	 * @param e Room
+	 * @param span 
+	 * @return true is colliding, false if not
+	 */
 	public boolean checkCollision(Room e,float span){
 		if(position.x-span>e.position.x+e.box.getSize().x ||
 		   position.x+box.getSize().x+span<e.position.x)
@@ -210,8 +255,5 @@ public class Room extends Entity {
 		   position.y+box.getSize().y+span<e.position.y)
 			return false;
 		return true;
-		
 	}
-	
-
 }

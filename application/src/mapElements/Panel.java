@@ -5,13 +5,18 @@ import controlPackage.LevelManager;
 import entityPackage.GameObject;
 import playerPackage.Player;
 
+/**
+ * Panel class
+ * @todo document: is this being used!?
+ * @author hollowspecter
+ *
+ */
 public class Panel extends GameObject {
 
 	public Panel(Room room, float x,String type) {
 		super(room, x, -40, 48, 70, false);
 		setCollision(false);
 		setAnimation("PANEL","TEMP");
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void update(Game game){

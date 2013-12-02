@@ -13,6 +13,12 @@ import org.newdawn.slick.geom.Vector2f;
 import entityPackage.Entity;
 import entityPackage.Sprite;
 
+/**
+ * Wall class
+ * @author watacoso
+ *
+ */
+
 public class Wall extends Entity {
 
 	Graphics g;
@@ -27,7 +33,15 @@ public class Wall extends Entity {
 	
 	public Room room;
 
-
+	/**
+	 * Constructor for a wall
+	 * @todo what's the type about?
+	 * @param room The room this wall is assigned to
+	 * @param x X-Position
+	 * @param y Y-Position
+	 * @param type Type of the wall
+	 * @param length length of the wall
+	 */
 	public Wall(Room room,float x, float y, int type, float length) { 
 		super(x, y-Room.wallSpessor,0,0);
 		this.type = type;
@@ -38,7 +52,11 @@ public class Wall extends Entity {
 		}
 	}
 	
-	public void setLength(float l){
+	/**
+	 * Set the length of the wall
+	 * @param l The length
+	 */
+	public void setLength(float l) {
 		this.length = l;
 
 		switch (type) {
@@ -61,15 +79,28 @@ public class Wall extends Entity {
 		
 	}
 	
-	public void addWallToRoom(Room room){
+	/**
+	 * Adds wall to a room
+	 * @param room The room a new wall is added to
+	 */
+	public void addWallToRoom(Room room) {
 		this.room=room;
 		room.walls.add(this);
 	}
 	
+	/** Type getter */
 	public int getType(){
 		return type;
-	};
+	}
 	
+	/**
+	 * @todo documentation?
+	 * @param owner
+	 * @param name
+	 * @param x
+	 * @param height
+	 * @return
+	 */
 	public boolean addNewDecoration(String owner, String name,float x,float height){
 		if(type!=1) return false;
 		Sprite sprite=new Sprite(0,0);
@@ -93,6 +124,9 @@ public class Wall extends Entity {
 		return true;
 	}
 
+	/**
+	 * Slick render-function
+	 */
 	public void render(Camera camera) {
 		Vector2f screenPos = getScreenPos(camera);
 
