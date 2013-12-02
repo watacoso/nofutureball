@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import mainPackage.Camera;
-import mainPackage.Game;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Game;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;

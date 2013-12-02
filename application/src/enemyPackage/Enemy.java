@@ -1,10 +1,12 @@
 package enemyPackage;
 
+import mapElements.Room;
+
+import org.newdawn.slick.GameContainer;
+
+import playerPackage.Player;
 import controlPackage.LevelManager;
 import entityPackage.NPC;
-import playerPackage.Player;
-import mainPackage.Game;
-import mapElements.Room;
 
 public class Enemy extends NPC {
 
@@ -32,7 +34,7 @@ public class Enemy extends NPC {
 		return p;
 	}
 	
-	public void update(Game game){
+	public void update(GameContainer game){
 		
 		if(target == null || target.dead)
 			target=getNewTarget();

@@ -1,10 +1,10 @@
 package entityPackage;
 
 import mainPackage.Camera;
-import mainPackage.Game;
 import mainPackage.Window;
 import mapElements.Wall;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class Entity implements Comparable<Entity> {
@@ -30,7 +30,7 @@ public abstract class Entity implements Comparable<Entity> {
 
 	// update()
 	
-	public void update(Game game) {
+	public void update(GameContainer gc) {
 		
 	}
 	

@@ -37,9 +37,9 @@ public class Camera {
 	
 	
 	// Controls how fast the follower can follow the target. The higher the slower.
-	private final int quotient = 25;
+	private final int quotient = 15;
 	
-	private final int cameraMargin = 100;
+	private final int cameraMargin = 400;
 	
 	public void update()
 	{

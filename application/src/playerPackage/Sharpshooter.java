@@ -1,11 +1,11 @@
 package playerPackage;
 
 import mainPackage.Augmentation;
-import mainPackage.Game;
 import mainPackage.KeySet;
 import mainPackage.StatSet;
 import mapElements.Room;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
 
 import controlPackage.SoundManager;
@@ -26,7 +26,7 @@ public class Sharpshooter extends Player {
 		passive=Augmentation.W_TRIPLESHOT;
 	}
 	
-	public void update(Game game){
+	public void update(GameContainer game){
 		
 		shotTimer++;
 		super.update(game);

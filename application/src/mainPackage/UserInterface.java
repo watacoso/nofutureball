@@ -6,9 +6,10 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 
-import controlPackage.LevelManager;
-import entityPackage.*;
 import playerPackage.Player;
+import statesPackage.GameLevel;
+import controlPackage.LevelManager;
+import entityPackage.Entity;
 
 public class UserInterface {
 
@@ -21,16 +22,16 @@ public class UserInterface {
 	public static void addProfile(int index){
 		switch (index){
 		case 0:
-			Game.ui.add(new PlayerProfile((Player) LevelManager.players.get(0),10,10));
+			GameLevel.ui.add(new PlayerProfile(LevelManager.players.get(0),10,10));
 			break;
 		case 1:
-			Game.ui.add(new PlayerProfile((Player) LevelManager.players.get(1),Window.WIDTH-110,10));
+			GameLevel.ui.add(new PlayerProfile(LevelManager.players.get(1),Window.WIDTH-110,10));
 			break;
 		case 2:
-			Game.ui.add(new PlayerProfile((Player) LevelManager.players.get(2),10,Window.HEIGHT-140));
+			GameLevel.ui.add(new PlayerProfile(LevelManager.players.get(2),10,Window.HEIGHT-140));
 			break;
 		case 3:
-			Game.ui.add(new PlayerProfile((Player) LevelManager.players.get(3),Window.WIDTH-260,Window.HEIGHT-140));
+			GameLevel.ui.add(new PlayerProfile(LevelManager.players.get(3),Window.WIDTH-260,Window.HEIGHT-140));
 			break;
 		}
 	}
@@ -65,7 +66,7 @@ class PlayerProfile extends Entity{
 			g.fillRect( position.x+10,position.y+5,80,5);
 			g.fillRect( position.x+10,position.y+15,80,5);
 			
-			if(Game.status!=Game.Status.GAMEOVER){
+			if(p.cooldown-LevelManager.getTime()+p.deathTime>0){
 				Integer s=(p.cooldown*1000-LevelManager.getTime()+p.deathTime)/1000;
 				font.drawString( position.x+45,position.y+5, s.toString(), Color.white);
 			}

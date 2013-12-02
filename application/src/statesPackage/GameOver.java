@@ -15,54 +15,49 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import controlPackage.SoundManager;
-import entityPackage.Sprite;
+public class GameOver extends BasicGameState {
 
-public class Menu extends BasicGameState{
-
-	
-	private int ID=1;
+	private int ID=4;
 	private int nOps=3;
 	private int opID=0;
 	private StateBasedGame game;
 	private TrueTypeFont font;
 	GameLevel gameLevel;
 	
-	public Menu(GameLevel g){
+	public GameOver(GameLevel g){
 		super();
 		gameLevel=g;
 	}
 	
 	@Override
-	public void init(GameContainer gc, StateBasedGame game)
+	public void init(GameContainer arg0, StateBasedGame game)
 			throws SlickException {
-		Sprite.init();
-		SoundManager.load();
 		font = new TrueTypeFont(new java.awt.Font("Verdana", Font.BOLD, 30), false);
 		this.game=game;
-		
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g)
 			throws SlickException {
 		g.setColor(Color.black);
 		g.drawRect(0, 0, Window.WIDTH, Window.HEIGHT);
 		g.setColor(Color.white);
 
-		font.drawString( 80,Window.HEIGHT/2,(opID==0?"-":"")+ "Play", Color.white);
-		font.drawString( 80,Window.HEIGHT/2+30,(opID==1?"-":"")+ "Settings", Color.white);
+		font.drawString( 80,Window.HEIGHT/2,(opID==0?"-":"")+ "Restart", Color.white);
+		font.drawString( 80,Window.HEIGHT/2+30,(opID==1?"-":"")+ "Menu", Color.white);
 		font.drawString( 80,Window.HEIGHT/2+60,(opID==2?"-":"")+ "Quit", Color.white);
-		
+
 	}
 
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public void keyReleased(int key, char c){
 		switch(key){
 		case(Input.KEY_DOWN):
@@ -82,18 +77,21 @@ public class Menu extends BasicGameState{
 	private void executeOption(int opID){
 		switch(opID){
 		case 0:
-			gameLevel.start();
+			gameLevel.restart();
 			game.enterState(2, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 			break;
 		case 1:
+			gameLevel.clear();
+			game.enterState(1);
 			break;
 		case 2:
 			Window.quit();
 			break;
-		}	
+	}	
 		opID=0;
 	}
 
+	
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub

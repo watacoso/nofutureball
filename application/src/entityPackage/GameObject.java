@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 import mainPackage.Augmentation;
 import mainPackage.Camera;
-import mainPackage.Game;
 import mainPackage.StatSet;
 import mapElements.Conn;
 import mapElements.Room;
 import mapElements.Wall;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
 
-import controlPackage.LevelManager;
 import playerPackage.Player;
+import controlPackage.LevelManager;
 
 public class GameObject extends Sprite {
 
@@ -34,9 +34,6 @@ public class GameObject extends Sprite {
 	public StatSet augmentation;
 	public Augmentation active;
 	public ArrayList<StatSet> buffs = new ArrayList<StatSet>();
-	
-	
-	
 	
 	public GameObject(Room room, float x, float y, float boxWidth, float boxHeight, boolean countMe) {
 		super(x + room.position.x, y + room.position.y,boxWidth,boxHeight);
@@ -61,9 +58,10 @@ public class GameObject extends Sprite {
 		collide=value;
 	}
 
-	public void update(Game game) {
+	public void update(GameContainer game) {
 		if(collide)collisionTest();
 		if(room!=null)testLocation();
+		
 		position.add(speed);
 		box.setPosition(position.x, position.y);
 		if(collisionBox!=box){
@@ -351,5 +349,4 @@ public class GameObject extends Sprite {
 	}
 	
 	// Create new combined StatSet:
-	
 }
