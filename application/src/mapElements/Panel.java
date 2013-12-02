@@ -1,9 +1,10 @@
 package mapElements;
 
-import mainPackage.Game;
+import org.newdawn.slick.GameContainer;
+
+import playerPackage.Player;
 import controlPackage.LevelManager;
 import entityPackage.GameObject;
-import playerPackage.Player;
 
 public class Panel extends GameObject {
 
@@ -14,7 +15,7 @@ public class Panel extends GameObject {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void update(Game game){
+	public void update(GameContainer game){
 		super.update(game);
 		
 		for(int i=0;i<LevelManager.players.size();i++){

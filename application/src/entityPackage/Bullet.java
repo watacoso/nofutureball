@@ -1,9 +1,9 @@
 package entityPackage;
 
-import mainPackage.Game;
 import mainPackage.StatSet;
 import mapElements.Wall;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
 
 import playerPackage.Player;
@@ -40,7 +40,7 @@ public class Bullet extends GameObject {
 		}
 	}
 	
-	public void update (Game game){
+	public void update (GameContainer game){
 		
 		if(health<0) die();
 		else

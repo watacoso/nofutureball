@@ -1,0 +1,7 @@
+{
+	nPlayers: 1,
+	level:1,
+	levelSize: 5,
+	enemyBudget:20,
+	enemyForce:2
+}

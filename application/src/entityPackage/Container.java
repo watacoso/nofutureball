@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import mainPackage.Camera;
-import mainPackage.Game;
+
+import org.newdawn.slick.GameContainer;
 
 /**
  * A container is a collection of instances of the Entity class. it exports capabilities of the ArrayList Class, 
@@ -55,9 +56,9 @@ public class Container extends Entity {
 	 * calls the update() function of the container in the order they are placed 
 	 */
 	
-	public void update(Game game) {
+	public void update(GameContainer gc) {
 		for (int i = 0; i < size(); i++) {
-			get(i).update(game);
+			get(i).update(gc);
 		}
 	}
 

@@ -2,16 +2,17 @@ package entityPackage;
 
 import java.util.ArrayList;
 
-import mainPackage.Game;
 import mainPackage.StatSet;
 import mapElements.Conn;
 import mapElements.Room;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
 
+import playerPackage.Player;
+import statesPackage.GameLevel;
 import controlPackage.LevelManager;
 import controlPackage.SoundManager;
-import playerPackage.Player;
 
 public class NPC extends GameObject {
 
@@ -69,7 +70,7 @@ public class NPC extends GameObject {
 		health=maxHealth();
 	}
 
-	public void update(Game game) {
+	public void update(GameContainer game) {
 		
 		if(target==null)
 			idleAI();
@@ -79,9 +80,9 @@ public class NPC extends GameObject {
 		//////////////////
 		separationVector.set(0,0);	
 		
-		for(int i=0;i<Game.entities.size();i++){
-			if(Game.entities.get(i) instanceof NPC && Game.entities.get(i)!=this){
-				NPC e=(NPC)Game.entities.get(i);
+		for(int i=0;i<GameLevel.entities.size();i++){
+			if(GameLevel.entities.get(i) instanceof NPC && GameLevel.entities.get(i)!=this){
+				NPC e=(NPC)GameLevel.entities.get(i);
 				if(room==e.room){	
 					steering.sub(avoidVector(e,80,60));
 				}
@@ -134,7 +135,7 @@ public class NPC extends GameObject {
 
 	}
 	
-	protected void roomAI(Game game){
+	protected void roomAI(GameContainer game){
 		followTarget(game);
 		
 	}
@@ -149,7 +150,7 @@ public class NPC extends GameObject {
 	}
 	
 	
-	protected void followTarget(Game game){
+	protected void followTarget(GameContainer game){
 		steering=getDirectionVector(target).scale(maxForce);
 	}
 
@@ -180,7 +181,7 @@ public class NPC extends GameObject {
 	
 	
 	
-	private void pathFinding(Game game){
+	private void pathFinding(GameContainer game){
 		if(target==null)
 			return;
 		if(!movingUnit){

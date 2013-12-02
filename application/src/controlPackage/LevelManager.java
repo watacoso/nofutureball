@@ -3,17 +3,21 @@ package controlPackage;
 import java.util.ArrayList;
 
 import mainPackage.Camera;
-import mainPackage.Game;
 import mainPackage.KeySet;
 import mainPackage.UserInterface;
 import mapElements.Room;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import enemyPackage.RoboRifler;
-import entityPackage.Container;
 import playerPackage.Player;
 import playerPackage.Sharpshooter;
+import statesPackage.GameLevel;
+import enemyPackage.RoboRifler;
+import entityPackage.Container;
 
 public class LevelManager {
 
@@ -29,12 +33,14 @@ public class LevelManager {
 	private static int timer;
 	private int spawnTimestamp;
 	public static Camera cam;
+	private static StateBasedGame game;
 	
-	public LevelManager(){
-		this.entities=Game.entities;
+	public LevelManager(StateBasedGame g){
+		game=g;
+		this.entities=GameLevel.entities;
 		players=new ArrayList<Player>();
-		levelGen=new LevelGen(Game.entities,Game.mapContainer);
-		cam=new Camera(Game.gameContainer);
+		levelGen=new LevelGen(GameLevel.entities,GameLevel.mapContainer);
+		cam=new Camera(GameLevel.gameContainer);
 		timer=0;
 		nEnemies=0;
 		spawnTimestamp=0;
@@ -94,7 +100,7 @@ public class LevelManager {
 	}
 	
 	public static void gameOver(){
-		Game.status=Game.Status.GAMEOVER;
+		game.enterState(4 ,new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 	}
 
 	private void spawnPlayer(Player p,Room r, int x, int y){

@@ -1,9 +1,11 @@
 package enemyPackage;
 
+import mapElements.Room;
+
+import org.newdawn.slick.GameContainer;
+
 import entityPackage.Bullet;
 import entityPackage.GameObject;
-import mainPackage.Game;
-import mapElements.Room;
 
 public class RoboRifler extends Enemy{
 
@@ -15,7 +17,7 @@ public class RoboRifler extends Enemy{
 	}
 
 	
-		protected void roomAI(Game game){
+		protected void roomAI(GameContainer game){
 	followTarget(game);
 		if(target!= null && getDistance(target)<range()){
 			fireRoutine(target);

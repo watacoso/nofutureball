@@ -1,11 +1,10 @@
 package playerPackage;
 
 import mainPackage.Augmentation;
-import mainPackage.Game;
 import mainPackage.KeySet;
-import mainPackage.Window;
 import mapElements.Room;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -51,7 +50,7 @@ public abstract class Player extends GameObject{
 	}
 	
 	@Override
-	public void update(Game game) {
+	public void update(GameContainer game) {
 		
 		//midPoint.set(LevelManager.players.get(0).box.getPosition());
 		
@@ -59,17 +58,14 @@ public abstract class Player extends GameObject{
 		//for(int i=1;i<LevelManager.players.size();i++)
 		//	midPoint.add(LevelManager.players.get(i).box.getPosition().copy().scale(1/2));
 		
-		Input input = Window.getGameContainer().getInput();
+		Input input = game.getInput();
 		
 		Vector2f goalSpeed = new Vector2f(0, 0);
 		direction.x = (input.isKeyDown(keySet.right) ? 1 : 0)
 				- (input.isKeyDown(keySet.left) ? 1 : 0);
 		direction.y = (input.isKeyDown(keySet.down) ? 1 : 0)
 				- (input.isKeyDown(keySet.up) ? 1 : 0);
-
-		
-		
-		
+	
 		
 		truncate(direction,1);
 		if(direction.length()!=0)	lastDirection.set(direction);
@@ -83,7 +79,6 @@ public abstract class Player extends GameObject{
 
 		speed.x += (goalSpeed.x - this.speed.x) / 5;
 		speed.y += (goalSpeed.y - this.speed.y) / 5;
-		
 		if(LevelManager.players.size()>1){
 			if(getDistance(midPoint)>2000 && direction.length()!=0){
 				speed.set(getDirectionVector(midPoint).scale(4));
@@ -158,8 +153,8 @@ public abstract class Player extends GameObject{
 			movementSpeed = normalSpeed();
 		}
 			
-		super.update(game);
-		
+
+		super.update(game);		
 	}
 	
 	protected void action1(){
