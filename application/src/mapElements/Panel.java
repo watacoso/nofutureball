@@ -7,7 +7,7 @@ import playerPackage.Player;
 
 /**
  * Panel class
- * @todo document: is this being used!?
+ * The screens on the wall in each room
  * @author hollowspecter
  *
  */

@@ -14,11 +14,16 @@ import controlPackage.SoundManager;
 import entityPackage.Bullet;
 import entityPackage.GameObject;
 
+/**
+ * Player class
+ * Entity>GameObject>(abstract) Player>Playertypes(like Sharpshooter)
+ * @author hollowspecter
+ *
+ */
+
 public abstract class Player extends GameObject{
 	
 	public Augmentation passive, active; 
-	
-
 	public Action action = Action.IDLE;
 	public Facing facing = Facing.DOWN;
 	public Action torsoAction=Action.AIM;
@@ -28,7 +33,15 @@ public abstract class Player extends GameObject{
 	public int cooldown=0, deathCount=0;
 	public int deathTime=0;
 	public static Vector2f midPoint=new Vector2f();
-	
+	protected KeySet keySet = KeySet.ONE;
+
+	/**
+	 * General constructor
+	 * @param room Room the player spawns in
+	 * @param x X-Position
+	 * @param y Y-Position
+	 * @param keySet keySet this Player instance is using
+	 */
 	public Player(Room room, float x, float y, KeySet keySet) {
 		super(room, x, y, 200, 100, true);
 		spritePivot.set(128,256);
@@ -39,8 +52,12 @@ public abstract class Player extends GameObject{
 		LevelManager.cam.addTarget(room);
 	}
 
-	protected KeySet keySet = KeySet.ONE;
-
+	/**
+	 * Constructor
+	 * @param room Room to spawn in
+	 * @param x X-Position
+	 * @param y Y-Position
+	 */
 	public Player(Room room, float x, float y) {
 		super(room, x, y, 200, 100, true);
 		spritePivot.set(128,236);
@@ -51,6 +68,9 @@ public abstract class Player extends GameObject{
 	}
 	
 	@Override
+	/**
+	 * Slick update-function
+	 */
 	public void update(Game game) {
 		
 		//midPoint.set(LevelManager.players.get(0).box.getPosition());
@@ -67,14 +87,8 @@ public abstract class Player extends GameObject{
 		direction.y = (input.isKeyDown(keySet.down) ? 1 : 0)
 				- (input.isKeyDown(keySet.up) ? 1 : 0);
 
-		
-		
-		
-		
 		truncate(direction,1);
 		if(direction.length()!=0)	lastDirection.set(direction);
-		
-
 		
 		goalSpeed.x = (float) (movementSpeed * (direction.x != 0 ? direction.x * 0.3
 				: direction.x*0.1));
@@ -98,14 +112,10 @@ public abstract class Player extends GameObject{
 			action = Action.IDLE;
 		}
 		
-
-
 		aimDirection.x = (input.isKeyDown(keySet.aimRight) ? 2 : 0)
 				- (input.isKeyDown(keySet.aimLeft) ? 1 : 0);
 		aimDirection.y = (input.isKeyDown(keySet.aimDown) ? 2 : 0)
 				- (input.isKeyDown(keySet.aimUp) ? 1 : 0);
-		
-		
 		
 		if(lastDirection.y==0 && lastDirection.x!=0){
 			if(lastDirection.x<0)
@@ -120,9 +130,6 @@ public abstract class Player extends GameObject{
 			else
 				facing=Facing.DOWN;
 		}
-		
-		
-		
 		
 		if(aimDirection.length()!=0){
 			if(aimDirection.y==0 && aimDirection.x!=0){
@@ -171,6 +178,9 @@ public abstract class Player extends GameObject{
 		return 0;
 	}
 	
+	/**
+	 * Handles damage dealing, "killing" the player
+	 */
 	protected void handleObjectCollision(GameObject object,String direction){
 		if(object instanceof Bullet && ((Bullet) object).damagePlayer){
 			SoundManager.mixedSound("enemyDamage");
@@ -193,7 +203,6 @@ public abstract class Player extends GameObject{
 					startCooldown();
 				}
 			}
-			
 			object.die();
 		}
 	}

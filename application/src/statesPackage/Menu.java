@@ -10,6 +10,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.TrueTypeFont;
 
+/**
+ * Game menu
+ * @todo more documentation
+ * @author watacoso
+ *
+ */
+
 public class Menu {
 
 	Graphics g;
@@ -45,9 +52,6 @@ public class Menu {
 	}
 	
 	public void render(){
-		
-		
-		
 		switch(Game.status){
 		case MENU:
 			g.setColor(Color.black);
