@@ -19,7 +19,7 @@ import com.github.nofutureball.map.Wall;
 /**
  * Base Class of all GameObjects
  * GameObjects can spawn in Rooms
- * @author hollowspecter
+ * @author watacoso
  *
  */
 public class GameObject extends Sprite {

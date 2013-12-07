@@ -2,6 +2,7 @@ package com.github.nofutureball.entity.dialog;
 
 import java.util.ArrayList;
 
+import com.github.nofutureball.entity.Sprite;
 import com.github.nofutureball.states.GameLevel;
 
 /**
@@ -14,7 +15,7 @@ import com.github.nofutureball.states.GameLevel;
 
 public class DialogManager {
     public enum Type {
-        PLAIN_MESSAGE;
+        PLAIN_MESSAGE, PLAIN_PIC_MSG;
     };
     
     private static ArrayList<Dialog> dialogs = new ArrayList<Dialog>();
@@ -26,6 +27,20 @@ public class DialogManager {
             case PLAIN_MESSAGE:
                 addDialog(new Dialog(title, msg));
                 break;
+            default:
+                break;
+        }
+    }
+    
+    public static void showMessage(String title, String msg, Type type, Sprite sprite)
+    {
+        switch(type)
+        {
+            case PLAIN_PIC_MSG:
+                addDialog(new PicDialog(title,msg,sprite));
+                break;
+            case PLAIN_MESSAGE:
+                showMessage(title, msg, type);
             default:
                 break;
         }

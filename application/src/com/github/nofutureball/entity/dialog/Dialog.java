@@ -82,14 +82,14 @@ public class Dialog extends Entity {
     /**
      * This is called when the dialog opens
      */
-    private void open() {
+    protected void open() {
         
     }
     
     /**
      * Can be called to "destroy" the message
      */
-    private void close() {
+    protected void close() {
         DialogManager.removeDialog(this);
     }
     
@@ -97,18 +97,19 @@ public class Dialog extends Entity {
      * Makes the textbox vertically bigger
      * @param p float Pixel
      */
-    private void enlarge(float p) {
+    protected void enlarge(float p) {
         float height = textbox.getHeight();
         height += p;
         textbox.setHeight(height);
         position.y -= p;
+        textbox.setLocation(position.x, position.y);
     }
     
     /**
      * Makes the textbox vertically smaller
      * @param p float Pixel
      */
-    private void shorten(float p) {
+    protected void shorten(float p) {
         enlarge(-1*p);
     }
     
@@ -116,9 +117,10 @@ public class Dialog extends Entity {
      * Sets the height of the textbox
      * @param height
      */
-    private void setHeight(float height) {
-        float diff = textbox.getHeight() - height;
-        enlarge(diff);
+    protected void setHeight(float height) {
+        textbox.setHeight(height);
+        position.y = (550-height);
+        textbox.setLocation(position);
     }
     
     /*
@@ -131,7 +133,7 @@ public class Dialog extends Entity {
      * @param opacity float value from 0 to 1, 0 is invisible, 1 is solid
      * @param darkness float value from 0 to 1, 0 is not darker, 1 is black
      */
-    private void setColorTextbox(Color color, Float opacity, Float darkness)
+    protected void setColorTextbox(Color color, Float opacity, Float darkness)
     {
         colorTextbox = new Color(color.r, color.g, color.b, opacity);
         colorTextbox = colorTextbox.darker(darkness);
@@ -142,7 +144,7 @@ public class Dialog extends Entity {
      * @param color A Color Object
      * @param opacity float value from 0 to 1, 0 is invisible, 1 is solid
      */
-    private void setColorFontTitle(Color color, Float opacity)
+    protected void setColorFontTitle(Color color, Float opacity)
     {
         colorFontTitle = new Color(color.r, color.g, color.b, opacity);
     }
@@ -152,7 +154,7 @@ public class Dialog extends Entity {
      * @param color Color object
      * @param opacity float value from 0 to 1, 0 is invisible, 1 is solid
      */
-    private void setColorFontMsg(Color color, Float opacity)
+    protected void setColorFontMsg(Color color, Float opacity)
     {
         colorFontMsg = new Color(color.r, color.g, color.b, opacity);
     }
@@ -161,7 +163,7 @@ public class Dialog extends Entity {
      * Sets the default font
      * @param fontsize int Size of the font in points
      */
-    private void setFont(int fontsize) {
+    protected void setFont(int fontsize) {
         font = new TrueTypeFont(new java.awt.Font("Verdana", Font.BOLD, fontsize), false);
     }
     
@@ -169,7 +171,7 @@ public class Dialog extends Entity {
      * Set the fontsize
      * @param size
      */
-    private void setFontsize(int size) {
+    protected void setFontsize(int size) {
         fontsize = size;
     }
         
