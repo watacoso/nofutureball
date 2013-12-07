@@ -38,7 +38,7 @@ public class LevelManager {
 	private int nPlayers=1;
 	public static int nEnemies;
 	private int spawnNumber=0;
-	private int max_enemies=100;
+	private int max_enemies=0;
 	private static int timer;
 	private int spawnTimestamp;
 	public static Camera cam;

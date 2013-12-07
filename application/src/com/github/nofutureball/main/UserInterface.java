@@ -15,6 +15,7 @@ import com.github.nofutureball.states.GameLevel;
 /**
  * Class UserInterface
  * Adds the players to the user-interface container
+ * Handles HUD
  * @author watacoso
  */
 

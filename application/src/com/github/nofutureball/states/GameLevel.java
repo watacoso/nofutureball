@@ -48,13 +48,14 @@ public class GameLevel extends BasicGameState {
 	}
 	
 	public void restart(){
-		clear();
+		clear();      
 		start();
 	}
 	
 	public void start(){
 		levelManager=new LevelManager(game);
 		levelManager.initLevel();
+		Debugging.init();
 	}
 	
 	@Override
@@ -73,7 +74,7 @@ public class GameLevel extends BasicGameState {
 			throws SlickException {
 		gameContainer.update(gc);
 		levelManager.update(i);
-		Debugging.update();
+		Debugging.update(gc);
 		// TODO Auto-generated method stub
 
 	}
