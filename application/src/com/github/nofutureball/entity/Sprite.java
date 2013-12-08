@@ -497,10 +497,10 @@ public class Sprite extends Entity {
 	 * @return returns the width
 	 */
 	public float renderForTextbox(float x, float y, float maxHeight) {
-	    float zoom = 1;
-	    if (spriteSize.y > maxHeight) {
-	        zoom = maxHeight / spriteSize.y;
-	    }
+	    float resize = 1;
+	    //if (spriteSize.y > maxHeight) {
+	        resize = maxHeight / spriteSize.y;
+	    //}
 	    
         for(int i=0;i<layers.size();i++) {
             if(layers.get(i).hide) continue;
@@ -508,15 +508,15 @@ public class Sprite extends Entity {
             Animation currentAnimation=layers.get(i).animation;
             boolean usingAnimation=layers.get(i).usingAnimation;
             if(currentImage!=null && !usingAnimation){
-                currentImage.draw(x*zoom, y*zoom, spriteBox.width*zoom, spriteBox.height*zoom);
+                currentImage.draw(x, y, spriteBox.width*resize, spriteBox.height*resize);
             }
             else
             if (currentAnimation != null) {
-                currentAnimation.draw(y*zoom, y*zoom, spriteBox.width*zoom, spriteBox.height*zoom);   
+                currentAnimation.draw(x, y, spriteBox.width*resize, spriteBox.height*resize);   
             }	
          }
         
-        return spriteBox.width*zoom;
+        return spriteBox.width*resize;
 	}
 }
 

@@ -1,6 +1,7 @@
 package com.github.nofutureball.entity.dialog;
 
 import java.awt.Font;
+import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -24,7 +25,14 @@ import com.github.nofutureball.main.Camera;
 
 public class Dialog extends Entity {
     
+    /**
+     * Default coordinates, widths and heights
+     */
     private final static int DEFAULT_FONT_SIZE = 18;
+    private final static int DEFAULT_XPOS = 50;
+    private final static int DEFAULT_YPOS = 450;
+    private final static int DEFAULT_WIDTH = 700;
+    private final static int DEFAULT_HEIGHT = 100;
     
     protected RoundedRectangle textbox;
     protected Color colorTextbox;
@@ -34,15 +42,17 @@ public class Dialog extends Entity {
     protected String msg;
     protected int fontsize;
     protected TrueTypeFont font;
+    protected ArrayList<String> msgLines;
 
     /**
      * General constructor
+     * is ALWAYS called. Takes care of setting everything, wrapping text and so on
      * @param x float X-Position
      * @param y float Y-Position
      * @param width Width of the window
      * @param height Height of the window
      */
-    public Dialog(float x, float y, float width, float height) {
+    public Dialog(float x, float y, float width, float height, String title, String msg) {
         super(x, y);
         
         // Default Color is blue
@@ -56,10 +66,18 @@ public class Dialog extends Entity {
         // Default Font
         setFont(fontsize);
         // Default Message
-        msg = "This is a default message";
+        if (msg != null)
+            this.msg = msg;
+        else
+            msg = "This is the default message";
         // Default Title
-        title = "Default title";
+        if (title != null)
+            this.title = title;
+        else
+            title = "Default title";
         textbox = new RoundedRectangle(x, y, width, height, 10);
+        // Wraps up the breaks in the msg, also makes it larger in case it doesnt fit
+        msgLines = wrapMessage(msg,calcMaxlines(height));
         
         open();
     }
@@ -70,13 +88,56 @@ public class Dialog extends Entity {
      * @param msg Message of the Dialog
      */
     public Dialog(String title, String msg) {
-        this(50,450,700,100);
-        this.title = title;
-        this.msg = msg;
+        this(DEFAULT_XPOS,DEFAULT_YPOS,DEFAULT_WIDTH,DEFAULT_HEIGHT,title,msg);
     }
     
     /*
      * Private Functions
+     */
+    
+    /**
+     * Calculates the maximum of lines that can fit into the textbox right now
+     * is used with wrapMessage to make a dynamics message body
+     * is using the fontsize+2 to calculate the spaces
+     * @param height of the textbox
+     * @return the maximum of lines
+     */
+    private int calcMaxlines(float height) {
+        float h = height;
+        // padding + title
+        h -= 50;
+        int l = Math.round(h);
+        return l/(fontsize+2);
+        
+    }
+    
+    /**
+     * This wraps up the message, so it breaks the line when \n is in the String
+     * If there are three lines or more, it starts to make the message body larger too
+     * @param msg The Message String
+     * @return ArrayList<String> every String is one line
+     */
+    private ArrayList<String> wrapMessage(String msg,int maxLinesBeforeEnlarge) {
+        ArrayList<String> result = new ArrayList<String>();
+        int start=0;
+        // adds a new line for every \n in the msg
+        while (msg.substring(start).indexOf("\n") != -1)
+        {
+            int tmp = msg.indexOf("\n",start);
+            result.add(msg.substring(start,tmp));
+            start = tmp+1;
+        }
+        result.add(msg.substring(start));
+        // box stays the same unless there are more than two lines!
+        if (result.size()>maxLinesBeforeEnlarge) {
+            float larger = (result.size()-maxLinesBeforeEnlarge)*20;
+            enlarge(larger);
+        }
+        return result;
+    }
+    
+    /*
+     * Protected Functions
      */
     
     /**
@@ -174,6 +235,61 @@ public class Dialog extends Entity {
     protected void setFontsize(int size) {
         fontsize = size;
     }
+    
+    /**
+     * Draws the title, overloaded!
+     * @param g
+     */
+    protected void drawTitle(Graphics g) {
+        drawTitle(g,0);
+    }
+    
+    /**
+     * draws the Title with Offset on X-Pos (pushing it to the right)
+     * @param g Graphics to render
+     * @param xOffset the Offset to the right
+     */
+    protected void drawTitle(Graphics g, float xOffset) {
+        if (g.getFont() != font)
+            g.setFont(font);
+        g.setColor(colorFontTitle);
+        g.drawString(title, position.x+10+xOffset, position.y+10);
+    }
+    
+    /**
+     * Draws the message, overloaded!
+     * @param g
+     */
+    protected void drawMsg(Graphics g) {
+        drawMsg(g,0);
+    }
+    
+    /**
+     * Draws the Message
+     * uses the ArrayList msgLines and an offset (pushing it to the right) to draw a new String for every line
+     * on a different height
+     * @param g
+     * @param xOffset float Offset, pushing the Message to the right (for a picture for example)
+     */
+    protected void drawMsg(Graphics g, float xOffset) {
+        if (g.getFont() != font)
+            g.setFont(font);
+        g.setColor(colorFontMsg);
+        for(int i=0; i<msgLines.size(); i++) {
+            g.drawString(msgLines.get(i), position.x+10+xOffset, position.y+40+i*(fontsize+2));
+        }
+    }
+    
+    /**
+     * Draws the rectangle
+     * @param g
+     */
+    protected void drawBox(Graphics g) {        
+        // Draw the box
+        g.setColor(colorTextbox);
+        g.fill(textbox);
+        g.draw(textbox);
+    }
         
     /*
      * Public Functions
@@ -193,19 +309,8 @@ public class Dialog extends Entity {
     public void render(Camera cam)
     {
         Graphics g = new Graphics();
-        g.setFont(font);
-        
-        // Draw the box
-        g.setColor(colorTextbox);
-        g.fill(textbox);
-        g.draw(textbox);
-        
-        // Title
-        g.setColor(colorFontTitle);
-        g.drawString(title, position.x+10, position.y+10);
-        
-        // Msg
-        g.setColor(colorFontMsg);
-        g.drawString(msg, position.x+10, position.y+30);
+        drawBox(g);
+        drawTitle(g);
+        drawMsg(g);
     }
 }
