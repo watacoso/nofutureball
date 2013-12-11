@@ -11,8 +11,6 @@ import org.newdawn.slick.Sound;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-import controlPackage.AudioCollection.AudioInfo;
-
 /**
  * Manages the sounds (duh)
  * @author watacoso
