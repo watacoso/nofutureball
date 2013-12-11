@@ -1,4 +1,4 @@
-package mainPackage;
+package com.github.nofutureball.main;
 
 import java.util.ArrayList;
 

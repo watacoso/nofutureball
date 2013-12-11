@@ -5,42 +5,25 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-<<<<<<< HEAD:application/src/controlPackage/LevelManager.java
-import json.GameSettings;
-import mainPackage.Camera;
-import mainPackage.KeySet;
-import mainPackage.UserInterface;
-import mapElements.Room;
-=======
->>>>>>> e3edaf5a433642cdc9dc036ebdd8a3569314761f:application/src/com/github/nofutureball/control/LevelManager.java
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-<<<<<<< HEAD:application/src/controlPackage/LevelManager.java
-import playerPackage.Player;
-import playerPackage.Sharpshooter;
-import statesPackage.GameLevel;
-
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
-import enemyPackage.RoboRifler;
-import entityPackage.Container;
-=======
 import com.github.nofutureball.entity.Container;
 import com.github.nofutureball.entity.enemy.RoboRifler;
 import com.github.nofutureball.entity.player.Player;
 import com.github.nofutureball.entity.player.Sharpshooter;
+import com.github.nofutureball.json.GameSettings;
 import com.github.nofutureball.main.Camera;
 import com.github.nofutureball.main.KeySet;
 import com.github.nofutureball.main.UserInterface;
 import com.github.nofutureball.map.Room;
 import com.github.nofutureball.states.GameLevel;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
->>>>>>> e3edaf5a433642cdc9dc036ebdd8a3569314761f:application/src/com/github/nofutureball/control/LevelManager.java
+
 
 /**
  * Manages the Levels

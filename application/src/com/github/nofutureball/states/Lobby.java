@@ -1,13 +1,10 @@
-package statesPackage;
+package com.github.nofutureball.states;
 
 import java.awt.Font;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-
-import mainPackage.OptionsList;
-import mainPackage.Window;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -20,9 +17,10 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import com.github.nofutureball.control.LevelManager;
+import com.github.nofutureball.main.OptionsList;
+import com.github.nofutureball.main.Window;
 import com.google.gson.Gson;
-
-import controlPackage.LevelManager;
 
 
 /**

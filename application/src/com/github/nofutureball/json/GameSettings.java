@@ -1,4 +1,4 @@
-package json;
+package com.github.nofutureball.json;
 
 public class GameSettings {
 	public int nPlayers,

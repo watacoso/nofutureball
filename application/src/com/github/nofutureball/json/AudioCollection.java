@@ -1,4 +1,4 @@
-package json;
+package com.github.nofutureball.json;
 
 import java.util.ArrayList;
 import java.util.HashMap;

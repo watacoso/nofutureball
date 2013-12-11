@@ -5,23 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-import json.AudioCollection;
-import json.AudioCollection.AudioInfo;
-
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
-import com.github.nofutureball.control.AudioCollection.AudioInfo;
+import com.github.nofutureball.json.AudioCollection;
+import com.github.nofutureball.json.AudioCollection.AudioInfo;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-<<<<<<< HEAD:application/src/controlPackage/SoundManager.java
-=======
 
->>>>>>> e3edaf5a433642cdc9dc036ebdd8a3569314761f:application/src/com/github/nofutureball/control/SoundManager.java
-/**
- * Manages the sounds (duh)
- * @author watacoso
+ /** Manages the sounds (duh)
+ *	 @author watacoso
  */
 
 public class SoundManager {

@@ -6,10 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import json.GeneralSettings;
-import mainPackage.OptionsList;
-import mainPackage.Window;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,6 +15,9 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.github.nofutureball.json.GeneralSettings;
+import com.github.nofutureball.main.OptionsList;
+import com.github.nofutureball.main.Window;
 import com.google.gson.Gson;
 
 public class Settings extends BasicGameState {

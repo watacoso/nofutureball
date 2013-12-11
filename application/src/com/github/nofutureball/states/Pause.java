@@ -2,12 +2,6 @@ package com.github.nofutureball.states;
 
 import java.awt.Font;
 
-<<<<<<< HEAD:application/src/statesPackage/Pause.java
-import mainPackage.OptionsList;
-import mainPackage.Window;
-=======
->>>>>>> e3edaf5a433642cdc9dc036ebdd8a3569314761f:application/src/com/github/nofutureball/states/Pause.java
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import com.github.nofutureball.main.OptionsList;
 import com.github.nofutureball.main.Window;
 
 public class Pause extends BasicGameState {

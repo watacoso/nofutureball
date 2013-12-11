@@ -2,12 +2,6 @@ package com.github.nofutureball.states;
 
 import java.awt.Font;
 
-<<<<<<< HEAD:application/src/statesPackage/Menu.java
-import mainPackage.OptionsList;
-import mainPackage.Window;
-=======
->>>>>>> e3edaf5a433642cdc9dc036ebdd8a3569314761f:application/src/com/github/nofutureball/states/Menu.java
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -17,16 +11,13 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-<<<<<<< HEAD:application/src/statesPackage/Menu.java
-import controlPackage.LevelManager;
-import controlPackage.SoundManager;
-import entityPackage.Sprite;
-=======
+import com.github.nofutureball.control.LevelManager;
 import com.github.nofutureball.control.SoundManager;
 import com.github.nofutureball.entity.Sprite;
+import com.github.nofutureball.main.OptionsList;
 import com.github.nofutureball.main.Window;
 
->>>>>>> e3edaf5a433642cdc9dc036ebdd8a3569314761f:application/src/com/github/nofutureball/states/Menu.java
+
 
 /**
  * Menu class

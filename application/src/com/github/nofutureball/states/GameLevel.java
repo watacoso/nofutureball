@@ -1,10 +1,5 @@
 package com.github.nofutureball.states;
 
-<<<<<<< HEAD:application/src/statesPackage/GameLevel.java
-import mainPackage.Debugging;
-import mainPackage.Window;
-=======
->>>>>>> e3edaf5a433642cdc9dc036ebdd8a3569314761f:application/src/com/github/nofutureball/states/GameLevel.java
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -17,6 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.github.nofutureball.control.LevelManager;
 import com.github.nofutureball.entity.Container;
 import com.github.nofutureball.main.Debugging;
+import com.github.nofutureball.main.Window;
 
 
 public class GameLevel extends BasicGameState {

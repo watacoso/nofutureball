@@ -2,14 +2,9 @@ package com.github.nofutureball.entity;
 
 import java.util.ArrayList;
 
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
 
-<<<<<<< HEAD:application/src/entityPackage/GameObject.java
-import playerPackage.Player;
-=======
-import com.github.nofutureball.control.LevelManager;
 import com.github.nofutureball.entity.player.Player;
 import com.github.nofutureball.main.Augmentation;
 import com.github.nofutureball.main.Camera;
@@ -18,7 +13,7 @@ import com.github.nofutureball.map.Conn;
 import com.github.nofutureball.map.Room;
 import com.github.nofutureball.map.Wall;
 
->>>>>>> e3edaf5a433642cdc9dc036ebdd8a3569314761f:application/src/com/github/nofutureball/entity/GameObject.java
+
 
 /**
  * Base Class of all GameObjects

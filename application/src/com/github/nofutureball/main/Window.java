@@ -6,26 +6,21 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import json.GeneralSettings;
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-<<<<<<< HEAD:application/src/mainPackage/Window.java
-import statesPackage.GameLevel;
-import statesPackage.GameOver;
-import statesPackage.Lobby;
-import statesPackage.Menu;
-import statesPackage.Pause;
-import statesPackage.Settings;
-
+import com.github.nofutureball.json.GeneralSettings;
+import com.github.nofutureball.states.GameLevel;
+import com.github.nofutureball.states.GameOver;
+import com.github.nofutureball.states.Lobby;
+import com.github.nofutureball.states.Menu;
+import com.github.nofutureball.states.Pause;
+import com.github.nofutureball.states.Settings;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-=======
-import com.github.nofutureball.states.*;
->>>>>>> e3edaf5a433642cdc9dc036ebdd8a3569314761f:application/src/com/github/nofutureball/main/Window.java
+
 
 
 

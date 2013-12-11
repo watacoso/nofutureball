@@ -1,8 +1,1 @@
-{
-	sound:50,
-	music:50,
-	width:800,
-	height:600,
-	fullScreen:false,
-	vSync:true
-}
+{"sound":50,"music":50,"width":800,"height":600,"fullScreen":false,"vSync":true}
