@@ -1,6 +1,7 @@
 package statesPackage;
 
 import mainPackage.Debugging;
+import mainPackage.Window;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -21,7 +22,7 @@ public class GameLevel extends BasicGameState {
 	public static Container ui;
 	private LevelManager levelManager;
 	
-	private int ID=2;
+	private int ID=Window.STATE_LEVEL;
 	private StateBasedGame game;
 	
 	@Override
@@ -80,7 +81,7 @@ public class GameLevel extends BasicGameState {
 	public void keyReleased(int key, char c){
 		switch(key){
 		case(Input.KEY_ESCAPE):
-			game.enterState(3);	
+			game.enterState(Window.STATE_PAUSE);	
 		break;
 		}
 	}

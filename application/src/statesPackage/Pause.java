@@ -2,6 +2,7 @@ package statesPackage;
 
 import java.awt.Font;
 
+import mainPackage.OptionsList;
 import mainPackage.Window;
 
 import org.newdawn.slick.Color;
@@ -17,10 +18,9 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class Pause extends BasicGameState {
 
-	private int ID=3;
+	private int ID=Window.STATE_PAUSE;
 	
-	private int nOps=4;
-	private int opID=0;
+	private OptionsList ol;
 	private StateBasedGame game;
 	private TrueTypeFont font;
 	
@@ -35,9 +35,12 @@ public class Pause extends BasicGameState {
 	public void init(GameContainer arg0, StateBasedGame game)
 			throws SlickException {
 		font = new TrueTypeFont(new java.awt.Font("Verdana", Font.BOLD, 30), false);
+		ol=new OptionsList();
+		ol.add("Resume");
+		ol.add("Restart");
+		ol.add("Menu");
+		ol.add("Quit");
 		this.game=game;
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -46,60 +49,49 @@ public class Pause extends BasicGameState {
 		g.setColor(Color.black);
 		g.drawRect(0, 0, Window.WIDTH, Window.HEIGHT);
 		g.setColor(Color.white);
-		//g.drawString("PLAY",20,Window.HEIGHT/2);
-		font.drawString( 80,Window.HEIGHT/2,(opID==0?"-":"")+ "Resume", Color.white);
-		font.drawString( 80,Window.HEIGHT/2+30,(opID==1?"-":"")+ "Restart", Color.white);
-		font.drawString( 80,Window.HEIGHT/2+60,(opID==2?"-":"")+ "Menu", Color.white);
-		font.drawString( 80,Window.HEIGHT/2+90,(opID==3?"-":"")+ "Quit", Color.white);
-		// TODO Auto-generated method stub
+		
+		for(int i=0;i<ol.size();i++){
+			font.drawString( 80,Window.HEIGHT/4+i*30, ol.getName(i),ol.getIndex()==i?Color.red: Color.white);
+			font.drawString( 300,Window.HEIGHT/4+i*30, ol.getValue(i), ol.getIndex()==i?Color.red: Color.white);
+		}
 
 	}
 
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
-		
-		// TODO Auto-generated method stub
-
 	}
 	
 	public void keyReleased(int key, char c){
 		switch(key){
 		case(Input.KEY_DOWN):
-			if(opID<nOps-1)
-				opID++;
+			ol.goDown();
 			break;
 		case(Input.KEY_UP):
-			if(opID>0)
-				opID--;
+			ol.goUp();
 			break;
 		case(Input.KEY_ENTER):
-			executeOption(opID);
-			
-		break;
+			if(ol.isFunctional(ol.getIndex())){
+				switch (ol.getName(ol.getIndex())){
+				case "Resume":
+					game.enterState(Window.STATE_LEVEL);
+					break;
+				case "Restart":
+					gameLevel.restart();
+					game.enterState(Window.STATE_LEVEL, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+					break;
+				case "Menu":
+					gameLevel.clear();
+					game.enterState(Window.STATE_MENU);
+					break;
+				case "Quit":
+					Window.quit();
+					break;
+				}
+			}
 		}
 	}
 	
-	private void executeOption(int opID){
-		switch(opID){
-		case 0:
-			game.enterState(2);
-			break;
-		case 1:
-			gameLevel.restart();
-			game.enterState(2, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
-			break;
-		case 2:
-			gameLevel.clear();
-			game.enterState(1);
-			break;
-		case 3:
-			Window.quit();
-			break;
-		}
-		opID=0;
-	}
-
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub

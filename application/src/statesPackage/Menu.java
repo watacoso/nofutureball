@@ -2,6 +2,7 @@ package statesPackage;
 
 import java.awt.Font;
 
+import mainPackage.OptionsList;
 import mainPackage.Window;
 
 import org.newdawn.slick.Color;
@@ -12,9 +13,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import controlPackage.LevelManager;
 import controlPackage.SoundManager;
 import entityPackage.Sprite;
 
@@ -26,9 +26,8 @@ import entityPackage.Sprite;
  */
 public class Menu extends BasicGameState{
 
-	private int ID=1;
-	private int nOps=3;
-	private int opID=0;
+	private int ID=Window.STATE_MENU;
+	private OptionsList ol;
 	private StateBasedGame game;
 	private TrueTypeFont font;
 	GameLevel gameLevel;
@@ -50,7 +49,12 @@ public class Menu extends BasicGameState{
 			throws SlickException {
 		Sprite.init();
 		SoundManager.load();
+		LevelManager.loadGameSettings();
 		font = new TrueTypeFont(new java.awt.Font("Verdana", Font.BOLD, 30), false);
+		ol=new OptionsList();
+		ol.add("Play",Window.STATE_LOBBY);
+		ol.add("Settings",Window.STATE_SETTINGS);
+		ol.add("Quit");
 		this.game=game;
 	}
 
@@ -60,13 +64,15 @@ public class Menu extends BasicGameState{
 	 */
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+		
 		g.setColor(Color.black);
 		g.drawRect(0, 0, Window.WIDTH, Window.HEIGHT);
 		g.setColor(Color.white);
-
-		font.drawString( 80,Window.HEIGHT/2,(opID==0?"-":"")+ "Play", Color.white);
-		font.drawString( 80,Window.HEIGHT/2+30,(opID==1?"-":"")+ "Settings", Color.white);
-		font.drawString( 80,Window.HEIGHT/2+60,(opID==2?"-":"")+ "Quit", Color.white);
+		
+		for(int i=0;i<ol.size();i++){
+			font.drawString( 80,Window.HEIGHT/4+i*30, ol.getName(i),ol.getIndex()==i?Color.red: Color.white);
+			font.drawString( 300,Window.HEIGHT/4+i*30, ol.getValue(i), ol.getIndex()==i?Color.red: Color.white);
+		}
 	}
 
 	@Override
@@ -81,39 +87,26 @@ public class Menu extends BasicGameState{
 	 * Handles Keyboard Input
 	 * Moves selector
 	 */
-	public void keyReleased(int key, char c){
+	public void keyReleased(int key, char c){		
 		switch(key){
 		case(Input.KEY_DOWN):
-			if(opID<nOps-1)
-				opID++;
+			ol.goDown();
 			break;
 		case(Input.KEY_UP):
-			if(opID>0)
-				opID--;
+			ol.goUp();
 			break;
 		case(Input.KEY_ENTER):
-			executeOption(opID);
-		break;
+			if(ol.isFunctional(ol.getIndex())){
+				switch (ol.getName(ol.getIndex())){
+				case "Quit":
+					Window.quit();
+					break;
+				}
+			}
+			else
+				ol.select(game);
+			break;
 		}
-	}
-	
-	/**
-	 * Executes the selected Option
-	 * @param opID
-	 */
-	private void executeOption(int opID){
-		switch(opID){
-		case 0:
-			gameLevel.start();
-			game.enterState(2, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
-			break;
-		case 1:
-			break;
-		case 2:
-			Window.quit();
-			break;
-		}	
-		opID=0;
 	}
 
 	@Override

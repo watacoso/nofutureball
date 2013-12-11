@@ -17,7 +17,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class GameOver extends BasicGameState {
 
-	private int ID=4;
+	private int ID=Window.STATE_GAMEOVER;
 	private int nOps=3;
 	private int opID=0;
 	private StateBasedGame game;
@@ -78,11 +78,11 @@ public class GameOver extends BasicGameState {
 		switch(opID){
 		case 0:
 			gameLevel.restart();
-			game.enterState(2, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+			game.enterState(Window.STATE_LEVEL, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 			break;
 		case 1:
 			gameLevel.clear();
-			game.enterState(1);
+			game.enterState(Window.STATE_MENU);
 			break;
 		case 2:
 			Window.quit();

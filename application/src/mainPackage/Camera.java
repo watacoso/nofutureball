@@ -23,8 +23,8 @@ public class Camera {
     private float zoom;
     private final float maxZoom = 1;
     /** Controls how fast the follower can follow the target. The higher the slower. */
-    private final int quotient = 25;
-    private final int cameraMargin = 100;
+    private final int quotient = 10;
+    private final int cameraMargin = 600;
 	
     /**
      * Constructor

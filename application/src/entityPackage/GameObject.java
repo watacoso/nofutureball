@@ -13,7 +13,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
 
 import playerPackage.Player;
-import controlPackage.LevelManager;
 
 /**
  * Base Class of all GameObjects
@@ -121,10 +120,10 @@ public class GameObject extends Sprite {
 					if(pivotInside(nextRoom)){
 						if(countMe)
 						room.numActors--;
-						if(this instanceof Player){
-							LevelManager.cam.addTarget(nextRoom);
-							LevelManager.cam.removeTarget(room);
-						}
+						//if(this instanceof Player){
+						//	LevelManager.cam.addTarget(nextRoom);
+						//	LevelManager.cam.removeTarget(room);
+						//}
 						room=nextRoom;
 						
 						nextRoom=null;

@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+import json.AudioCollection;
+import json.AudioCollection.AudioInfo;
+
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
@@ -21,8 +24,8 @@ public class SoundManager {
 	private static AudioCollection ac = new AudioCollection();
 
 	/**
-	 * Plays a soundeffect
-	 * @param key Key to the Soundeffect
+	 * Plays a sound effect
+	 * @param key Key to the Sound effect
 	 */
 	public static void playSoundEffect(String key) {
 

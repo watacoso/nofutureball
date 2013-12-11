@@ -1,4 +1,4 @@
-package controlPackage;
+package json;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class AudioCollection {
 
 	}
 
-	class AudioInfo {
+	public class AudioInfo {
 
 		public String href;
 		public float volume;
