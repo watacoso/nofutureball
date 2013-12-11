@@ -20,7 +20,7 @@ public class LevelGen {
 	public Room startRoom;
 	private Container entities,map;
 	
-	public int nRooms=4;
+
 	private boolean validCompound;
 	private ArrayList<Room> roomsBuffer=new ArrayList<Room>();
 	private ArrayList<Conn> doorsBuffer= new ArrayList<Conn>();
@@ -53,7 +53,7 @@ public class LevelGen {
 	
 	
 	private void placeNewCompound(){
-		for(int i=0;i<4;i++){
+		for(int i=0;i<LevelManager.gameSettings.nCompounds;i++){
 			do{
 				initBuffers();
 				Room casualRoom= roomsPool.get((int) Math.floor(Math.random()*roomsPool.size()));

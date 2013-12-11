@@ -1,0 +1,8 @@
+{
+	sound: 100,
+	music: 100,
+	width: 800,
+	height:600,
+	fullScreen:false,
+	vSync: true
+}

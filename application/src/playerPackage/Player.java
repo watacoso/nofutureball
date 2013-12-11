@@ -49,7 +49,7 @@ public abstract class Player extends GameObject{
 		this.keySet = keySet;
 		direction = new Vector2f(0, 0);
 		lastDirection = new Vector2f(0, 1);
-		LevelManager.cam.addTarget(room);
+		//LevelManager.cam.addTarget(room);
 	}
 
     /**
@@ -97,11 +97,13 @@ public abstract class Player extends GameObject{
 
 		speed.x += (goalSpeed.x - this.speed.x) / 5;
 		speed.y += (goalSpeed.y - this.speed.y) / 5;
-		if(LevelManager.players.size()>1){
-			if(getDistance(midPoint)>2000 && direction.length()!=0){
-				speed.set(getDirectionVector(midPoint).scale(4));
-			}
-		}
+		
+		//invisible wall stuff
+		//if(LevelManager.players.size()>1){
+		//	if(getDistance(midPoint)>2000 && direction.length()!=0){
+		//		speed.set(getDirectionVector(midPoint).scale(4));
+		//	}
+		//}
 		
 		if (speed.length()<1) speed.set(0, 0);
 		

@@ -1,14 +1,17 @@
 package controlPackage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import json.GameSettings;
 import mainPackage.Camera;
 import mainPackage.KeySet;
 import mainPackage.UserInterface;
 import mapElements.Room;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
@@ -16,6 +19,10 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import playerPackage.Player;
 import playerPackage.Sharpshooter;
 import statesPackage.GameLevel;
+
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
 import enemyPackage.RoboRifler;
 import entityPackage.Container;
 
@@ -30,18 +37,19 @@ import entityPackage.Container;
 
 public class LevelManager {
 
+	public static GameSettings gameSettings;
 	public LevelGen levelGen;
 	private  int level;
 	private Container entities;
 	public static ArrayList<Player> players;
-	private int nPlayers=1;
 	public static int nEnemies;
 	private int spawnNumber=0;
-	private int max_enemies=100;
 	private static int timer;
 	private int spawnTimestamp;
 	public static Camera cam;
 	private static StateBasedGame game;
+	
+	
 	
 	/**
      * Constructor
@@ -56,7 +64,25 @@ public class LevelManager {
 		timer=0;
 		nEnemies=0;
 		spawnTimestamp=0;
+	}
+	
+	/**
+	 * static functions called on application startup. it loads the option values from a json file named "gameSettings.json
+	 */
+	
+	public static void loadGameSettings(){
+		JsonReader reader = null;
+		try {
+			reader = new JsonReader(new InputStreamReader(new FileInputStream(
+					"assets/json/gameSettings.json")));
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		Gson gson = new Gson();
+		gameSettings= gson.fromJson(reader, GameSettings.class);
 	}
 	
 	/**
@@ -71,30 +97,30 @@ public class LevelManager {
      * Sets Number of Players
      * @param nPlayers number of players wanted
      */
-    public void setNumPlayers(int nPlayers){
+    public void setNumPlayers(){
+    	System.out.println(gameSettings.nPlayers);
         players.clear();
-        if(nPlayers>=1){
+        if(gameSettings.nPlayers>=1){
             Player p = new Sharpshooter(levelGen.getStartRoom(),300, 300, KeySet.ONE);
             players.add(p);
             UserInterface.addProfile(0);
         }
-        if(nPlayers>=2){
+        if(gameSettings.nPlayers>=2){
             Player p = new Sharpshooter(levelGen.getStartRoom(),300, 600, KeySet.TWO);
             players.add(p);
             UserInterface.addProfile(1);
         }
-        //if(nPlayers>=3){
+        //if(gameSettings.nPlayers>=3){
         //  Player p = new Sharpshooter(levelGen.getRandomRoom(),600, 300, KeySet.THREE);
         //  players.add(p);
         //UserInterface.addProfile(2);
         //}
-        //if(nPlayers==4){
+        //if(gameSettings.nPlayers==4){
         //  Player p = new Sharpshooter(levelGen.getRandomRoom(),600, 600, KeySet.FOUR);
         //  players.add(p);
         //UserInterface.addProfile(3);
         //}
-        
-        this.nPlayers=nPlayers;
+
     }
     
     public void newGame(){
@@ -110,7 +136,7 @@ public class LevelManager {
      */
     public void initLevel(){
         levelGen.generateMap(level);
-        setNumPlayers(nPlayers);
+        setNumPlayers();
         for (int i=0;i<players.size();i++) {
             entities.add(players.get(i));
             cam.addTarget(players.get(i));
@@ -159,7 +185,7 @@ public class LevelManager {
             spawnNumber+=5;
             for(int i=0;i<1+Math.ceil(spawnNumber/10);i++){
                 //System.out.println(nEnemies);
-                if(nEnemies<max_enemies){
+                if(nEnemies<gameSettings.maxNEnemies){
                     RoboRifler e = new RoboRifler(levelGen.getRandomRoom(), 256, 256);
                     entities.add(e);
                 }
@@ -182,17 +208,17 @@ public class LevelManager {
         }
         
         
-        //invisible wall
-        Player.midPoint.set(LevelManager.players.get(0).box.getPosition());
-        if(players.size()>1){
+       //invisible wall
+       // Player.midPoint.set(LevelManager.players.get(0).box.getPosition());
+       // if(players.size()>1){
             
-        for(int i=1;i<LevelManager.players.size();i++){
-            Vector2f t=new Vector2f(LevelManager.players.get(i).box.getPosition().copy().sub(Player.midPoint));
-            t.scale(0.5f);
-            Player.midPoint.add(t);
-        }
+       // for(int i=1;i<LevelManager.players.size();i++){
+       //     Vector2f t=new Vector2f(LevelManager.players.get(i).box.getPosition().copy().sub(Player.midPoint));
+       //     t.scale(0.5f);
+       //     Player.midPoint.add(t);
+       // }
             //System.out.println(Player.midPoint);
-        }
+       // }
         cam.update();
     }
 }
